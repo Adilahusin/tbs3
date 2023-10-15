@@ -1,5 +1,6 @@
 <?php
 	include 'header.php';
+	include '../fetchdata/fetch.php';
 ?>
 
 	<!-- Sidebar -->
@@ -64,6 +65,7 @@
 			<!-- Add Admin button with margin -->
 			<button style="background-color: #7370c9; border: none; border-radius: 5px; padding: 5px 10px; margin-left: 10px; height: 30px;" 
 			onclick="alert('Add Admin button clicked!')">Add Admin</button>
+		
 		</div>
 		
 		<div class="row">
@@ -79,9 +81,32 @@
 								<th>Action</th>
 							</tr>
 						</thead>
+						<tbody>
+							<?php
+								// Check if the session variable exists
+								if (isset($_SESSION['admin_data'])) {
+								
+								// Retrieve the data from the session variable
+								$data = $_SESSION['admin_data'];
+								//print_r ($data);
+
+								// Display the data in an HTML table
+								foreach ($data as $row) { // foreach untuk looping
+									echo "<tr>";
+									echo "<td>" . $row['a_name'] . "</td>";
+									echo "<td>" . $row['a_type'] . "</td>";
+									echo "<td>" . $row['a_username'] . "</td>";
+									echo "</tr>";
+								}
+								} else {
+									echo "Data not found. Please fetch the data first.";
+								}
+							?>
+						</tbody>
 					</table>
+				
 				</div>
-			</div><!-- panel -->
+			</div>
 		</div>
 	</div>
 
@@ -128,12 +153,13 @@
 			</form>
 		</div>
 	</div>
-</div> -->
+</div>
 
-<!-- <div class="right-sidebar userdiv">
+<div class="right-sidebar userdiv">
 	<div class="container-fluid">
 		<div class="edit-userside"></div>
 	</div>
 </div> -->
+
 
 <?php include '../admin/footer.php'; ?>

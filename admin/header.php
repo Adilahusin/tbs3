@@ -10,6 +10,7 @@
 	<link href="../assets/css/font-awesome.min.css" rel="stylesheet">
 	<link href="../assets/css/datepicker3.css" rel="stylesheet">
 	<link href="../assets/css/styles.css" rel="stylesheet">
+	<link href="../assets/custom/css/styles.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
 	<!-- Icon Browser -->

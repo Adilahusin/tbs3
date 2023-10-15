@@ -2,18 +2,25 @@
 
 <?php
 
-	require_once "./configure/config.php";
+	require_once "../configure/config.php";
 
-	class display
+	//print_r ($_POST);
+	print_r ('123');
+
+	class display // 
 	{
         /* Display admin list */
 
         public function display_admin()
 		{
 			global $pdo; 
+			print_r ('456');
 			$sql = $pdo->prepare("SELECT * FROM admin");
+			print_r ('789');
 			$sql->execute();
+			print_r ('111');
 			$count = $sql->rowCount();
+			//print_r ('123');
 			$fetch = $sql->fetchAll();
 			if($count > 0){
 				foreach ($fetch as $key => $value) {
@@ -30,6 +37,7 @@
 								</div>';
 					$type = ($value['type'] == 1) ? 'Administrator' : 'Staff Assistant';
 					$data['data'][] = array($value['a_name'],$type,$value['a_username'],$button,$value['id'],$value['a_password']);
+					
 				}
 				echo json_encode($data);
 			}else{
@@ -40,24 +48,25 @@
 
     }
 
-    $display = new display();
+    // $display = new display();
 
-	$key = trim($_POST['key']);
+	// $key = trim($_POST['key']);
 
-	switch ($key) {
+	// switch ($key) {
 
-		// case 'display_room';
-		// $display->display_room();
-		// break;
+	// 	// case 'display_room';
+	// 	// $display->display_room();
+	// 	// break;
 
-		// case 'display_member';
-		// $display->display_member();
-		// break;
+	// 	// case 'display_member';
+	// 	// $display->display_member();
+	// 	// break;
 
-		case 'display_admin';
-		$display->display_admin();
-		break;
+	// 	case 'display_admin';
+	// 	$display->display_admin();
+	// 	break;
     
-    }
+    // }
+
 
 ?>
