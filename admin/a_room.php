@@ -65,32 +65,26 @@
 			onclick="alert('Add Room button clicked!')">Add Room</button>
 		</div>
 
-		<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
-			<table style="width: 100%; border-collapse: collapse;">
-				<tr>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Room/Lab Name</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Action</th>
-				</tr>
-				<tr>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">1A1</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
-                        <button style="background-color: #007BFF; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Action</button>
-                    </td>
-				</tr>
-				<tr>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">1A2</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
-                        <button style="background-color: #007BFF; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Action</button>
-                    </td>
-				</tr>
-				<tr>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">1A3</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
-                        <button style="background-color: #007BFF; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Action</button>
-                    </td>
-				</tr>
-			</table>
+		<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<table class="table table_admin">
+						<thead>
+							<tr>
+								<th>Room/Lab Name</th>
+								<th>Date Added</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				
+				</div>
+			</div>
 		</div>
+	</div>
 
 		
 		<?php

@@ -76,8 +76,10 @@
 						<thead>
 							<tr>
 								<th>Name</th>
-								<th>Type</th>
 								<th>Username</th>
+								<th>Type
+									<br><sub>1=Admin, 2=Staff</sub></br>
+								</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -87,19 +89,19 @@
 								if (isset($_SESSION['admin_data'])) {
 								
 								// Retrieve the data from the session variable
-								$data = $_SESSION['admin_data'];
-								//print_r ($data);
+								$data_admin = $_SESSION['admin_data'];
+								//print_r ($data_admin);
 
-								// Display the data in an HTML table
-								foreach ($data as $row) { // foreach untuk looping
+								// Display the admin data in table
+								foreach ($data_admin as $row) { // foreach untuk looping
 									echo "<tr>";
 									echo "<td>" . $row['a_name'] . "</td>";
-									echo "<td>" . $row['a_type'] . "</td>";
 									echo "<td>" . $row['a_username'] . "</td>";
+									echo "<td>" . $row['a_type'] . "</td>";
 									echo "</tr>";
 								}
 								} else {
-									echo "Data not found. Please fetch the data first.";
+									echo "Data not found.";
 								}
 							?>
 						</tbody>

@@ -1,5 +1,6 @@
 <?php
 	include 'header.php';
+	include '../fetchdata/fetch.php';
 ?>
 
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
@@ -65,46 +66,51 @@
 			onclick="alert('Add User button clicked!')">Add User</button>
 		  </div>		  
 
-		<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
-			<table style="width: 100%; border-collapse: collapse;">
-				<tr>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">ID Number</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Name</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Contact No.</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Type</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Action</th>
-				</tr>
-				<tr>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">200451</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Aisyah Su</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">0198523648</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Student</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
-                        <button style="background-color: #007BFF; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Info</button>
-                    </td>
-				</tr>
-				
-				<tr>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">200685</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Hazreen Rosli</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">0196325847</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Student</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
-                        <button style="background-color: #007BFF; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Info</button>
-                    </td>
-				</tr>
+		  <div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<table class="table table_user">
+						<thead>
+							<tr>
+								<th>Staff/Student ID</th>
+								<th>Name</th>
+								<th>Contact No.</th>
+								<th>Type
+									<br><sub>1=Staff, 2=Student</sub></br>
+								</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								// Check if the session variable exists
+								if (isset($_SESSION['user_data'])) {
+									
+									// Retrieve the data from the session variable
+									$data_admin = $_SESSION['user_data'];
+									//print_r ($data_user);
 
-				<tr>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">10035</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Faiz Mansor</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">0172589643</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Lecturer</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
-                        <button style="background-color: #007BFF; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Info</button>
-                    </td>
-				</tr>
-			</table>
+									// Display the admin data in table
+									foreach ($data_user as $row) {
+										echo "<tr>";
+										echo "<td>" . $row['u_id'] . "</td>";
+										echo "<td>" . $row['u_name'] . "</td>";
+										echo "<td>" . $row['u_contact'] . "</td>"; 
+										echo "<td>" . $row['u_type'] . "</td>";
+										echo "</tr>";
+									}
+									} else {
+										echo "Data not found.";
+									}	
+							?>
+						</tbody>
+					</table>
+				
+				</div>
+			</div>
 		</div>
+	</div>
 			
 		<?php
 			include '../admin/footer.php';

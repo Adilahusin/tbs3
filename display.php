@@ -1,29 +1,41 @@
 <?php
 
-include './fetchdata/fetch.php';
+include './fetch_new.php';
 
 // Check if the session variable exists
-if (isset($_SESSION['admin_data'])) {
-    
+// Check if the session variable exists
+if (isset($_SESSION['admin_data']) && isset($_SESSION['user_data'])) {
+								
     // Retrieve the data from the session variable
-    $data = $_SESSION['admin_data'];
-    //print_r ($data);
+    $data_admin = $_SESSION['admin_data'];
+    //print_r ($data_admin);
 
-    // Display the data in an HTML table
-    echo "<table>";
-    echo "<thead><tr><th>ID</th><th>Name</th><th>Username</th><th>Email</th></tr></thead>";
-    echo "<tbody>";
-    foreach ($data as $row) {
+    // Display the admin data in table
+    foreach ($data_admin as $row) { // foreach untuk looping
         echo "<tr>";
-        echo "<td>" . $row['id'] . "</td>";
         echo "<td>" . $row['a_name'] . "</td>";
         echo "<td>" . $row['a_username'] . "</td>";
         echo "<td>" . $row['a_type'] . "</td>";
         echo "</tr>";
     }
     echo "</tbody>";
-    echo "</table>";
+
+    // Display the user_data in a separate HTML table
+
+    // Display the user data in table
+    echo "<tbody>";
+    foreach ($data_user as $row) {
+        echo "<tr>";
+        echo "<td>" . $row['u_id'] . "</td>";
+        echo "<td>" . $row['u_name'] . "</td>";
+        echo "<td>" . $row['u_contact'] . "</td>"; 
+        echo "<td>" . $row['u_type'] . "</td>";
+        echo "</tr>";
+    }
+    echo "</tbody>";
+
 } else {
-    echo "Data not found. Please fetch the data first.";
+    echo "Data not found.";
+
 }
 ?>

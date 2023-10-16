@@ -2,7 +2,7 @@
 // Start a session to store data
 //session_start();
 
-require_once "../class/configure/config.php"; // Include your database connection script
+require_once "./class/configure/config.php"; // Include your database connection script
 
 try {
     // display data from admin table 
@@ -23,16 +23,18 @@ try {
     $user = "SELECT * FROM user";
     //print_r ("112233");
 
-    // Execute the query for the other table
+    // Execute the query
     $stmt_user = $pdo->query($user);
     //print_r ("445566");
 
-    // Fetch data as an associative array for the other table
+    // Fetch data as an associative array 
     $data_user = $stmt_user->fetchAll(PDO::FETCH_ASSOC);
 
-    // Store the data in a session variable for the other data
+    // Store the data in a session variable
     $_SESSION['user_data'] = $data_user;
 
+    
+    
     // Close the database connection
     $pdo = null;
     //print_r ("789");
