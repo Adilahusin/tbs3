@@ -1,5 +1,6 @@
 <?php
 	include 'header.php';
+	include '../fetchdata/fetch.php';
 ?>
 
 	<!-- Sidebar -->
@@ -69,22 +70,48 @@
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<table class="table table_admin">
+					<table class="table table_room">
 						<thead>
 							<tr>
 								<th>Room/Lab Name</th>
 								<th>Date Added</th>
+								<th>Status
+									<br><sub>1=Active, 2=Inactive</sub></br>
+								</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
+							<?php
+								// Check if the session variable exists
+								if (isset($_SESSION['room_data'])) {
+								
+									// Retrieve the data from the session variable
+									$data_room = $_SESSION['room_data'];
+									//print_r ($data_room);
+
+									foreach ($data_room as $row) {
+										echo "<tr>";
+										echo "<td>" . $row['room_name'] . "</td>";
+										
+										// Change format date
+										$dateAdded = date("d-m-Y H:i:s", strtotime($row['room_date_added']));
+										echo "<td>" . $dateAdded . "</td>";
+
+										echo "<td>" . $row['room_status'] . "</td>";
+										echo "</tr>";
+									}
+								} else {
+									echo "Data not found.";
+								}
+							?>
 						</tbody>
 					</table>
 				
 				</div>
 			</div>
 		</div>
-	</div>
+		</div>
 
 		
 		<?php

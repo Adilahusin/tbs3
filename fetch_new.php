@@ -15,6 +15,7 @@ try {
     $data_admin = $stmt_admin->fetchAll(PDO::FETCH_ASSOC);
     //print_r ("123");
 
+   
     // Store the data in a session variable
     $_SESSION['admin_data'] = $data_admin;
     //print_r ("456");
@@ -34,7 +35,38 @@ try {
     $_SESSION['user_data'] = $data_user;
 
     
-    
+    // display data from room table
+    $room = "SELECT * FROM room";
+    //print_r ("test room");
+
+    // Execute the query
+    $stmt_room = $pdo->query($room);
+    //print_r ("test room 2");
+
+    // Fetch data as an associative array 
+    $data_room = $stmt_room->fetchAll(PDO::FETCH_ASSOC);
+
+    // Store the data in a session variable
+    $_SESSION['room_data'] = $data_room;
+
+
+    // display data from item table
+    $item = "SELECT * FROM item";
+    //print_r ("1233");
+
+    // Execute the query
+    $stmt_item = $pdo->query($item);
+    //print_r ("test item 2");
+
+    // Fetch data as an associative array 
+    $data_item = $stmt_item->fetchAll(PDO::FETCH_ASSOC);
+
+    // Store the data in a session variable
+    $_SESSION['item_data'] = $data_item;
+
+
+
+
     // Close the database connection
     $pdo = null;
     //print_r ("789");

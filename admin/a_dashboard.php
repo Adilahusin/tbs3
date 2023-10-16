@@ -103,18 +103,11 @@
     </div>
 </div>
 
-				
-			<!-- Footer -->
-			<!-- <div class="col-sm-12">
-				<p class="back-link">© 2023 HAK CIPTA UiTM</a></p>
-			</div>
-			 -->
+	
+<?php include '../admin/footer.php'; ?>
 
-			<?php
-				include '../admin/footer.php';
-			?>
-		</div><!--/.row-->
-	</div>	<!--/.main-->
+</div>
+</div>
 	
 	<script src="../assets/js/jquery-1.11.1.min.js"></script>
 	<script src="../assets/js/bootstrap.min.js"></script>

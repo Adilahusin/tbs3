@@ -1,5 +1,6 @@
 <?php
 	include 'header.php';
+	include '../fetchdata/fetch.php';
 ?>
 
 	<!-- Sidebar -->
@@ -65,44 +66,60 @@
 			onclick="alert('Add Item button clicked!')">Add Item</button>
 		</div>
 
-		<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
-			<table style="width: 100%; border-collapse: collapse;">
-				<tr>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Model</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Type</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Brand</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Quantity</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Qty Left</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Status</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Action</th>
-				</tr>
-				<tr>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">SM-8596</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">LCD Projector</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Haier</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">20</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">16</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">New</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
-                        <button style="background-color: #007BFF; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Info</button>
-                    </td>
-				</tr>
+		<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<table class="table table_item">
+						<thead>
+							<tr>
+								<th>Type</th>
+								<th>Brand</th>
+								<th>Model No</th>
+								<th>Quantity</th>
+								<th>Date Added</th>
+								<th>Status
+									<br><sub>1=Active, 2=Inactive</sub></br>
+								</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+						<?php
+							// Check if the session variable exists
+								if (isset($_SESSION['item_data'])) {
+								
+							// Retrieve the data from the session variable
+								$data_item = $_SESSION['item_data'];
+								//print_r ($data_item);
 
-				<tr>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">SM-1589</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">LCD Projector</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Ecson</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">5</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">3</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">New</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
-                        <button style="background-color: #007BFF; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Info</button>
-                    </td>
-				</tr>
+								foreach ($data_item as $row) {
+									echo "<tr>";
+									echo "<td>" . $row['i_type'] . "</td>";
+									echo "<td>" . $row['i_brand'] . "</td>";
+									echo "<td>" . $row['i_modelNo'] . "</td>";
+									echo "<td>" . $row['i_quantity'] . "</td>";
+									
+									// Change format date
+									$dateAdded = date("d-m-Y H:i:s", strtotime($row['i_entrydate']));
+									echo "<td>" . $dateAdded . "</td>";
+
+									echo "<td>" . $row['i_status'] . "</td>";
+									echo "</tr>";
+								}							
+							} else {
+								echo "Data not found.";
+							}
+						?>
+
+						</tbody>
+					</table>
 				
-			</table>
+				</div>
+			</div>
 		</div>
-		
+		</div>
+
 		<?php 
 			include '../admin/footer.php';
 		?>
