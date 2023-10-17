@@ -101,7 +101,7 @@
 			<button id="addAdmin">Add Admin</button>
 
 			<div id="sidebar">
-				<form id="sidebarForm">
+				<form id="sidebarForm" action="../class/add/add.php" method="post">
 				<h4 class="alert bg-success" style="text-align: left;">Add Admin</h4>
 
 					<label for="name">Name</label>
@@ -115,12 +115,12 @@
 
 					<label for="adminType">User Type</label>
 					
-					<select id="adminType" name="adminType">
-						<option value="admin">Admin</option>
-						<option value="staff">Staff</option>
+					<select id="adminType" name="a_type">
+						<option value="1">Admin</option>
+						<option value="2">Staff</option>
 					</select><br><br>
 
-					<button class="btn btn-primary btn-block" type="button" id="saveButton">
+					<button class="btn btn-primary btn-block" type="submit" id="saveButton">
 						SAVE
 					</button><br>
 
