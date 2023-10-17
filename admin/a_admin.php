@@ -3,6 +3,40 @@
 	include '../fetchdata/fetch.php';
 ?>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        
+
+		/* #searchInput {
+			background-color: #fff;
+			border: 1px solid #7370c9;
+			border-radius: 5px;
+			padding: 5px 30px;
+			color: black;
+			height: 30px;
+		}
+
+		#searchButton {
+			position: absolute;
+			top: 10;
+			right: 0;
+			background-color: #7370c9;
+			border: none;
+			border-radius: 0 5px 5px 0;
+			padding: 5px 10px;
+			color: #fff;
+			height: 30px;
+		} */
+
+
+    </style>
+</head>
+<body>
+
+    <div id="content">
+
 	<!-- Sidebar -->
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 
@@ -38,7 +72,7 @@
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row">
 			<ol class="breadcrumb">
-				<li><a href="#">
+				<li><a href="a_dashboard.php">
 					<em class="fa fa-home"></em>
 				</a></li>
 				<li class="active">Admin</li>
@@ -54,18 +88,48 @@
 		<!-- Content -->
 		<div style="color: #fff; text-align: right; padding: 10px;">
 			
-			<!-- Search input field with search icon -->
-			<div style="position: relative; display: inline-block;">
-			  <input type="text" placeholder="Search..." style="background-color: #fff; border: 1px solid #7370c9; border-radius: 5px; padding: 5px 30px; color: black; height: 30px;">
-			  <button style="position: absolute; top: 0; right: 0; bottom: 0; background-color: #7370c9; border: none; border-radius: 0 5px 5px 0; padding: 5px 10px; color: #fff; height: 30px;">
-				<i class="fas fa-search"></i>
-			  </button>
-			</div>
+			<!-- Search input field for search -->
+			<!-- <div>
+				<input type="text" id="searchInput" placeholder="Search...">
+				<button id="searchButton">
+					<i class="fas fa-search"></i>
+				</button>
+			</div> -->
+
 		  
-			<!-- Add Admin button with margin -->
-			<button style="background-color: #7370c9; border: none; border-radius: 5px; padding: 5px 10px; margin-left: 10px; height: 30px;" 
-			onclick="alert('Add Admin button clicked!')">Add Admin</button>
-		
+			<!-- Add Admin button -->
+			<button id="addAdmin">Add Admin</button>
+
+			<div id="sidebar">
+				<form id="sidebarForm">
+				<h4 class="alert bg-success" style="text-align: left;">Add Admin</h4>
+
+					<label for="name">Name</label>
+					<input type="text" id="name" name="a_name" required><br>
+
+					<label for="username">Username</label>
+					<input type="text" id="username" name="a_username" required><br>
+
+					<label for="password">Password</label>
+					<input type="password" id="password" name="a_password" required><br>
+
+					<label for="adminType">User Type</label>
+					
+					<select id="adminType" name="adminType">
+						<option value="admin">Admin</option>
+						<option value="staff">Staff</option>
+					</select><br><br>
+
+					<button class="btn btn-primary btn-block" type="button" id="saveButton">
+						SAVE
+					</button><br>
+
+					<button class="btn btn-danger btn-block cancel_button" type="button" id="cancelButton">
+						CANCEL
+					</button>
+				</form>
+			</div>
+
 		</div>
 		
 		<div class="row">
@@ -121,11 +185,11 @@
 				<div class="form-group">
 					<label>Name</label>
 					<input type="text" name="a_name" class="form-control" required="required">
-				</div>
-				<div class="form-group">
-					<label>Username</label>
+				</dlabel>Username</label>
 					<input type="text" name="a_username" class="form-control" required="required">
-				</div>
+				</div>iv>
+				<div class="form-group">
+					<
 				<div class="form-group">
 					<label>Password</label>
 					<input type="password" name="a_password" class="form-control" required="required">
@@ -163,5 +227,20 @@
 	</div>
 </div> -->
 
+<script>
+        $(document).ready(function() {
+            $("#addAdmin").click(function() {
+                $("#sidebar").css("right", "0");
+                $("#content").css("margin-right", "250px");
+            });
+
+            $("#cancelButton").click(function() {
+                $("#sidebar").css("right", "-300px");
+                $("#content").css("margin-right", "0");
+            });
+        });
+    </script>
+</body>
+</html>
 
 <?php include '../admin/footer.php'; ?>

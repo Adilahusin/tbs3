@@ -1,0 +1,84 @@
+/* styles.css */
+#sidebar {
+    width: 300px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: -300px;
+    background-color: #D3D3D3;
+    color: black;
+    padding: 20px;
+    transition: right 0.3s;
+    z-index: 1;
+}
+
+#content {
+    margin-right: 0;
+    transition: margin-right 0.3s;
+    z-index: 0;
+}
+
+#sidebarForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+#sidebarForm label {
+    color: black;
+    text-align: left;
+}
+
+#sidebarForm .form-control {
+    width: 100%;
+    height: 30px;
+}
+
+#addAdmin {
+    position: fixed;
+    top: 180px;
+    right: 20px;
+    background-color: #7370c9;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 10px;
+    height: 30px;
+}
+
+#adminType {
+    width: 100%;
+    height: 30px;
+}
+
+button.cancel_button {
+    background-color: red;
+    color: white;
+    width: 100%;
+}
+
+#addRoom {
+    position: fixed;
+    top: 180px;
+    right: 20px;
+    background-color: #7370c9;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 10px;
+    height: 30px;
+}
+
+#addStudent {
+    position: fixed;
+    top: 180px;
+    right: 20px;
+    background-color: #7370c9;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 10px;
+    height: 30px;
+}
+

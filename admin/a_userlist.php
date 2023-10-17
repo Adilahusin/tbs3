@@ -112,10 +112,7 @@
 		</div>
 	</div>
 			
-		<?php
-			include '../admin/footer.php';
-		?>
+<?php include '../admin/footer.php'; ?>
 		
-		</div><!-- /.row -->
-	</div><!--/.main-->
+</div>
 

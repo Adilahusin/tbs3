@@ -3,6 +3,40 @@
 	include '../fetchdata/fetch.php';
 ?>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        
+
+		/* #searchInput {
+			background-color: #fff;
+			border: 1px solid #7370c9;
+			border-radius: 5px;
+			padding: 5px 30px;
+			color: black;
+			height: 30px;
+		}
+
+		#searchButton {
+			position: absolute;
+			top: 10;
+			right: 0;
+			background-color: #7370c9;
+			border: none;
+			border-radius: 0 5px 5px 0;
+			padding: 5px 10px;
+			color: #fff;
+			height: 30px;
+		} */
+
+
+    </style>
+</head>
+<body>
+
+    <div id="content">
+
 	<!-- Sidebar -->
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<ul class="nav menu">
@@ -48,23 +82,42 @@
 			<div class="col-lg-12">
 				<h1 class="page-header">Room</h1>
 			</div>
-		</div><!--/.row-->
-				
+		</div>
+
 		<!-- Content -->
 		<div style="color: #fff; text-align: right; padding: 10px;">
 			
-			<!-- Search input field with search icon -->
-			<div style="position: relative; display: inline-block;">
-			  <input type="text" placeholder="Search..." style="background-color: #fff; border: 1px solid #7370c9; border-radius: 5px; padding: 5px 30px; color: black; height: 30px;">
-			  <button style="position: absolute; top: 0; right: 0; bottom: 0; background-color: #7370c9; border: none; border-radius: 0 5px 5px 0; padding: 5px 10px; color: #fff; height: 30px;">
-				<i class="fas fa-search"></i>
-			  </button>
-			</div>
+			<!-- Search input field for search -->
+			<!-- <div>
+				<input type="text" id="searchInput" placeholder="Search...">
+				<button id="searchButton">
+					<i class="fas fa-search"></i>
+				</button>
+			</div> -->
+
 		  
-			<!-- Add Room button with margin -->
-			<button style="background-color: #7370c9; border: none; border-radius: 5px; padding: 5px 10px; margin-left: 10px; height: 30px;" 
-			onclick="alert('Add Room button clicked!')">Add Room</button>
+			<!-- Add Room button -->
+			<button id="addRoom">Add Room</button>
+
+			<div id="sidebar">
+				<form id="sidebarForm">
+				<h4 class="alert bg-success" style="text-align: left;">Add Room</h4>
+
+					<label for="name">Room</label>
+					<input type="text" id="name" name="room_name" required><br>
+
+					<button class="btn btn-primary btn-block" type="button" id="saveButton">
+						SAVE
+					</button><br>
+
+					<button class="btn btn-danger btn-block cancel_button" type="button" id="cancelButton">
+						CANCEL
+					</button>
+				</form>
+			</div>
+
 		</div>
+
 
 		<div class="row">
 		<div class="col-lg-12">
@@ -113,9 +166,24 @@
 		</div>
 		</div>
 
+	<script>
+        $(document).ready(function() {
+            $("#addRoom").click(function() {
+                $("#sidebar").css("right", "0");
+                $("#content").css("margin-right", "250px");
+            });
+
+            $("#cancelButton").click(function() {
+                $("#sidebar").css("right", "-300px");
+                $("#content").css("margin-right", "0");
+            });
+        });
+    </script>
+</body>
+</html>
+
 		
 		<?php
 			include '../admin/footer.php';
 		?>
-		
-	</div>
+

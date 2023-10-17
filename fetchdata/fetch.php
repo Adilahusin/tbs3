@@ -2,7 +2,7 @@
 // Start a session to store data
 //session_start();
 
-require_once "../class/configure/config.php"; // Include your database connection script
+require_once "../class/configure/config.php"; 
 
 try {
     // display data from admin table 
