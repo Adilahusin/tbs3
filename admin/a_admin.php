@@ -1,6 +1,7 @@
 <?php
 	include 'header.php';
 	include '../fetchdata/fetch.php';
+	include '../class/delete.php';
 ?>
 
 <!DOCTYPE html>
@@ -162,7 +163,21 @@
 									echo "<td>" . $row['a_name'] . "</td>";
 									echo "<td>" . $row['a_username'] . "</td>";
 									echo "<td>" . $row['a_type'] . "</td>";
-									echo "</tr>";
+									echo '<td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                    Action
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+													<li><a href="#" class="edit-action">Edit</a></li>
+													<li><a href="?action=delete&a_username=' . $row['a_username'] . '" class="delete-action">Delete</a></li>
+													<li><a href="#" class="deactivate-action">Deactivate</a></li>
+												</ul>
+
+                                            </div>
+                                        </td>';
+                                        echo "</tr>";
 								}
 								} else {
 									echo "Data not found.";
@@ -237,9 +252,16 @@
             $("#cancelButton").click(function() {
                 $("#sidebar").css("right", "-300px");
                 $("#content").css("margin-right", "0");
+
+				// Clear input fields when the sidebar is closed
+				$("#name").val("");
+				$("#username").val("");
+				$("#password").val("");
+				$("#adminType").prop('selectedIndex', 0); // Reset the dropdown
             });
         });
     </script>
+
 </body>
 </html>
 
