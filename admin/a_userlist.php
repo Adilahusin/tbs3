@@ -3,6 +3,37 @@
 	include '../fetchdata/fetch.php';
 ?>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    
+		/* #searchInput {
+			background-color: #fff;
+			border: 1px solid #7370c9;
+			border-radius: 5px;
+			padding: 5px 30px;
+			color: black;
+			height: 30px;
+		}
+
+		#searchButton {
+			position: absolute;
+			top: 10;
+			right: 0;
+			background-color: #7370c9;
+			border: none;
+			border-radius: 0 5px 5px 0;
+			padding: 5px 10px;
+			color: #fff;
+			height: 30px;
+		} */
+
+
+    </style>
+</head>
+<body>
+
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 	
 		<ul class="nav menu">
@@ -53,20 +84,62 @@
 		<!-- Content -->
 		<div style="color: #fff; text-align: right; padding: 10px;">
 			
-			<!-- Search input field with search icon -->
-			<div style="position: relative; display: inline-block;">
-			  <input type="text" placeholder="Search..." style="background-color: #fff; border: 1px solid #7370c9; border-radius: 5px; padding: 5px 30px; color: black; height: 30px;">
-			  <button style="position: absolute; top: 0; right: 0; bottom: 0; background-color: #7370c9; border: none; border-radius: 0 5px 5px 0; padding: 5px 10px; color: #fff; height: 30px;">
-				<i class="fas fa-search"></i>
-			  </button>
-			</div>
-		  
-			<!-- Add User button with margin -->
-			<button style="background-color: #7370c9; border: none; border-radius: 5px; padding: 5px 10px; margin-left: 10px; height: 30px;" 
-			onclick="alert('Add User button clicked!')">Add User</button>
-		  </div>		  
+			<!-- Search input field for search -->
+			<!-- <div>
+				<input type="text" id="searchInput" placeholder="Search...">
+				<button id="searchButton">
+					<i class="fas fa-search"></i>
+				</button>
+			</div> -->
 
-		  <div class="row">
+		  
+			<!-- Add User button -->
+			<button id="addUser" class="add-button">Add User</button>
+
+			<div id="sidebar">
+				<form id="sidebarForm" action="../class/add.php" method="post">
+				<!-- <h4 class="alert bg-success" style="text-align: left;">Add User</h4> -->
+
+					<br><br><br>
+					<label for="userid">Staff/Student No.</label>
+					<input type="text" id="userid" name="u_id" required><br>
+
+					<label for="name">Name</label>
+					<input type="text" id="name" name="u_name" required><br>
+
+					<label for="contactno">Contact No.</label>
+					<input type="text" id="contactno" name="u_contact" required><br>
+
+					<label for="userType">User Type</label>
+					
+					<select id="userType" name="u_type">
+						<option value="1">Staff/Lecturer</option>
+						<option value="2">Student</option>
+					</select><br>
+
+					<label for="genderType">Gender</label>
+					
+					<select id="genderType" name="u_gender">
+						<option value="1">Male</option>
+						<option value="2">Female</option>
+					</select><br>
+
+					<label for="password">Password</label>
+					<input type="password" id="password" name="u_password" required><br>
+
+					<button class="btn btn-primary btn-block" type="submit" id="saveButton" name="add_user">
+						SAVE
+					</button><br>
+
+					<button class="btn btn-danger btn-block cancel_button" type="button" id="cancelButton">
+						CANCEL
+					</button>
+				</form>
+			</div>
+
+		</div>
+
+		<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-body">
@@ -88,17 +161,31 @@
 								if (isset($_SESSION['user_data'])) {
 									
 									// Retrieve the data from the session variable
-									$data_admin = $_SESSION['user_data'];
+									$data_user = $_SESSION['user_data'];
 									//print_r ($data_user);
 
-									// Display the admin data in table
+									// Display the user data in table
 									foreach ($data_user as $row) {
 										echo "<tr>";
 										echo "<td>" . $row['u_id'] . "</td>";
 										echo "<td>" . $row['u_name'] . "</td>";
 										echo "<td>" . $row['u_contact'] . "</td>"; 
 										echo "<td>" . $row['u_type'] . "</td>";
-										echo "</tr>";
+										echo '<td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                    Action
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+													<li><a href="#" class="edit-action">Edit</a></li>
+													<li><a href="#" class="delete-action">Delete</a></li>
+													<li><a href="#" class="deactivate-action">Deactivate</a></li>
+												</ul>
+
+                                            </div>
+                                        </td>';
+                                        echo "</tr>";
 									}
 									} else {
 										echo "Data not found.";
@@ -112,7 +199,30 @@
 		</div>
 	</div>
 			
+<script>
+        $(document).ready(function() {
+            $("#addUser").click(function() {
+                $("#sidebar").css("right", "0");
+                $("#content").css("margin-right", "250px");
+            });
+
+            $("#cancelButton").click(function() {
+                $("#sidebar").css("right", "-300px");
+                $("#content").css("margin-right", "0");
+
+				// Clear input fields when the sidebar is closed
+				$("#userid").val("");
+				$("#name").val("");
+				$("#contactno").val("");
+				$("#userType").prop('selectedIndex', 0); // Reset the dropdown
+				$("#gender").prop('selectedIndex', 0); // Reset the dropdown
+				$("#password").val("");
+            });
+        });
+    </script>
+
+</body>
+</html>
+
 <?php include '../admin/footer.php'; ?>
-		
-</div>
 

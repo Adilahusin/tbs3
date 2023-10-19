@@ -102,7 +102,7 @@
 			<button id="addAdmin">Add Admin</button>
 
 			<div id="sidebar">
-				<form id="sidebarForm" action="../class/add/add.php" method="post">
+				<form id="sidebarForm" action="../class/add.php" method="post">
 				<h4 class="alert bg-success" style="text-align: left;">Add Admin</h4>
 
 					<label for="name">Name</label>
@@ -121,7 +121,7 @@
 						<option value="2">Staff</option>
 					</select><br><br>
 
-					<button class="btn btn-primary btn-block" type="submit" id="saveButton">
+					<button class="btn btn-primary btn-block" type="submit" id="saveButton" name="add_admin">
 						SAVE
 					</button><br>
 
@@ -190,57 +190,6 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- Untuk sidebar to 'add admin' -->
-	<!-- <div class="right-sidebar user-side">
-	<div class="sidebar-form">
-		<div class="container-fluid">
-			<form class="frmadd_users">
-				<h4 class="alert bg-success">Add Admin</h4>
-				<div class="form-group">
-					<label>Name</label>
-					<input type="text" name="a_name" class="form-control" required="required">
-				</dlabel>Username</label>
-					<input type="text" name="a_username" class="form-control" required="required">
-				</div>iv>
-				<div class="form-group">
-					<
-				<div class="form-group">
-					<label>Password</label>
-					<input type="password" name="a_password" class="form-control" required="required">
-				</div>
-				<div class="form-group">
-					<label>User Type</label>
-					<select class="form-control" name="u_type" required="required">
-						<option disabled selected>Please select Admin type</option>
-						<option value="1">Administrator</option>
-						<option value="2">Staff Assistant</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<div class="row">
-						<div class="col-md-6">
-							<button class="btn btn-danger btn-block cancel_user" type="button">
-								CANCEL
-							</button>
-						</div>
-						<div class="col-md-6">
-							<button class="btn btn-primary btn-block" type="submit">
-								SAVE
-							</button>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
-<div class="right-sidebar userdiv">
-	<div class="container-fluid">
-		<div class="edit-userside"></div>
-	</div>
-</div> -->
 
 <script>
         $(document).ready(function() {

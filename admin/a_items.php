@@ -3,6 +3,38 @@
 	include '../fetchdata/fetch.php';
 ?>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        
+
+		/* #searchInput {
+			background-color: #fff;
+			border: 1px solid #7370c9;
+			border-radius: 5px;
+			padding: 5px 30px;
+			color: black;
+			height: 30px;
+		}
+
+		#searchButton {
+			position: absolute;
+			top: 10;
+			right: 0;
+			background-color: #7370c9;
+			border: none;
+			border-radius: 0 5px 5px 0;
+			padding: 5px 10px;
+			color: #fff;
+			height: 30px;
+		} */
+
+
+    </style>
+</head>
+<body>
+
 	<!-- Sidebar -->
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<ul class="nav menu">
@@ -53,17 +85,47 @@
 		<!-- Content -->
 		<div style="color: #fff; text-align: right; padding: 10px;">
 			
-			<!-- Search input field with search icon -->
-			<div style="position: relative; display: inline-block;">
-			  <input type="text" placeholder="Search..." style="background-color: #fff; border: 1px solid #7370c9; border-radius: 5px; padding: 5px 30px; color: black; height: 30px;">
-			  <button style="position: absolute; top: 0; right: 0; bottom: 0; background-color: #7370c9; border: none; border-radius: 0 5px 5px 0; padding: 5px 10px; color: #fff; height: 30px;">
-				<i class="fas fa-search"></i>
-			  </button>
-			</div>
+			<!-- Search input field for search -->
+			<!-- <div>
+				<input type="text" id="searchInput" placeholder="Search...">
+				<button id="searchButton">
+					<i class="fas fa-search"></i>
+				</button>
+			</div> -->
+
 		  
-			<!-- Add Item button with margin -->
-			<button style="background-color: #7370c9; border: none; border-radius: 5px; padding: 5px 10px; margin-left: 10px; height: 30px;" 
-			onclick="alert('Add Item button clicked!')">Add Item</button>
+			<!-- Add Item button -->
+			<button id="addItem">Add Item</button>
+
+			<div id="sidebar">
+				<form id="sidebarForm" action="../class/add.php" method="post">
+				<br><br>
+				<h4 class="alert bg-success" style="text-align: left;">Add Item</h4>
+
+					<label for="type">Type</label>
+					<input type="text" id="type" name="i_type" required placeholder="eg: LCD"><br>
+
+					<label for="brand">Brand</label>
+					<input type="text" id="brand" name="i_brand" required><br>
+
+					<label for="modelNo">Model No.</label>
+					<input type="text" id="modelNo" name="i_modelNo" required><br>
+
+					<label for="quantity">Quantity</label>
+					<input type="int" id="quantity" name="i_quantity" required><br>
+
+					<label for="pic">Person-in-Charge</label>
+					<input type="text" id="pic" name="i_PIC" required><br><br>
+
+					<button class="btn btn-primary btn-block" type="submit" id="saveButton" name="add_item">
+						SAVE
+					</button><br>
+
+					<button class="btn btn-danger btn-block cancel_button" type="button" id="cancelButton">
+						CANCEL
+					</button>
+				</form>
+			</div>
 		</div>
 
 		<div class="row">
@@ -105,7 +167,21 @@
 									echo "<td>" . $dateAdded . "</td>";
 
 									echo "<td>" . $row['i_status'] . "</td>";
-									echo "</tr>";
+									echo '<td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                    Action
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+													<li><a href="#" class="edit-action">Edit</a></li>
+													<li><a href="#" class="delete-action">Delete</a></li>
+													<li><a href="#" class="deactivate-action">Deactivate</a></li>
+												</ul>
+
+                                            </div>
+                                        </td>';
+                                        echo "</tr>";
 								}							
 							} else {
 								echo "Data not found.";
@@ -120,10 +196,28 @@
 		</div>
 		</div>
 
-		<?php 
-			include '../admin/footer.php';
-		?>
+<script>
+        $(document).ready(function() {
+            $("#addItem").click(function() {
+                $("#sidebar").css("right", "0");
+                $("#content").css("margin-right", "250px");
+            });
 
-		</div><!--/.row-->
-	</div>	<!--/.main-->
+            $("#cancelButton").click(function() {
+                $("#sidebar").css("right", "-300px");
+                $("#content").css("margin-right", "0");
 
+				// Clear input fields when the sidebar is closed
+				$("#type").val("");
+				$("#brand").val("");
+				$("#modelNo").val("");
+				$("#quantity").val("");
+				$("#pic").val("");
+            });
+        });
+</script>
+
+</body>
+</html>
+
+<?php include '../admin/footer.php'; ?>

@@ -14,25 +14,50 @@ try {
     echo "Connection failed: " . $e->getMessage();
 }
 
-if (isset($_GET['action']) && $_GET['action'] === "delete" && isset($_GET['a_username'])) {
+if (isset($_GET['action']) && $_GET['action'] === "delete"){
+
+    if (isset($_GET['a_username'])) {
     try {
-        $username = $_GET['a_username'];
+        $admin_username = $_GET['a_username'];
 
         // DELETE SQL statement and execute it
         $deleteAdmin = $pdo->prepare("DELETE FROM admin WHERE a_username = ?");
-        $deleteAdmin->execute([$username]);
+        $deleteAdmin->execute([$admin_username]);
 
         // Check if any row was affected
         if ($deleteAdmin->rowCount() > 0) {
             // Successful deletion
-            echo "<script>alert('Delete successful. Admin with username $username has been deleted.'); window.location.href = document.referrer;</script>";
+            echo "<script>alert('Delete successful. Admin with username $admin_username has been deleted.'); window.location.href = document.referrer;</script>";
         } else {
-            // Admin not found or deletion was unsuccessful
-            echo "<script>alert('Admin not found or deletion was unsuccessful for username $username.'); window.location.href = document.referrer;</script>";
+            // Deletion was unsuccessful
+            echo "<script>alert('Deletion was unsuccessful for username $admin_username. Please try again'); window.location.href = document.referrer;</script>";
         }
     } catch (PDOException $e) {
         // Handle database errors
         echo "<script>alert('Error: " . $e->getMessage() . "'); window.location.href = document.referrer;</script>";
     }
+
+    } elseif (isset($_GET['room_name'])) {
+        try {
+            $room_name = $_GET['room_name'];
+    
+            // DELETE SQL statement and execute it
+            $deleteRoom = $pdo->prepare("DELETE FROM room WHERE room_name = ?");
+            $deleteRoom->execute([$room_name]);
+    
+            // Check if any row was affected
+            if ($deleteRoom->rowCount() > 0) {
+                // Successful deletion
+                echo "<script>alert('Delete successful. $room_name has been deleted.'); window.location.href = document.referrer;</script>";
+            } else {
+                // Deletion was unsuccessful
+                echo "<script>alert('Deletion was unsuccessful for $room_name. Please try again'); window.location.href = document.referrer;</script>";
+            }
+        } catch (PDOException $e) {
+            // Handle database errors
+            echo "<script>alert('Error: " . $e->getMessage() . "'); window.location.href = document.referrer;</script>";
+        }
+    }
+
 }
 ?>

@@ -1,13 +1,13 @@
 <?php
 	include 'header.php';
 	include '../fetchdata/fetch.php';
+	include '../class/delete.php';
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
     <style>
-        
 
 		/* #searchInput {
 			background-color: #fff;
@@ -100,13 +100,13 @@
 			<button id="addRoom">Add Room</button>
 
 			<div id="sidebar">
-				<form id="sidebarForm">
+				<form id="sidebarForm" action="../class/add.php" method="post">
 				<h4 class="alert bg-success" style="text-align: left;">Add Room</h4>
 
-					<label for="name">Room</label>
-					<input type="text" id="name" name="room_name" required><br>
+					<label for="room_name">Room</label>
+					<input type="text" id="room_name" name="room_name" required><br><br>
 
-					<button class="btn btn-primary btn-block" type="button" id="saveButton">
+					<button class="btn btn-primary btn-block" type="submit" id="saveButton" name="add_room">
 						SAVE
 					</button><br>
 
@@ -152,7 +152,21 @@
 										echo "<td>" . $dateAdded . "</td>";
 
 										echo "<td>" . $row['room_status'] . "</td>";
-										echo "</tr>";
+										echo '<td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                    Action
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+													<li><a href="#" class="edit-action">Edit</a></li>
+													<li><a href="?action=delete&room_name=' . $row['room_name'] . '" class="delete-action">Delete</a></li>
+													<li><a href="#" class="deactivate-action">Deactivate</a></li>
+												</ul>
+
+                                            </div>
+                                        </td>';
+                                        echo "</tr>";
 									}
 								} else {
 									echo "Data not found.";
@@ -176,6 +190,10 @@
             $("#cancelButton").click(function() {
                 $("#sidebar").css("right", "-300px");
                 $("#content").css("margin-right", "0");
+
+			// Clear input fields when the sidebar is closed
+			$("#room_name").val("");
+
             });
         });
     </script>
@@ -183,7 +201,5 @@
 </html>
 
 		
-		<?php
-			include '../admin/footer.php';
-		?>
+<?php include '../admin/footer.php'; ?>
 
