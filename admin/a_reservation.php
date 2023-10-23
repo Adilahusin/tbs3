@@ -70,7 +70,6 @@
 			<li><a href="a_room.php"><em class="fa-solid fa-door-open">&nbsp;</em> Room</a></li>
 			<li><a href="a_inventory.php"><em class="fa fa-boxes-stacked">&nbsp;</em> Inventory</a></li>
 			<li><a href="a_admin.php"><em class="fa-solid fa-user-gear">&nbsp;</em> Admin</a></li>
-			<li><a href="a_history.php"><em class="fa-solid fa-clock-rotate-left">&nbsp;</em> History</a></li>
 		</ul>
 	</div><!--/.sidebar-->
 		
@@ -97,30 +96,49 @@
 		</div>
 
 		<div id="Pending" class="tabcontent">
-			<p>
-				<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
-			<table style="width: 100%; border-collapse: collapse;">
-				<tr>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Model</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Category</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Brand</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Quantity</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Quantity Left</th>
-				</tr>
-				<tr>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">HA2686</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">PA System</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Haier</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">15</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">8</td>
-				</tr>
-			</table>
-		</div>
-	</p>
+		<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<table class="table table_pending">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Items</th>
+										<th>Reservation Date</th>
+										<th>Room/Lab</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+							</table>
+						
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<div id="Accepted" class="tabcontent">
-			<p>This is the content for the Accepted Reservation tab.</p>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<table class="table table_accepted">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Items</th>
+										<th>Reservation Date</th>
+										<th>Room/Lab</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+							</table>
+						
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<?php

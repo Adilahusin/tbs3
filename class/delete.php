@@ -57,7 +57,52 @@ if (isset($_GET['action']) && $_GET['action'] === "delete"){
             // Handle database errors
             echo "<script>alert('Error: " . $e->getMessage() . "'); window.location.href = document.referrer;</script>";
         }
-    }
 
+    } elseif (isset($_GET['i_type'])) {
+        try {
+            $item_type = $_GET['i_type'];
+    
+            // DELETE SQL statement and execute it
+            $deleteItem = $pdo->prepare("DELETE FROM item WHERE i_type = ?");
+            $deleteItem->execute([$item_type]);
+    
+            // Check if any row was affected
+            if ($deleteItem->rowCount() > 0) {
+                // Successful deletion
+                echo "<script>alert('Delete successful. $item_type has been deleted.'); window.location.href = document.referrer;</script>";
+            } else {
+                // Deletion was unsuccessful
+                echo "<script>alert('Deletion was unsuccessful for $item_type. Please try again'); window.location.href = document.referrer;</script>";
+            }
+        } catch (PDOException $e) {
+            // Handle database errors
+            echo "<script>alert('Error: " . $e->getMessage() . "'); window.location.href = document.referrer;</script>";
+        }
+        
+    } elseif (isset($_GET['u_id'])) {
+        try {
+            $user_id = $_GET['u_id'];
+            $user_name = $_GET['u_name'];
+    
+            // DELETE SQL statement and execute it
+            $deleteUser = $pdo->prepare("DELETE FROM user WHERE u_id = ?");
+            $deleteUser->execute([$user_id]);
+    
+            // Check if any row was affected
+            if ($deleteUser->rowCount() > 0) {
+                // Successful deletion
+                //echo "<script>alert('Delete successful. $user_id $user_name has been deleted.'); window.location.href = document.referrer;</script>";
+                echo "<script>alert('Delete successful. $user_id $user_name has been deleted.'); window.location.href = document.referrer;</script>";
+
+            } else {
+                // Deletion was unsuccessful
+                echo "<script>alert('Deletion was unsuccessful for $user_id $user_name. Please try again'); window.location.href = document.referrer;</script>";
+            }
+        } catch (PDOException $e) {
+            // Handle database errors
+            echo "<script>alert('Error: " . $e->getMessage() . "'); window.location.href = document.referrer;</script>";
+        }
+    }
 }
+
 ?>

@@ -34,43 +34,50 @@
 		</div><!--/.row-->
 
 		<!-- Content -->
-		<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
-			<table style="width: 100%; border-collapse: collapse;">
-				<tr>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Reservation Date</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Item</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Room Assign</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Status</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Remarks</th>
-				</tr>
-				<tr>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">16/9/23</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">LCD Projector</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Lab 12A</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Pending</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;"></td>
-				</tr>
-				<tr>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">28/7/23</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">PA System</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Lab 7B</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Accepted</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">No remarks</td>
-				</tr>
-			</table>
-		</div>
+		<div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table class="table table_reservation_stat">
+                            <thead>
+                                <tr>
+                                    <th>Reservation Date</th>
+                                    <th>Items</th>
+                                    <th>Room/Lab</th>
+                                    <th>Status</th>
+									<th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                // Check if the session variable exists
+                                if (isset($_SESSION['item_data'])) {
 
-		<?php
-			include '../user/footer.php';
-		?>
+                                    // Retrieve the data from the session variable
+                                    $data_item = $_SESSION['item_data'];
 
-		</div><!--/.row-->
-	</div><!--/.main-->
-	
-		<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/custom.js"></script>
+                                    foreach ($data_item as $row) {
+                                        echo "<tr>";
+                                        echo "<td>" . $row['i_type'] . "</td>";
+                                        echo "<td>" . $row['i_brand'] . "</td>";
+                                        echo "<td>" . $row['i_modelNo'] . "</td>";
+                                        echo "<td>" . $row['i_quantity'] . "</td>";
+                                        echo "</tr>";
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='4'>Data not found.</td></tr>";
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<?php include '../user/footer.php'; ?>
 	
 </body>
 </html>

@@ -28,7 +28,6 @@
 			<li><a href="a_room.php"><em class="fa-solid fa-door-open">&nbsp;</em> Room</a></li>
 			<li><a href="a_inventory.php"><em class="fa fa-boxes-stacked">&nbsp;</em> Inventory</a></li>
 			<li><a href="a_admin.php"><em class="fa-solid fa-user-gear">&nbsp;</em> Admin</a></li>
-			<li><a href="a_history.php"><em class="fa-solid fa-clock-rotate-left">&nbsp;</em> History</a></li>
 		</ul>
 	</div><!--/.sidebar-->
 		
@@ -53,11 +52,7 @@
 				
 				<div style="margin-bottom: 15px;">
 					<label for="reserve_item" style="color: black; font-weight: 400;">Item:</label>
-					<select class="form-control" id="reserve_item" name="reserve_item" required>
-						<option value="room1">LCD</option>
-						<option value="room2">Extension</option>
-						<option value="room3">PA System</option>
-					</select>
+					<select class="form-control" id="reserve_item" name="reserve_item" required></select>
 				</div>
 
 				<div style="margin-bottom: 15px;">
@@ -72,11 +67,7 @@
 	
 				<div style="margin-bottom: 15px;">
 					<label for="reserve_room" style="color: black; font-weight: 400;">Select Room/Lab:</label>
-					<select class="form-control" id="reserve_room" name="reserve_room" required>
-						<option value="room1">Room 1</option>
-						<option value="room2">Room 2</option>
-						<option value="room3">Room 3</option>
-					</select>
+					<select class="form-control" id="reserve_room" name="reserve_room" required></select>
 				</div>
 	
 				<div style="margin-bottom: 15px;">
@@ -90,8 +81,42 @@
  		<button id="bottom-right-button" class="btn btn-primary" style="position: relative; left: 64.5%; 
 		transform: translateX(50%); margin-top: 15px;  background-color: blue;">Borrow</button>
 
-		<?php
-			include '../admin/footer.php';
-		?>
+<?php include '../admin/footer.php'; ?>
 		</div><!--/.row-->
 	</div>	<!--/.main-->
+
+<!-- JavaScript to populate the "Item" dropdown -->
+<script>
+fetch('../fetchdata/fetch_json.php')
+    .then(response => response.json())
+    .then(data => {
+        const select = document.getElementById('reserve_item');
+
+        // Loop through the data and create an <option> element for each item
+        data.items.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.i_type;
+            option.textContent = item.i_type;
+            select.appendChild(option);
+        });
+    })
+    .catch(error => console.error(error));
+</script>
+
+<!-- JavaScript to populate the "Select Room/Lab" dropdown -->
+<script>
+fetch('../fetchdata/fetch_json.php') 
+    .then(response => response.json())
+    .then(data => {
+        const select = document.getElementById('reserve_room');
+
+        // Loop through the data and create an <option> element for each room
+        data.rooms.forEach(room => {
+            const option = document.createElement('option');
+            option.value = room.room_name;
+            option.textContent = room.room_name;
+            select.appendChild(option);
+        });
+    })
+    .catch(error => console.error(error));
+</script>

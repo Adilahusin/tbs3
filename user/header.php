@@ -12,10 +12,17 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
 	<!-- Icon Browser -->
-    <link rel="shortcut icon" type="x-icon" href="../images/uitm.png">
+    <link rel="shortcut icon" type="x-icon" href="uitm.png">
 
 	<!--Custom Font-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+	<!-- Include jQuery -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<!-- Include DataTables CSS and JS -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+	<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
 </head>
 

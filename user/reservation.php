@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set('Asia/Kuala_Lumpur');
+	date_default_timezone_set('Asia/Kuala_Lumpur');
 	include 'header.php';
 ?>
 	<!-- Sidebar -->
@@ -42,11 +42,7 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 				
 				<div style="margin-bottom: 15px;">
 					<label for="reserve_item" style="color: black; font-weight: 400;">Item:</label>
-					<select class="form-control" id="reserve_item" name="reserve_item" required>
-						<option value="room1">LCD</option>
-						<option value="room2">Extension</option>
-						<option value="room3">PA System</option>
-					</select>
+					<select class="form-control" id="reserve_item" name="reserve_item" required></select>
 				</div>
 
 				<div style="margin-bottom: 15px;"> 
@@ -61,11 +57,7 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 	
 				<div style="margin-bottom: 15px;">
 					<label for="reserve_room" style="color: black; font-weight: 400;">Select Room/Lab:</label>
-					<select class="form-control" id="reserve_room" name="reserve_room" required>
-						<option value="room1">Room 1</option>
-						<option value="room2">Room 2</option>
-						<option value="room3">Room 3</option>
-					</select>
+					<select class="form-control" id="reserve_room" name="reserve_room" required></select>
 				</div>
 	
 				<div style="margin-bottom: 15px;">
@@ -80,27 +72,44 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 		transform: translateX(50%); margin-top: 15px;  background-color: #7370c9;"onclick="alert('Reserve button clicked!')">Reserve</button>
 			
 			
-		<?php
-			include '../user/footer.php';
-		?>
+<?php include '../user/footer.php'; ?>
 
-		</div>
-	</div>	
+	</div>
+</div>	
 
-	<script src="js/jquery-1.11.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/bootstrap-datepicker.js"></script>
-<script src="js/custom.js"></script>
 
-<!-- <script type="text/javascript">
-    $(document).ready(function(){
-        $("#time_limit").datetimepicker({
-            minTime: '<?php echo date("H:i"); ?>',
-            maxTime: '18:00',
-            minDate: 0,
-            format: 'Y-m-d h:i A',
-            step: 30
+<!-- JavaScript to populate the "Item" dropdown -->
+<script>
+fetch('../fetchdata/fetch_json.php')
+    .then(response => response.json())
+    .then(data => {
+        const select = document.getElementById('reserve_item');
+
+        // Loop through the data and create an <option> element for each item
+        data.items.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.i_type;
+            option.textContent = item.i_type;
+            select.appendChild(option);
         });
-    });
-</script> -->
+    })
+    .catch(error => console.error(error));
+</script>
 
+<!-- JavaScript to populate the "Select Room/Lab" dropdown -->
+<script>
+fetch('../fetchdata/fetch_json.php') 
+    .then(response => response.json())
+    .then(data => {
+        const select = document.getElementById('reserve_room');
+
+        // Loop through the data and create an <option> element for each room
+        data.rooms.forEach(room => {
+            const option = document.createElement('option');
+            option.value = room.room_name;
+            option.textContent = room.room_name;
+            select.appendChild(option);
+        });
+    })
+    .catch(error => console.error(error));
+</script>
