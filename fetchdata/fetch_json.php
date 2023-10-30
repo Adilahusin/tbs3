@@ -1,10 +1,10 @@
 <?php
-// Include your database configuration file
+
 require_once "../class/configure/config.php";
 
 try {
     // Fetch data for the "Item" dropdown
-    $reserveItem = "SELECT i_type FROM item";
+    $reserveItem = "SELECT i_modelNo, i_type, i_brand, i_quantity FROM item";
     $stmt_reserveItem = $pdo->query($reserveItem);
     $data_reserveItem = $stmt_reserveItem->fetchAll(PDO::FETCH_ASSOC);
 

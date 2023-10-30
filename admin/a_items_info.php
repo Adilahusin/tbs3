@@ -6,13 +6,6 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-   
-	<!-- Include DataTables library -->
-   	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
-
-</head>
 <body>
 
 	<!-- Sidebar -->
@@ -51,36 +44,38 @@
 				<li><a href="a_dashboard.php">
 					<em class="fa fa-home"></em>
 				</a></li>
-				<li class="active">Items</li>
+				<li><a href="a_items.php">Items</a></li>
+                <li class="active">Items Info</li>
 			</ol>
 		</div><!--/.row-->
-		
-		<div class="row">
+
+        <div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Items</h1>
+				<h1 class="page-header">Items Info</h1>
 			</div>
 		</div><!--/.row-->
 
 		<!-- Content -->
 		<div style="color: #fff; text-align: right; padding: 10px;">
-		
-			<!-- Add Item button -->
-			<button id="addItem"><i class="fas fa-plus"></i> Add Item</button>
 
-			<!-- Add Item Sidebar -->
+        <div class="button-container">
+
+            <!-- Add Quantity button -->
+			<button id="addQty">Add Quantity</button>
+
+            <!-- Edit Item button -->
+			<button id="editItem">Edit Item</button>
+
+             <!-- Change Status button -->
+			<button id="changeStatus">Change Status</button>
+
+        </div>
+
+			<!-- Add Quantity Sidebar -->
 			<div id="sidebar">
 				<form id="sidebarForm" action="../class/add.php" method="post">
 				<br><br>
-				<h4 class="alert bg-success" style="text-align: left;">Add Item</h4>
-
-					<label for="type">Type</label>
-					<input type="text" id="type" name="i_type" required placeholder="eg: LCD"><br>
-
-					<label for="brand">Brand</label>
-					<input type="text" id="brand" name="i_brand" required><br>
-
-					<label for="modelNo">Model No.</label>
-					<input type="text" id="modelNo" name="i_modelNo" required><br>
+				<h4 class="alert bg-success" style="text-align: left;">Add Quantity</h4>
 
 					<label for="quantity">Quantity</label>
 					<input type="int" id="quantity" name="i_quantity" required><br>
@@ -88,7 +83,7 @@
 					<label for="pic">Person-in-Charge</label>
 					<input type="text" id="pic" name="i_PIC" required><br><br>
 
-					<button class="btn btn-primary btn-block" type="submit" id="saveButton" name="add_item">
+					<button class="btn btn-primary btn-block" type="submit" id="saveButton" name="add_quantity">
 						SAVE
 					</button><br>
 
@@ -97,13 +92,14 @@
 					</button>
 				</form>
 			</div>
+
 		</div>
 
-		<div class="row">
+		<!-- <div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<table class="table table_item" id="itemTable">
+					<table class="table table_item_info" id="itemInfoTable">
 						<thead>
 							<tr>
 								<th>Type</th>
@@ -166,13 +162,13 @@
 				</div>
 			</div>
 		</div>
-		</div>
+		</div> -->
 
 <!-- For sidebar -->
 <script>
         $(document).ready(function() {
 
-            $("#addItem").click(function() {
+            $("#addQty").click(function() {
                 $("#sidebar").css("right", "0");
                 $("#content").css("margin-right", "250px");
             });
@@ -182,26 +178,11 @@
                 $("#content").css("margin-right", "0");
 
 				// Clear input fields when the sidebar is closed
-				$("#type").val("");
-				$("#brand").val("");
-				$("#modelNo").val("");
 				$("#quantity").val("");
 				$("#pic").val("");
             });
         });
 </script>
-
-<!-- For sorting the data in table -->
-<script>
-	$(document).ready(function() {
-		$('#itemTable').DataTable({
-			"columnDefs": [
-				{ "targets": [3, 5], "type": "num" } // Specify columns with numeric data
-			]
-		});
-	});
-</script>
-
 
 </body>
 </html>

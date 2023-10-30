@@ -61,10 +61,12 @@ if (isset($_GET['action']) && $_GET['action'] === "delete"){
     } elseif (isset($_GET['i_type'])) {
         try {
             $item_type = $_GET['i_type'];
+            //print_r ($item_type);
     
             // DELETE SQL statement and execute it
             $deleteItem = $pdo->prepare("DELETE FROM item WHERE i_type = ?");
             $deleteItem->execute([$item_type]);
+            //print_r ("123");
     
             // Check if any row was affected
             if ($deleteItem->rowCount() > 0) {

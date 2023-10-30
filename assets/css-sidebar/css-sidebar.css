@@ -1,4 +1,3 @@
-
 #sidebar {
     width: 300px;
     height: 100%;
@@ -57,4 +56,19 @@ button.cancel_button {
     background-color: red;
     color: white;
     width: 100%;
+}
+
+.button-container {
+    position: fixed;
+    top: 180px;
+    right: 20px;
+}
+
+.button-container button {
+    background-color: #7370c9;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 10px;
+    height: 30px;
 }

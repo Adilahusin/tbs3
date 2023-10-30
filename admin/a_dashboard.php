@@ -4,8 +4,6 @@
 
 	<!-- Content -->
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
-
-		<!-- Side Menu -->
 		<ul class="nav menu">
 			<li class="active"><a href="a_dashboard.php"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
 			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
@@ -37,7 +35,7 @@
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row">
 			<ol class="breadcrumb">
-				<li><a href="#">
+				<li><a href="a_dashboard.php">
 					<em class="fa fa-home"></em>
 				</a></li>
 				<li class="active">Dashboard</li>

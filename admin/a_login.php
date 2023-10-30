@@ -88,15 +88,33 @@
             </div>            
 
                 <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-                    <form style="width: 25rem;">
-                      
-                      <div style="text-align: center;">
-                        <h3 class="fw-normal mb-2 pb-2" style="letter-spacing: 1px; margin-top: 80px;">Admin Log In</h3>
-                    </div>
+
+                <!-- Login Form -->
+                <form style="width: 25rem;" method="POST" action="./class/login.php">
+
+                <div style="text-align: center;">
+                    <h3 class="fw-normal mb-2 pb-2" style="letter-spacing: 1px; margin-top: 80px;">Admin Log In</h3>
+                </div>
                     
-                        <hr style="width: 30%; margin: 10px auto 20px; border: 1px solid #7370c9;">
+                <hr style="width: 30%; margin: 10px auto 20px; border: 1px solid #7370c9;">
+				<fieldset>
                         
-                        <form class="frm_a_login">
+                <div class="form-outline mb-4">
+                    <input type="text" id="a_username" name="a_username" class="form-control form-control-lg" placeholder="Username" required autocomplete="off">
+                </div>
+
+                <div class="form-outline mb-4">
+                    <input type="password" id="a_password" name="a_password" class="form-control form-control-lg" placeholder="Password" required autocomplete="off">
+                    
+                    <p class="small mb-2 pb-lg-2" style="text-align: left;"><a class="text-muted" style="text-decoration: none;">Forgot password?</a></p>
+                </div>
+
+                <button class="btn btn-custom btn-lg btn-block" type="submit">Login</button>
+
+                </fieldset>
+				</form>
+                        
+                        <!-- <form>
                         <div class="form-outline mb-4">
                             <input type="userid" id="userid" class="form-control form-control-lg" placeholder="Username" />
                         </div>
@@ -110,14 +128,13 @@
                         <button class="btn btn-custom btn-lg btn-block" type="button">Login</button>
                         </a>
                         
-                        </form>
+                        </form> -->
 
                         <!-- User Icon and Text -->
                         <a href="../index.php" style="position: absolute; bottom: 5px; right: 20px; display: flex; flex-direction: column; align-items: center;">
                             <i class="fas fa-solid fa-user fa-2x user-icon" style="color: black; margin-bottom: 5px;"></i>
                             <span style="color: black; font-size: 14px;">User</span>
                         </a>
-                    </form>
                 </div>
             </div>
         </div>

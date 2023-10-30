@@ -113,7 +113,7 @@
 						<em class="fas fa-user"></em>
 					</a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="a_login.php" id="logout-link"><i class="fa fa-sign-out"></i> Logout</a></li>
+                            <li><a href="../class/logout.php" id="logout-link"><i class="fa fa-sign-out"></i> Logout</a></li>
 						</ul>
 					</li>
 				

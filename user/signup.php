@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <!-- Icon Browser -->
-    <link rel="shortcut icon" type="x-icon" href="../images/uitm.png">
+    <link rel="shortcut icon" type="x-icon" href="uitm.png">
 
     <!-- Include the custom CSS code -->
     <style>      
@@ -81,7 +81,7 @@
 </head>
 <body>
 
-<section class="bg-image-vertical" style="background-image: url('../images/acrylic purple.jpg');">
+<section class="bg-image-vertical" style="background-image: url('acrylic purple.jpg');">
     <div class="bg-overlay"></div>
     <div class="container">
         <div class="row">
@@ -93,59 +93,62 @@
                 <span class="h1 fw-bold mb-0 text-start">TBS</span>
             </div>  
             <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-                    <form style="width: 25rem;">
-                      
-                      <div style="text-align: center;">
-                        <h3 class="fw-normal mb-2 pb-2" style="letter-spacing: 1px; margin-top: 80px;">Sign Up</h3>
-                    </div>
+
+                    <form id="registerForm" action="../class/add.php" method="post" autocomplete="off" style="width: 25rem;">  
+                        <div style="text-align: center;">
+                            <h3 class="fw-normal mb-2 pb-2" style="letter-spacing: 1px; margin-top: 80px;">Sign Up</h3>
+                        </div>
                     
                         <hr style="width: 30%; margin: 10px auto 20px; border: 1px solid #7370c9;">
               
                             <div class="form-outline mb-4">
-                                <input type="text" id="userid" class="form-control form-control-lg" placeholder="Student/Staff ID" />
+                                <input type="text" id="userid" name="u_id" class="form-control form-control-lg" placeholder="Student/Staff ID" />
                             </div>
                             
                             <div class="form-outline mb-4">
-                                <input type="text" id="fullname" class="form-control form-control-lg" placeholder="Full Name" />
+                                <input type="text" id="name" name="u_name" class="form-control form-control-lg" placeholder="Full Name" />
                             </div>
                             
                             <div class="form-outline mb-4">
-                                <input type="tel" id="contact" class="form-control form-control-lg" placeholder="Contact Number" />
+                                <input type="tel" id="contactno" name="u_contact"class="form-control form-control-lg" placeholder="Contact Number" />
                             </div>
 
                             <div class="form-group">
-                              <select name="type" class="form-control form-control-lg" required>
+                              <select id="userType" name="u_type" class="form-control form-control-lg" required>
                                   <option disabled selected>Select type</option>
-                                  <option>Student</option>
-                                  <option>Staff/Lecturer</option>
+                                  <option value="1">Staff/Lecturer</option>
+                                  <option value="2">Student</option>
                               </select>
                             </div>
 
                             <div class="form-group">
-                              <select name="gender" class="form-control form-control-lg" required>
+                              <select id="gender" name="u_gender" class="form-control form-control-lg" required>
                                   <option disabled selected>Select gender</option>
-                                  <option>Male</option>
-                                  <option>Female</option>
+                                  <option value="1">Male</option>
+                                  <option value="2">Female</option>
                               </select>
                             </div>
                             
                             <div class="form-outline mb-4">
-                                <input type="password" id="form2Example28" class="form-control form-control-lg" placeholder="Password" />
+                                <input type="password" id="password" name="u_password" class="form-control form-control-lg" placeholder="Password" />
                             </div>
                             
-                            <a href="../index.php">
-                                <button class="btn btn-custom btn-lg btn-block" type="button">Save</button>
-                            </a>    
-                        </form>
-            </div>
+                            <button class="btn btn-custom btn-lg btn-block" type="submit" id="saveButton" name="register_user">
+                                Save
+                            </button><br>
+                            
+                            <p style="margin-top: 10px;">Already have an account? Login <a href="../index.php">Here</a></p>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    </div><br><br>
 </section>
 
-    <!-- Add any additional scripts or JavaScript libraries here -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- JavaScript-->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

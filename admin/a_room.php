@@ -50,7 +50,7 @@
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row">
 			<ol class="breadcrumb">
-				<li><a href="#">
+				<li><a href="a_dashboard.php">
 					<em class="fa fa-home"></em>
 				</a></li>
 				<li class="active">Room</li>
@@ -67,7 +67,7 @@
 		<div style="color: #fff; text-align: right; padding: 10px;">
 			
 			<!-- Add Room button -->
-			<button id="addRoom">Add Room</button>
+			<button id="addRoom"><i class="fas fa-plus"></i> Add Room</button>
 
 			<div id="sidebar">
 				<form id="sidebarForm" action="../class/add.php" method="post">

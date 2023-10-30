@@ -68,7 +68,7 @@
 		<div style="color: #fff; text-align: right; padding: 10px;">
 			
 			<!-- Add Admin button -->
-			<button id="addAdmin">Add Admin</button>
+			<button id="addAdmin"><i class="fas fa-plus"></i> Add Admin</button>
 
 			<div id="sidebar">
 				<form id="sidebarForm" action="../class/add.php" method="post">

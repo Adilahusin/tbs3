@@ -89,7 +89,7 @@ fetch('../fetchdata/fetch_json.php')
         data.items.forEach(item => {
             const option = document.createElement('option');
             option.value = item.i_type;
-            option.textContent = item.i_type;
+            option.textContent = item.i_modelNo + " - " + item.i_type + " - " + item.i_brand + " - [" + item.i_quantity + " in stock]";
             select.appendChild(option);
         });
     })

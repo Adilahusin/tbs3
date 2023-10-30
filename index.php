@@ -92,47 +92,46 @@
             </div>            
 
                 <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-                    <form style="width: 25rem;">
-                      
-                      <div style="text-align: center;">
-                        <h3 class="fw-normal mb-2 pb-2" style="letter-spacing: 1px; margin-top: 80px;">Log In</h3>
-                    </div>
+                
+                <!-- Login Form -->
+                <form style="width: 25rem;" method="POST" action="./class/login.php">
+
+                <div style="text-align: center;">
+                    <h3 class="fw-normal mb-2 pb-2" style="letter-spacing: 1px; margin-top: 80px;">Log In</h3>
+                </div>
                     
-                        <hr style="width: 30%; margin: 10px auto 20px; border: 1px solid #7370c9;">
-      
-                <form class="frm_index">
-					<fieldset>
+                <hr style="width: 30%; margin: 10px auto 20px; border: 1px solid #7370c9;">
+				<fieldset>
                         
-                    <div class="form-outline mb-4">
-                    <input type="userid" id="userid" class="form-control form-control-lg" placeholder="Student/Staff ID" />
+                <div class="form-outline mb-4">
+                    <input type="text" id="u_id" name="u_id" class="form-control form-control-lg" placeholder="Student/Staff ID" required autocomplete="off">
                 </div>
 
                 <div class="form-outline mb-4">
-                    <input type="password" id="password" class="form-control form-control-lg" placeholder="Password" />
-                    <p class="small mb-2 pb-lg-2" style="text-align: left;"><a class="text-muted" href="#!" style="text-decoration: none;">Forgot password?</a></p>
+                    <input type="password" id="u_password" name="u_password" class="form-control form-control-lg" placeholder="Password" required autocomplete="off">
+                    
+                    <p class="small mb-2 pb-lg-2" style="text-align: left;"><a class="text-muted" style="text-decoration: none;">Forgot password?</a></p>
                 </div>
 
-                <a href="./user/dashboard.php">
-                    <button class="btn btn-custom btn-lg btn-block" type="button">Login</button>
-                </a>
+                <button class="btn btn-custom btn-lg btn-block" type="submit">Login</button>
 
-                <p style="margin-top: 10px;">Don't have an account? <a href="./user/signup.php" class="link-info">Register here</a></p>
+                <p style="margin-top: 10px;">Don't have an account? Register <a href="./user/signup.php" class="link-info">Here</a></p>
 
-                    </fieldset>
+                </fieldset>
 				</form>
 
-                  <!-- Admin Icon and Text -->
-                  <a href="./admin/a_login.php" style="position: absolute; bottom: 10px; right: 20px; display: flex; flex-direction: column; align-items: center;">
+                <!-- Admin Icon and Text -->
+                <a href="./admin/a_login.php" style="position: absolute; bottom: 10px; right: 20px; display: flex; flex-direction: column; align-items: center;">
                     <i class="fas fa-solid fa-user fa-2x user-icon" style="color: black; margin-bottom: 5px;"></i>
                     <span style="color: black; font-size: 14px;">Admin</span>
-                  </a>
+                </a>
                   
-                  <!-- Home Icon and Text -->
-                  <a href="./user/home.php" style="position: absolute; top: 20px; right: 20px; display: flex; flex-direction: column; align-items: center;">
+                <!-- Home Icon and Text -->
+                <a href="./user/home.php" style="position: absolute; top: 20px; right: 20px; display: flex; flex-direction: column; align-items: center;">
                     <i class="fas fa-bars fa-2x fa-solid fa-house" style="color: black; margin-bottom: 5px;"></i>
                     <span style="color: black; font-size: 14px;">Home</span>
-                  </a>
-              </form>
+                </a>
+              
               </div>
             </div>
           </div>
@@ -140,8 +139,8 @@
       </section>
 
     <!-- Add any additional scripts or JavaScript libraries here -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 </body>
 </html>

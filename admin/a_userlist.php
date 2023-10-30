@@ -6,6 +6,13 @@
 
 <!DOCTYPE html>
 <html>
+<head>
+   
+   <!-- Include DataTables library -->
+	  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+</head>
 <body>
 
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
@@ -41,7 +48,7 @@
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row">
 			<ol class="breadcrumb">
-				<li><a href="#">
+				<li><a href="a_dashboard.php">
 					<em class="fa fa-home"></em>
 				</a></li>
 				<li class="active">User List</li>
@@ -58,7 +65,7 @@
 		<div style="color: #fff; text-align: right; padding: 10px;">
 		
 			<!-- Add User button -->
-			<button id="addUser" class="add-button">Add User</button>
+			<button id="addUser" class="add-button"><i class="fas fa-plus"></i> Add User</button>
 
 			<div id="sidebar">
 				<form id="sidebarForm" action="../class/add.php" method="post">
@@ -77,6 +84,7 @@
 					<label for="userType">User Type</label>
 					
 					<select id="userType" name="u_type">
+						<option disabled selected>Select type</option>
 						<option value="1">Staff/Lecturer</option>
 						<option value="2">Student</option>
 					</select><br>
@@ -84,6 +92,7 @@
 					<label for="genderType">Gender</label>
 					
 					<select id="genderType" name="u_gender">
+						<option disabled selected>Select gender</option>
 						<option value="1">Male</option>
 						<option value="2">Female</option>
 					</select><br>
@@ -183,7 +192,7 @@
 				$("#password").val("");
             });
         });
-    </script>
+</script>
 
 <!-- For sorting the data in table -->
 <script>
@@ -201,4 +210,3 @@
 </html>
 
 <?php include '../admin/footer.php'; ?>
-

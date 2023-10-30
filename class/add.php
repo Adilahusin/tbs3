@@ -10,12 +10,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //print_r("456-");
 
     if (isset($_POST["add_admin"])) {
-        // Code for adding an admin
         $name = $_POST["a_name"];
         $username = $_POST["a_username"];
         $password = $_POST["a_password"];
         $adminType = ($_POST["a_type"] === "Admin") ? 1 : 2;
         //print_r("789-");
+
+        // Hash the password using PASSWORD_BCRYPT algorithm
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
         // Debugging for checking 1=admin 2=staff
         var_dump($_POST["a_type"]);
@@ -30,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
         if ($sql_count <= 0) {
             $insert = $pdo->prepare('INSERT INTO admin (a_name, a_username, a_password, a_type, a_status) VALUES(?, ?, ?, ?, 1)');
-            $insert->execute(array($name, $username, $password, $adminType));
+            $insert->execute(array($name, $username, $hashed_password, $adminType));
             $insert_count = $insert->rowCount();
     
             if ($insert_count > 0) {
@@ -96,13 +98,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $contactNo = $_POST["u_contact"];
             $userType = ($_POST["u_type"] === "Staff/Lecturer") ? 1 : 2;
             $gender = ($_POST["u_gender"] === "Male") ? 1 : 2;
-            $password = $_POST["u_password"];
-
+            $password = $_POST["u_password"]; // User's provided password
+        
+            // Hash the password using PASSWORD_BCRYPT algorithm
+            $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+        
             // Debugging for checking dropdown values
             var_dump($_POST["u_type"]);
             $userType = $_POST["u_type"];
             var_dump($userType);
-
+        
             var_dump($_POST["u_gender"]);
             $gender = $_POST["u_gender"];
             var_dump($gender);
@@ -114,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
             if ($sql_count <= 0) {
                 $insert = $pdo->prepare('INSERT INTO user (u_id, u_name, u_contact, u_type, u_gender, u_password, u_status) VALUES (?, ?, ?, ?, ?, ?, 1)');
-                $insert->execute(array($userid, $name, $contactNo, $userType, $gender, $password));
+                $insert->execute(array($userid, $name, $contactNo, $userType, $gender, $hashed_password));
                 $insert_count = $insert->rowCount();
         
                 if ($insert_count > 0) {
@@ -125,7 +130,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 $notification = "This User already exists";
             }
+
+        } elseif (isset($_POST["register_user"])) {
+            $userid = $_POST["u_id"];
+            $name = $_POST["u_name"];
+            $contactNo = $_POST["u_contact"];
+            $userType = ($_POST["u_type"] === "Staff/Lecturer") ? 1 : 2;
+            $gender = ($_POST["u_gender"] === "Male") ? 1 : 2;
+            $user_password = $_POST["u_password"]; // User's provided password
+        
+            // Hash the password using PASSWORD_BCRYPT algorithm
+            $hashed_password = password_hash($user_password, PASSWORD_BCRYPT);
+        
+            // Debugging for checking dropdown values
+            var_dump($_POST["u_type"]);
+            $userType = $_POST["u_type"];
+            var_dump($userType);
+        
+            var_dump($_POST["u_gender"]);
+            $gender = $_POST["u_gender"];
+            var_dump($gender);
+        
+            // Insert data into the database
+            $sql = $pdo->prepare('SELECT * FROM user WHERE u_id = ? OR u_name = ?');
+            $sql->execute(array($userid, $name));
+            $sql_count = $sql->rowCount();
+        
+            if ($sql_count <= 0) {
+                $insert = $pdo->prepare('INSERT INTO user (u_id, u_name, u_contact, u_type, u_gender, u_password, u_status) VALUES (?, ?, ?, ?, ?, ?, 1)');
+                $insert->execute(array($userid, $name, $contactNo, $userType, $gender, $hashed_password)); // Store the hashed password
+                $insert_count = $insert->rowCount();
+        
+                if ($insert_count > 0) {
+                    $notification = "Your account successfully created";
+                } else {
+                    $notification = "Your account cannot be created. Please try again.";
+                }
+            } else {
+                $notification = "Your account already exists";
+            }
         }
+        
     
 
     // Close the database connection

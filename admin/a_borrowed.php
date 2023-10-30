@@ -2,6 +2,17 @@
 	include 'header.php';
 ?>
 
+<!DOCTYPE html>
+<html>
+<head>
+    
+	<!-- Include DataTables library -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+</head>
+<body>
+
 	<!-- Sidebar -->
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		
@@ -52,55 +63,43 @@
 		</div><!--/.row-->
 
 		<!-- Content -->
-		<div style="color: #fff; text-align: right; padding: 10px;">
-			
-			<!-- Search input field with search icon -->
-			<div style="position: relative; display: inline-block;">
-			  <input type="text" placeholder="Search..." style="background-color: #fff; border: 1px solid #7370c9; border-radius: 5px; padding: 5px 30px; color: black; height: 30px;">
-			  <button style="position: absolute; top: 0; right: 0; bottom: 0; background-color: #7370c9; border: none; border-radius: 0 5px 5px 0; padding: 5px 10px; color: #fff; height: 30px;">
-				<i class="fas fa-search"></i>
-			  </button>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<table class="table table_borrowed" id="borrowedTable">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Item</th>
+									<th>Reservation Date</th>
+									<th>Room</th>
+									<th>Remarks</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+							</tbody>
+						</table>
+					
+					</div>
+				</div>
 			</div>
-
 		</div>
 
-		<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
-			<table style="width: 100%; border-collapse: collapse;">
-				<tr>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Name</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Item</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Reservation Date</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Room</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Remarks**</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Action</th>
-				</tr>
-				<tr>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Aisyah Su</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">LCD Projector</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">10/5/23</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Lab 1B1</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;"></td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
-                        <button style="background-color: green; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Return</button>
-                    </td>
-				</tr>
-				<tr>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Zulkifli Samad</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Extension</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">10/5/23</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Lab 2C1</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Not working</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
-                        <button style="background-color: green; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Return</button>
-                    </td>
-				</tr>
-			</table>
-		</div>
+<!-- For sorting the data in table -->
+<script>
+	$(document).ready(function() {
+		$('#borrowedTable').DataTable({
+			"columnDefs": [
+				{ "targets": [2], "type": "num" } // Specify columns with numeric data
+			]
+		});
+	});
+</script>
 
-		<?php
-			include '../admin/footer.php';
-		?>
-		
-		</div><!--/.row-->
-	</div>	<!--/.main-->
+</body>
+</html>
 
+<?php include '../admin/footer.php'; ?>
