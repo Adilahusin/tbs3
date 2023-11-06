@@ -1,3 +1,7 @@
+<?php
+	require_once 'session.php';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +14,7 @@
 	<link href="../assets/css/font-awesome.min.css" rel="stylesheet">
 	<link href="../assets/css/datepicker3.css" rel="stylesheet">
 	<link href="../assets/css/styles.css" rel="stylesheet">
+
 	<!--<link href="../assets/custom/css/styles.css" rel="stylesheet">-->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
@@ -51,59 +56,31 @@
                 </button>
 				
                 <a class="navbar-brand" href="#"><span>UiTM</span>TBS</a>
-				<ul class="nav navbar-top-links navbar-right">
-					<li class="dropdown"><a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-						<em class="fa-solid fa-clock"></em><span class="label label-danger">15</span>
-					</a>
+				
+				<ul class="nav navbar-top-links navbar-right">					
+				<li class="dropdown"><a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+					<em class="fa-solid fa-clock"></em><span class="label label-danger">15</span>
+				</a>
 						
-					<!-- Messages -->
+					<!-- Due Borrow -->
 					<ul class="dropdown-menu dropdown-messages">
-							<li>
-								<div class="dropdown-messages-box"><a href="profile.html" class="pull-left">
-									<img alt="image" class="img-circle" src="http://placehold.it/40/7370c9/fff">
-									</a>
-									<div class="message-body"><small class="pull-right">3 mins ago</small>
-										<a href="#"><strong>Aisyah Su</strong> reserved LCD.</a>
-									<br /><small class="text-muted">1:24 pm - 25/9/2023</small></div>
+						<li>
+							<div class="dropdown-messages-box">
+								<div class="message-body">
+									<a href="#"><strong>Aisyah Su</strong> reserved LCD.</a>
 								</div>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<div class="dropdown-messages-box"><a href="profile.html" class="pull-left">
-									<img alt="image" class="img-circle" src="http://placehold.it/40/7370c9/fff">
-									</a>
-									<div class="message-body"><small class="pull-right">1 hour ago</small>
-										<a href="#"><strong>Amy Rofar</strong> has passed the due date.</a>
-									<br /><small class="text-muted">12:27 pm - 28/09/2023</small></div>
-								</div>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<div class="all-button"><a href="#">
-									<em class="fa fa-inbox"></em> <strong>All Messages</strong>
-								</a></div>
-							</li>
+							</div>
+						</li>
 						</ul>
-					</li>
+				</li>
 
-					<!-- Notifications -->
+					<!-- Reservation -->
 					<li class="dropdown"><a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
 						<em class="fa fa-bell"></em><span class="label label-info">5</span>
 					</a>
 						<ul class="dropdown-menu dropdown-alerts">
 							<li><a href="#">
-								<div><em class="fa fa-envelope"></em> 1 New Message
-									<span class="pull-right text-muted small">3 mins ago</span></div>
-							</a></li>
-							<li class="divider"></li>
-							<li><a href="#">
-								<div><em class="fa fa-heart"></em> 12 New Likes
-									<span class="pull-right text-muted small">4 mins ago</span></div>
-							</a></li>
-							<li class="divider"></li>
-							<li><a href="#">
-								<div><em class="fa fa-user"></em> 5 New Followers
-									<span class="pull-right text-muted small">4 mins ago</span></div>
+								<div><em class="fa fa-envelope"></em> 1 New Message</div>
 							</a></li>
 						</ul>
 					</li>

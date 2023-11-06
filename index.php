@@ -110,7 +110,7 @@
                 <div class="form-outline mb-4">
                     <input type="password" id="u_password" name="u_password" class="form-control form-control-lg" placeholder="Password" required autocomplete="off">
                     
-                    <p class="small mb-2 pb-lg-2" style="text-align: left;"><a class="text-muted" style="text-decoration: none;">Forgot password?</a></p>
+                    <!-- <p class="small mb-2 pb-lg-2" style="text-align: left;"><a class="text-muted" style="text-decoration: none;">Forgot password?</a></p> -->
                 </div>
 
                 <button class="btn btn-custom btn-lg btn-block" type="submit">Login</button>

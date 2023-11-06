@@ -54,7 +54,7 @@
             }
         }
         
-        /* Logo to replace crow */
+        /* Logo to replace toolbox */
         .icon {
             width: 24px;
             height: 24px; 
@@ -85,12 +85,11 @@
                 <!-- Logo and Text -->
                 <i class="fas fa-solid fa-toolbox fa-2x me-3" style="color: #7370c9;"></i>
                 <span class="h1 fw-bold mb-0 text-start">TBS</span>
-            </div>            
-
-                <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-
+            </div>
+            <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+                
                 <!-- Login Form -->
-                <form style="width: 25rem;" method="POST" action="./class/login.php">
+                <form style="width: 25rem;" method="POST" action="../class/login.php">
 
                 <div style="text-align: center;">
                     <h3 class="fw-normal mb-2 pb-2" style="letter-spacing: 1px; margin-top: 80px;">Admin Log In</h3>
@@ -106,36 +105,20 @@
                 <div class="form-outline mb-4">
                     <input type="password" id="a_password" name="a_password" class="form-control form-control-lg" placeholder="Password" required autocomplete="off">
                     
-                    <p class="small mb-2 pb-lg-2" style="text-align: left;"><a class="text-muted" style="text-decoration: none;">Forgot password?</a></p>
+                    <!-- <p class="small mb-2 pb-lg-2" style="text-align: left;"><a class="text-muted" style="text-decoration: none;">Forgot password?</a></p> -->
                 </div>
 
                 <button class="btn btn-custom btn-lg btn-block" type="submit">Login</button>
 
                 </fieldset>
 				</form>
-                        
-                        <!-- <form>
-                        <div class="form-outline mb-4">
-                            <input type="userid" id="userid" class="form-control form-control-lg" placeholder="Username" />
-                        </div>
 
-                        <div class="form-outline mb-4">
-                            <input type="password" id="password" class="form-control form-control-lg" placeholder="Password" />
-                            <p class="small mb-2 pb-lg-2" style="text-align: left;"><a class="text-muted" href="#!" style="text-decoration: none;">Forgot password?</a></p>
-                        </div>
-
-                        <a href ="a_dashboard.php">
-                        <button class="btn btn-custom btn-lg btn-block" type="button">Login</button>
-                        </a>
-                        
-                        </form> -->
-
-                        <!-- User Icon and Text -->
-                        <a href="../index.php" style="position: absolute; bottom: 5px; right: 20px; display: flex; flex-direction: column; align-items: center;">
-                            <i class="fas fa-solid fa-user fa-2x user-icon" style="color: black; margin-bottom: 5px;"></i>
-                            <span style="color: black; font-size: 14px;">User</span>
-                        </a>
-                </div>
+                <!-- User Icon and Text -->
+                <a href="../index.php" style="position: absolute; bottom: 5px; right: 20px; display: flex; flex-direction: column; align-items: center;">
+                    <i class="fas fa-solid fa-user fa-2x user-icon" style="color: black; margin-bottom: 5px;"></i>
+                    <span style="color: black; font-size: 14px;">User</span>
+                </a>
+            </div>
             </div>
         </div>
     </div>
@@ -145,5 +128,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

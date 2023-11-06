@@ -114,48 +114,6 @@
 							</tr>
 						</thead>
 						<tbody>
-						<?php
-							// Check if the session variable exists
-								if (isset($_SESSION['item_data'])) {
-								
-							// Retrieve the data from the session variable
-								$data_item = $_SESSION['item_data'];
-								//print_r ($data_item);
-
-								foreach ($data_item as $row) {
-									echo "<tr>";
-									echo "<td>" . $row['i_type'] . "</td>";
-									echo "<td>" . $row['i_brand'] . "</td>";
-									echo "<td>" . $row['i_modelNo'] . "</td>";
-									echo "<td>" . $row['i_quantity'] . "</td>";
-									
-									// Change format date
-									$dateAdded = date("d-m-Y H:i:s", strtotime($row['i_entrydate']));
-									echo "<td>" . $dateAdded . "</td>";
-
-									echo "<td>" . $row['i_status'] . "</td>";
-									echo '<td>
-										<div class="btn-group">
-											<a href="a_items_info.php">
-												<button type="button" class="btn btn-primary btn-block">
-													More Info
-												</button>
-											</a>
-										</div>
-										
-                                        </td>';
-                                        echo "</tr>";
-								}							
-							} else {
-								echo "Data not found.";
-							}
-
-							// <ul class="dropdown-menu" role="menu">
-							// <li><a href="#" class="edit-action">Edit</a></li>
-							// <li><a href="?action=delete&i_type=' . $row['i_type'] . '" class="delete-action">Delete</a></li>
-							// <li><a href="#" class="deactivate-action">Deactivate</a></li>
-							// </ul>
-						?>
 
 						</tbody>
 					</table>				
@@ -163,6 +121,63 @@
 			</div>
 		</div>
 		</div> -->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<table class="table ">
+							<thead>
+							
+							</thead>
+							<tbody>
+								<tr>
+									<td class="success col-sm-6">Serial No</td>
+									<td class="i_serialno"></td>
+								</tr>
+								<tr>
+									<td class="col-sm-6">Type</td>
+									<td class="i_type"></td>
+								</tr>
+								<tr>
+									<td class="success col-sm-6">Brand</td>
+									<td class="i_brand"></td>
+								</tr>
+								<tr>
+									<td class="col-sm-6">Model No</td>
+									<td class="i_modelNo"></td>
+								</tr>
+								<tr>
+									<td class="success col-sm-6">Quantity</td>
+									<td class="i_quantity"></td>
+								</tr>
+								<tr>
+									<td class="col-sm-6">PB No</td>
+									<td class="i_PBno"></td>
+								</tr>
+								<tr>
+									<td class="success col-sm-6">Vendor</td>
+									<td class="i_vendor"></td>
+								</tr>
+								<tr>
+									<td class="col-sm-6">Warranty</td>
+									<td class="i_warranty"></td>
+								</tr>
+								<tr>
+									<td class="success col-sm-6">Date Purchase</td>
+									<td class="i_datepurchase"></td>
+								</tr>
+								<tr>
+									<td class="col-sm-6">Person-in-Charge</td>
+									<td class="i_PIC"></td>
+								</tr>
+							</tbody>
+
+						</table>
+					</div>
+				</div><!-- panel -->
+			</div><!-- panel -->
+		</div>
 
 <!-- For sidebar -->
 <script>

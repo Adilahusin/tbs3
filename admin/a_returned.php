@@ -46,7 +46,7 @@
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row">
 			<ol class="breadcrumb">
-				<li><a href="#">
+				<li><a href="a_dashboard.php">
 					<em class="fa fa-home"></em>
 				</a></li>
 				<li class="active">Returned Items</li>
@@ -64,7 +64,7 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<table class="table table_borrowed" id="borrowedTable">
+						<table class="table table_returned" id="returnedTable">
 							<thead>
 								<tr>
 									<th>Name</th>
@@ -84,10 +84,12 @@
 			</div>
 		</div>
 
+		<?php include '../admin/footer.php'; ?>
+
 <!-- For sorting the data in table -->
 <script>
 	$(document).ready(function() {
-		$('#borrowedTable').DataTable({
+		$('#returnedTable').DataTable({
 			"columnDefs": [
 				{ "targets": [2], "type": "num" } // Specify columns with numeric data
 			]
@@ -97,6 +99,4 @@
 
 </body>
 </html>
-
-<?php include '../admin/footer.php'; ?>
 	  

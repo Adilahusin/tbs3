@@ -47,8 +47,8 @@
 			</div>
 		</div><!--/.row-->
 
-		<div style="width: 50%; margin: 0 auto;">
-			<div style="background-color: #c6c4fc; padding: 20px; border-radius: 20px;">
+		<div style="width: 80%; margin: 0 auto;">
+			<!-- <div style="background-color: #c6c4fc; padding: 20px; border-radius: 20px;"> -->
 				
 				<div style="margin-bottom: 15px;">
 					<label for="reserve_item" style="color: black; font-weight: 400;">Item:</label>
@@ -74,16 +74,17 @@
 					<label for="time_limit" style="color: black; font-weight: 400;">Time Limit:</label>
 					<input type="datetime-local" class="form-control" id="time_limit" name="time_limit" value="">
 				</div>
-			</div>
+			<!-- </div> -->
 		</div>
 
 		<!-- Button with Inline CSS -->
- 		<button id="bottom-right-button" class="btn btn-primary" style="position: relative; left: 64.5%; 
-		transform: translateX(50%); margin-top: 15px;  background-color: blue;">Borrow</button>
-
+		<button id="bottom-right-button" class="btn btn-primary" style="border: none; position: relative; left: 79%; 
+		transform: translateX(50%); margin-top: 15px;  background-color: #7370c9;"onclick="alert('Borrow button clicked!')">Borrow</button>
+		
 <?php include '../admin/footer.php'; ?>
-		</div><!--/.row-->
-	</div>	<!--/.main-->
+
+	</div>
+</div>
 
 <!-- JavaScript to populate the "Item" dropdown -->
 <script>

@@ -115,20 +115,22 @@
 		<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-body"><br><br>
-				<table class="table table_user" id="userTable"> 
-					<thead>
-						<tr>
-							<th data-sort="id">Staff/Student ID</th>
-							<th data-sort="name">Name</th>
-							<th data-sort="contact">Contact No.</th>
-							<th data-sort="type">Type
-								<br><sub>1=Staff, 2=Student</sub></br>
-							</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-						<tbody>
+			<div class="panel-body">
+			<br><br>
+			<!-- id="userTable" -->
+			<table class="table table_user" id="userTable">
+				<thead>
+					<tr>
+						<th>Staff/Student ID</th>
+						<th>Name</th>
+						<th>Contact No.</th>
+						<th>Type
+							<br><sub>1=Staff, 2=Student</sub></br>
+						</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
 							<?php
 								// Check if the session variable exists
 								if (isset($_SESSION['user_data'])) {
@@ -164,9 +166,9 @@
 									}	
 							?>
 						</tbody>
-					</table>
-					<!-- <li><a href="#" class="deactivate-action">Deactivate</a></li> -->
-				</div>
+			</table>
+</div>
+
 			</div>
 		</div>
 	</div>
@@ -181,7 +183,7 @@
         });
 
         $("#cancelButton").click(function() {
-        	$("#sidebar").css("right", "-300px");
+            $("#sidebar").css("right", "-300px");
             $("#content").css("margin-right", "0");
 
 			// Clear input fields when the sidebar is closed
@@ -195,36 +197,39 @@
 
 		// For sorting the data in table
 		$('#userTable').DataTable({
-			"columnDefs": [
-				{ "targets": [0, 3], "type": "num" } // Specify columns with numeric data
-			]
+		"columnDefs": [
+			{ "targets": [0, 3], "type": "num" }
+		]
+		});
+	
+		// Delete User Action
+		$(document).on('click', '.delete-action', function(){
+			var user_id = $(this).attr("id");
+			if(confirm("Are you sure you want to delete this?"))
+			{
+			$.ajax({
+				url:"../class/delete.php",
+				method:"POST",
+				data:{user_id:user_id},
+				success:function(data){
+					alert(data);
+					dataTable.ajax.reload();
+				}
+			});
+			} else {
+				return false; 
+			}
 		});
 
-// // Handle "Deactivate" button click
-//     $('#userTable').on('click', '.deactivate-action', function(e) {
-//         e.preventDefault(); // Prevent the default link behavior
 
-//         var userId = $(this).attr('href').split('=')[1]; // Extract user ID from the link
 
-//         // Send an AJAX request to update the user's status
-//         $.ajax({
-//             type: 'POST',
-//             url: '../class/update.php',
-//             data: { u_id: userId },
-//             success: function(response) {
-//                 // Handle the response from the server (e.g., show a success message)
-//                 alert(response);
-//                 // You may also update the user's status in the table without refreshing the page
-//             },
-//             error: function(error) {
-//                 // Handle errors
-//                 console.error('Error:', error);
-//             }
-//         });
-//     });
 
-});
+
+
+	});
 </script>
+
+
 
 </body>
 </html>

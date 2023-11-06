@@ -1,5 +1,4 @@
 <?php
-// Include your database connection code
 include '../class/configure/config.php'; 
 
 // Query to sum the quantities of all items

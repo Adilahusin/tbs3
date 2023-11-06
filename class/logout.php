@@ -33,7 +33,7 @@ switch ($userType) {
         session_destroy();
 
         // Redirect to the admin login form page
-        header("Location: ../a_login.php");
+        header("Location: ../admin/a_login.php");
         exit();
         break;
 

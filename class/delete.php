@@ -93,16 +93,21 @@ if (isset($_GET['action']) && $_GET['action'] === "delete"){
             // Check if any row was affected
             if ($deleteUser->rowCount() > 0) {
                 // Successful deletion
-                //echo "<script>alert('Delete successful. $user_id $user_name has been deleted.'); window.location.href = document.referrer;</script>";
-                echo "<script>alert('Delete successful. $user_id $user_name has been deleted.'); window.location.href = document.referrer;</script>";
+                echo "<script>alert('Delete successful. $user_id $user_name has been deleted.'); 
+                window.location.href = document.referrer;
+                </script>";
 
             } else {
                 // Deletion was unsuccessful
-                echo "<script>alert('Deletion was unsuccessful for $user_id $user_name. Please try again'); window.location.href = document.referrer;</script>";
+                echo "<script>alert('Deletion was unsuccessful for $user_id $user_name. Please try again'); 
+                window.location.href = document.referrer;
+                </script>";
             }
         } catch (PDOException $e) {
             // Handle database errors
-            echo "<script>alert('Error: " . $e->getMessage() . "'); window.location.href = document.referrer;</script>";
+            echo "<script>alert('Error: " . $e->getMessage() . "'); 
+            window.location.href = document.referrer;
+            </script>";
         }
     }
 }

@@ -29,51 +29,11 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">Dashboard</h1>
+				<h4><?php echo ("Welcome " . $_SESSION['user_name'] . " !"); ?></h4>
 			</div>
 		</div><!--/.row-->
 		
 		<!-- Content -->
-
-		<!-- <div class="panel panel-container">
-			<div class="row">
-				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-					<div class="panel panel-teal panel-widget border-right">
-						<div class="row no-padding"><em class="fa fa-xl solid fa-boxes-stacked color-#008000;"></em>
-							<div class="large">54</div>
-							<div class="text-muted">Items</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-					<div class="panel panel-orange panel-widget border-right">
-						<div class="row no-padding"><em class="fa fa-xl fa-users color-teal"></em>
-							<div class="large">96</div>
-							<div class="text-muted">Borrowers</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-					<div class="panel panel-red panel-widget ">
-						<div class="row no-padding"><em class="fa fa-xl solid fa-box-open color-orange"></em>
-							<div class="large">9</div>
-							<div class="text-muted">Things Borrowed</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-					<div class="panel panel-red panel-widget ">
-						<div class="row no-padding"><em class="fas fa-xl fa-user color-red"></em>
-
-							<div class="large">3</div>
-							<div class="text-muted">Admin</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
 
 		<div class="container">
         <div class="row">

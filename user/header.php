@@ -1,3 +1,7 @@
+<?php
+	require_once 'session.php';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,11 +44,14 @@
 				<ul class="nav navbar-top-links navbar-right">
 
                     <!-- Account -->
-                    <li class="dropdown"><a class="" data-toggle="dropdown" href="#">
-						<em class="fas fa-user"></em>
-					</a>
+                    <li class="dropdown">
+						<a class="" data-toggle="dropdown" href="#">
+							<em class="fas fa-user"></em>
+						</a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="../class/logout.php" id="logout-link"><i class="fa fa-sign-out"></i> Logout</a></li>
+							<!-- <li><a><?php echo $_SESSION['user_name']; ?></a></li>
+							<li class="divider"></li> -->
+							<li><a href="../class/logout.php" id="logout-link"><i class="fa fa-sign-out"></i> Logout</a></li>
 						</ul>
 					</li>
 				

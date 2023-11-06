@@ -110,7 +110,6 @@
 								<th>Brand</th>
 								<th>Model No</th>
 								<th>Quantity</th>
-								<th>Date Added</th>
 								<th>Status
 									<br><sub>1=Active, 2=Inactive</sub></br>
 								</th>
@@ -134,8 +133,8 @@
 									echo "<td>" . $row['i_quantity'] . "</td>";
 									
 									// Change format date
-									$dateAdded = date("d-m-Y H:i:s", strtotime($row['i_entrydate']));
-									echo "<td>" . $dateAdded . "</td>";
+									// $dateAdded = date("d-m-Y H:i:s", strtotime($row['i_entrydate']));
+									// echo "<td>" . $dateAdded . "</td>";
 
 									echo "<td>" . $row['i_status'] . "</td>";
 									echo '<td>
@@ -153,12 +152,6 @@
 							} else {
 								echo "Data not found.";
 							}
-
-							// <ul class="dropdown-menu" role="menu">
-							// <li><a href="#" class="edit-action">Edit</a></li>
-							// <li><a href="?action=delete&i_type=' . $row['i_type'] . '" class="delete-action">Delete</a></li>
-							// <li><a href="#" class="deactivate-action">Deactivate</a></li>
-							// </ul>
 						?>
 
 						</tbody>
