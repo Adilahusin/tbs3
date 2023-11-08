@@ -43,6 +43,29 @@
             font-weight: bold;
             cursor: pointer; /* Add this line to make the "×" clickable */
         }
+
+		tr {
+			margin-bottom: 10px;
+		}
+
+		td, th {
+			padding: 5px 0;
+		}
+
+		/* Update input field styles */
+		.modal-content input[type="text"],
+		.modal-content input[type="password"],
+		.modal-content select {
+			width: 100%; /* Make the input fields 100% wide */
+			padding: 5px;
+			margin: 5px 0 5px 0;
+		}
+
+		/* Update table cell styles */
+		.modal-content table td {
+			padding: 5px 10px; /* Add some padding to table cells for alignment */
+		}
+		
     </style>
 	
 </head>
@@ -100,94 +123,59 @@
 			<!-- Add User button -->
 			<button id="addUser" class="add-button"><i class="fas fa-plus"></i> Add User</button>
 
-			<!-- <div id="sidebar">
-				<form id="sidebarForm" action="../class/add.php" method="post">
-
-					<br><br><br>
-					<label for="userid">Staff/Student No.</label>
-					<input type="text" id="userid" name="u_id" required><br>
-
-					<label for="name">Name</label>
-					<input type="text" id="name" name="u_name" required><br>
-
-					<label for="contactno">Contact No.</label>
-					<input type="text" id="contactno" name="u_contact" required><br>
-
-					<label for="userType">User Type</label>
-					
-					<select id="userType" name="u_type">
-						<option disabled selected>Select type</option>
-						<option value="1">Staff/Lecturer</option>
-						<option value="2">Student</option>
-					</select><br>
-
-					<label for="genderType">Gender</label>
-					
-					<select id="genderType" name="u_gender">
-						<option disabled selected>Select gender</option>
-						<option value="1">Male</option>
-						<option value="2">Female</option>
-					</select><br>
-
-					<label for="password">Password</label>
-					<input type="password" id="password" name="u_password" required><br>
-
-					<button class="btn btn-primary btn-block" type="submit" id="saveButton" name="add_user">
-						SAVE
-					</button><br>
-
-					<button class="btn btn-danger btn-block cancel_button" type="button" id="cancelButton">
-						CANCEL
-					</button>
-				</form>
-			</div> -->
-
-			<!-- Add User Modal -->
 			<div id="addUserModal" class="modal">
-				<div class="modal-content">
-					<span class="close" id="closeModal">&times;</span>
-					<h4 class="alert bg-success">Add User</h4>
-					
-					<form id="sidebarForm" action="../class/add.php" method="post">
-
-					<label for="userid">Staff/Student No.</label>
-					<input type="text" id="userid" name="u_id" required><br>
-
-					<label for="name">Name</label>
-					<input type="text" id="name" name="u_name" required><br>
-
-					<label for="contactno">Contact No.</label>
-					<input type="text" id="contactno" name="u_contact" required><br>
-
-					<label for="userType">User Type</label>
-					
-					<select id="userType" name="u_type">
-						<option disabled selected>Select type</option>
-						<option value="1">Staff/Lecturer</option>
-						<option value="2">Student</option>
-					</select><br>
-
-					<label for="genderType">Gender</label>
-					
-					<select id="genderType" name="u_gender">
-						<option disabled selected>Select gender</option>
-						<option value="1">Male</option>
-						<option value="2">Female</option>
-					</select><br>
-
-					<label for="password">Password</label>
-					<input type="password" id="password" name="u_password" required><br>
-
-					<button class="btn btn-primary btn-block" type="submit" id="saveButton" name="add_user">
-						SAVE
-					</button><br>
-
-					<button class="btn btn-danger btn-block cancel_button" type="button" id="cancelButton">
-						CANCEL
-					</button>
+			<div class="modal-content">
+				<span class="close" id="closeModal">&times;</span>
+				<h4 class="alert bg-success">Add User</h4>
+				<form id="sidebarForm" action="../class/add.php" method="post">
+					<table>
+						<tr>
+							<td><label for="userid">Staff/Student No.</label></td>
+							<td><input type="text" id="userid" name="u_id" required></td>
+						</tr>
+						<tr>
+							<td><label for="name">Name</label></td>
+							<td><input type="text" id="name" name="u_name" required></td>
+						</tr>
+						<tr>
+							<td><label for="contactno">Contact No.</label></td>
+							<td><input type="text" id="contactno" name="u_contact" required></td>
+						</tr>
+						<tr>
+							<td style="font-weight: bold;">User Type</td>
+							<td>
+								<select id="userType" name="u_type">
+									<option disabled selected>Select type</option>
+									<option value="1">Staff/Lecturer</option>
+									<option value="2">Student</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td style="font-weight: bold;">Gender</td>
+							<td>
+								<select id="genderType" name="u_gender">
+									<option disabled selected>Select gender</option>
+									<option value="1">Male</option>
+									<option value="2">Female</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><label for="password">Password</label></td>
+							<td><input type="password" id="password" name="u_password" required></td>
+						</tr>
+						<tr>
+							<td colspan="2" style="text-align: right;">
+								<button class="btn btn-primary" type="submit" id="saveButton" name="add_user">SAVE</button>
+								<button class="btn btn-danger" type="button" id="cancelButton">CANCEL</button>
+							</td>
+						</tr>
+					</table>
 				</form>
-				</div>
 			</div>
+			</div>
+
 
 		</div>
 
@@ -250,36 +238,14 @@
 		</div>
 	</div>
 
-<!-- For sidebar -->
+
+<!-- For sorting the data in table -->
 <script>
-    $(document).ready(function() {
-
-        $("#addUser").click(function() {
-            $("#sidebar").css("right", "0");
-            $("#content").css("margin-right", "250px");
-        });
-
-        $("#cancelButton").click(function() {
-        	$("#sidebar").css("right", "-300px");
-            $("#content").css("margin-right", "0");
-
-			// Clear input fields when the sidebar is closed
-			$("#userid").val("");
-			$("#name").val("");
-			$("#contactno").val("");
-			$("#userType").prop('selectedIndex', 0); // Reset the dropdown
-			$("#gender").prop('selectedIndex', 0); // Reset the dropdown
-			$("#password").val("");
-        });
-
-		// For sorting the data in table
-		$('#userTable').DataTable({
-			"columnDefs": [
-				{ "targets": [0, 3], "type": "num" } // Specify columns with numeric data
-			]
-		});
-
-});
+	$('#userTable').DataTable({
+		"columnDefs": [
+			{ "targets": [0, 3], "type": "num" } // Specify columns with numeric data
+		]
+	});
 </script>
 
 <script>

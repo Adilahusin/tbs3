@@ -12,6 +12,38 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 
+	<style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+			text-align: left;
+			color: black;
+        }
+
+        /* Close button style */
+        .close {
+            color: #888;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer; /* Add this line to make the "×" clickable */
+        }
+	</style>
 </head>
 <body>
 
@@ -69,21 +101,25 @@
 			<!-- Add Room button -->
 			<button id="addRoom"><i class="fas fa-plus"></i> Add Room</button>
 
-			<div id="sidebar">
+			<div id="addRoomModal" class="modal">
+			<div class="modal-content">
+				<span class="close" id="closeModal">&times;</span>
+				<h4 class="alert bg-success">Add Room</h4>
 				<form id="sidebarForm" action="../class/add.php" method="post">
-				<h4 class="alert bg-success" style="text-align: left;">Add Room</h4>
-
-					<label for="room_name">Room</label>
-					<input type="text" id="room_name" name="room_name" required><br><br>
-
-					<button class="btn btn-primary btn-block" type="submit" id="saveButton" name="add_room">
-						SAVE
-					</button><br>
-
-					<button class="btn btn-danger btn-block cancel_button" type="button" id="cancelButton">
-						CANCEL
-					</button>
+					<table>
+						<tr>
+							<td><label for="room_name">Room</label></td>
+							<td><input type="text" id="room_name" name="room_name" required></td>
+						</tr>
+						<tr>
+							<td colspan="2" style="text-align: right;">
+								<button class="btn btn-primary" type="submit" id="saveButton" name="add_room">SAVE</button>
+								<button class="btn btn-danger" type="button" id="cancelButton">CANCEL</button>
+							</td>
+						</tr>
+					</table>
 				</form>
+			</div>
 			</div>
 
 		</div>
@@ -149,24 +185,6 @@
 		</div>
 		</div>
 
-<!-- For sidebar -->
-<script>
-        $(document).ready(function() {
-            $("#addRoom").click(function() {
-                $("#sidebar").css("right", "0");
-                $("#content").css("margin-right", "250px");
-            });
-
-            $("#cancelButton").click(function() {
-                $("#sidebar").css("right", "-300px");
-                $("#content").css("margin-right", "0");
-
-			// Clear input fields when the sidebar is closed
-			$("#room_name").val("");
-
-            });
-        });
-</script>
 
 <!-- For sorting the data in table -->
 <script>
@@ -177,6 +195,40 @@
 			]
 		});
 	});
+</script>
+
+<script>
+    // Get references to the modal and the button to open/close it
+    var modal = document.getElementById('addRoomModal');
+    var openModalButton = document.getElementById('addRoom');
+    var closeModalButton = document.getElementById('closeModal');
+	var cancelButton = document.getElementById('cancelButton');
+
+    // Function to open the modal
+    function openModal() {
+        modal.style.display = 'block';
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        modal.style.display = 'none';
+		form.reset(); // Reset the form
+    }
+
+    // Event listeners to open and close the modal
+    openModalButton.addEventListener('click', openModal);
+    closeModalButton.addEventListener('click', closeModal);
+
+	// Event listener to close the modal when clicking the "Cancel" button
+    cancelButton.addEventListener('click', closeModal);
+
+	// Close the modal when clicking outside the modal content
+    window.addEventListener('click', function(event) {
+        if (event.target == addRoomModal) {
+            closeModal();
+        }
+    });
+
 </script>
 
 </body>

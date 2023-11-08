@@ -12,6 +12,60 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 
+	<style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+			text-align: left;
+			color: black;
+        }
+
+        /* Close button style */
+        .close {
+            color: #888;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer; /* Add this line to make the "×" clickable */
+        }
+
+		tr {
+			margin-bottom: 10px;
+		}
+
+		td, th {
+			padding: 5px 0;
+		}
+
+		/* Update input field styles */
+		.modal-content input[type="text"],
+		.modal-content input[type="password"],
+		.modal-content select {
+			width: 100%; /* Make the input fields 100% wide */
+			padding: 5px;
+			margin: 5px 0 5px 0;
+		}
+
+		/* Update table cell styles */
+		.modal-content table td {
+			padding: 5px 10px; /* Add some padding to table cells for alignment */
+		}
+	</style>
 </head>
 <body>
 
@@ -70,7 +124,7 @@
 			<!-- Add Admin button -->
 			<button id="addAdmin"><i class="fas fa-plus"></i> Add Admin</button>
 
-			<div id="sidebar">
+			<!-- <div id="sidebar">
 				<form id="sidebarForm" action="../class/add.php" method="post">
 				<h4 class="alert bg-success" style="text-align: left;">Add Admin</h4>
 
@@ -98,6 +152,44 @@
 						CANCEL
 					</button>
 				</form>
+			</div> -->
+
+			<div id="addAdminModal" class="modal">
+			<div class="modal-content">
+				<span class="close" id="closeModal">&times;</span>
+				<h4 class="alert bg-success">Add Room</h4>
+				<form id="sidebarForm" action="../class/add.php" method="post">
+					<table>
+						<tr>
+							<td><label for="name">Name</label></td>
+							<td><input type="text" id="name" name="a_name" required></td>
+						</tr>
+						<tr><td><label for="username">Username</label></td>
+							<td><input type="text" id="username" name="a_username" required></td>
+						</tr>
+						<tr>
+							<td><label for="password">Password</label></td>
+							<td><input type="password" id="password" name="a_password" required></td>
+						</tr>
+						<tr>
+							<td><label for="adminType">User Type</label></td>
+							<td>	
+								<select id="adminType" name="a_type">
+									<option disabled selected>Select type</option>
+									<option value="1">Admin</option>
+									<option value="2">Staff</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="text-align: right;">
+								<button class="btn btn-primary" type="submit" id="saveButton" name="add_admin">SAVE</button>
+								<button class="btn btn-danger" type="button" id="cancelButton">CANCEL</button>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
 			</div>
 
 		</div>
@@ -161,7 +253,7 @@
 	</div>
 
 <!-- For sidebar -->
-<script>
+<!-- <script>
         $(document).ready(function() {
             $("#addAdmin").click(function() {
                 $("#sidebar").css("right", "0");
@@ -179,7 +271,7 @@
 				$("#adminType").prop('selectedIndex', 0); // Reset the dropdown
             });
         });
-    </script>
+    </script> -->
 
 <!-- For sorting the data in table -->
 <script>
@@ -190,6 +282,40 @@
 			]
 		});
 	});
+</script>
+
+<script>
+    // Get references to the modal and the button to open/close it
+    var modal = document.getElementById('addAdminModal');
+    var openModalButton = document.getElementById('addAdmin');
+    var closeModalButton = document.getElementById('closeModal');
+	var cancelButton = document.getElementById('cancelButton');
+
+    // Function to open the modal
+    function openModal() {
+        modal.style.display = 'block';
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        modal.style.display = 'none';
+		form.reset(); // Reset the form
+    }
+
+    // Event listeners to open and close the modal
+    openModalButton.addEventListener('click', openModal);
+    closeModalButton.addEventListener('click', closeModal);
+
+	// Event listener to close the modal when clicking the "Cancel" button
+    cancelButton.addEventListener('click', closeModal);
+
+	// Close the modal when clicking outside the modal content
+    window.addEventListener('click', function(event) {
+        if (event.target == addAdminModal) {
+            closeModal();
+        }
+    });
+
 </script>
 
 </body>

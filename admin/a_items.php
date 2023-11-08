@@ -43,6 +43,29 @@
             font-weight: bold;
             cursor: pointer; /* Add this line to make the "×" clickable */
         }
+
+		tr {
+			margin-bottom: 10px;
+		}
+
+		td, th {
+			padding: 5px 0;
+		}
+
+		/* Update input field styles */
+		.modal-content input[type="text"],
+		.modal-content input[type="password"],
+		.modal-content select {
+			width: 100%; /* Make the input fields 100% wide */
+			padding: 5px;
+			margin: 5px 0 5px 0;
+		}
+
+		/* Update table cell styles */
+		.modal-content table td {
+			padding: 5px 10px; /* Add some padding to table cells for alignment */
+			margin: 0px;
+		}
     </style>
 
 </head>
@@ -100,54 +123,8 @@
 			<!-- Add Item button -->
 			<button id="addItem"><i class="fas fa-plus"></i> Add Item</button>
 
-			<!-- Add Item Sidebar -->
-			<!-- <div id="sidebar">
-				<form id="sidebarForm" action="../class/add.php" method="post">
-				<br><br>
-				<h4 class="alert bg-success" style="text-align: left;">Add Item</h4>
-
-					<label for="type">Type</label>
-					<input type="text" id="type" name="i_type" required placeholder="eg: LCD"><br>
-
-					<label for="brand">Brand</label>
-					<input type="text" id="brand" name="i_brand" required><br>
-
-					<label for="modelNo">Model No.</label>
-					<input type="text" id="modelNo" name="i_modelNo" required><br>
-
-					<label for="quantity">Quantity</label>
-					<input type="int" id="quantity" name="i_quantity" required><br>
-
-					<label for="pbNo">PB No.</label>
-					<input type="text" id="pbNo" name="i_PBno"><br>
-
-					<label for="vendor">Vendor</label>
-					<input type="text" id="vendor" name="i_vendor" required><br>
-
-					<label for="warranty">Warranty (Number only)</label>
-					<input type="int" id="warranty" name="i_warranty" required><br>
-
-					<label for="datePurchase">Date Purchase</label>
-					<input type="text" id="datePurchase" name="i_datepurchase" required><br>
-
-					<label for="serialNo">Serial No.</label>
-					<input type="text" id="serialno" name="i_serialno" required><br>
-
-					<label for="pic">Person-in-Charge</label>
-					<input type="text" id="pic" name="i_PIC" required><br><br>
-
-					<button class="btn btn-primary btn-block" type="submit" id="saveButton" name="add_item">
-						SAVE
-					</button><br>
-
-					<button class="btn btn-danger btn-block cancel_button" type="button" id="cancelButton">
-						CANCEL
-					</button>
-				</form>
-			</div> -->
-
 			<!-- Add Item Modal -->
-			<div id="addItemModal" class="modal">
+			<!-- <div id="addItemModal" class="modal">
 				<div class="modal-content">
 					<span class="close" id="closeModal">&times;</span>
 					<h4 class="alert bg-success">Add Item</h4>
@@ -193,7 +170,65 @@
 					</button>
 				</form>
 				</div>
+			</div> -->
+
+			<div id="addItemModal" class="modal">
+			<div class="modal-content">
+				<span class="close" id="closeModal">&times;</span>
+				<h4 class="alert bg-success">Add Item</h4>
+				<form id="sidebarForm" action="../class/add.php" method="post">
+					<table>
+						<tr>
+							<td><label for="type">Type</label></td>
+							<td><input type="text" id="type" name="i_type" required placeholder="eg: LCD"></td>
+						</tr>
+						<tr>
+							<td><label for="brand">Brand</label></td>
+							<td><input type="text" id="brand" name="i_brand" required></td>
+						</tr>
+						<tr>
+							<td><label for="modelNo">Model No.</label></td>
+							<td><input type="text" id="modelNo" name="i_modelNo" required></td>
+						</tr>
+						<tr>
+							<td><label for="quantity">Quantity</label></td>
+							<td><input type="text" id="quantity" name="i_quantity" required></td>
+						</tr>
+						<tr>
+							<td><label for="pbNo">PB No.</label></td>
+							<td><input type="text" id="pbNo" name="i_PBno" required></td>
+						</tr>
+						<tr>
+							<td><label for="vendor">Vendor</label></td>
+							<td><input type="text" id="vendor" name="i_vendor" required></td>
+						</tr>
+						<tr>
+							<td><label for="warranty">Warranty (Number only)</label></td>
+							<td><input type="text" id="warranty" name="i_warranty" required></td>
+						</tr>
+						<tr>
+							<td><label for="datePurchase" class="input-label">Date Purchase</label></td>
+							<td><input type="text" id="datePurchase" name="i_datepurchase" required></td>
+						</tr>
+						<tr>
+							<td><label for="serialNo">Serial No.</label></td>
+							<td><input type="text" id="serialno" name="i_serialno" required></td>
+						</tr>
+						<tr>
+							<td><label for="pic">Person-in-Charge</label></td>
+							<td><input type="text" id="pic" name="i_PIC" required></td>
+						</tr>
+						<tr>
+							<td colspan="2" style="text-align: right;">
+								<button class="btn btn-primary" type="submit" id="saveButton" name="add_item">SAVE</button>
+								<button class="btn btn-danger" type="button" id="cancelButton">CANCEL</button>
+							</td>
+						</tr>
+					</table>
+				</form>
 			</div>
+			</div>
+
 
 		</div>
 
