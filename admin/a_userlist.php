@@ -12,6 +12,39 @@
 	  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 
+   <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+			text-align: left;
+			color: black;
+        }
+
+        /* Close button style */
+        .close {
+            color: #888;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer; /* Add this line to make the "×" clickable */
+        }
+    </style>
+	
 </head>
 <body>
 
@@ -67,9 +100,8 @@
 			<!-- Add User button -->
 			<button id="addUser" class="add-button"><i class="fas fa-plus"></i> Add User</button>
 
-			<div id="sidebar">
+			<!-- <div id="sidebar">
 				<form id="sidebarForm" action="../class/add.php" method="post">
-				<!-- <h4 class="alert bg-success" style="text-align: left;">Add User</h4> -->
 
 					<br><br><br>
 					<label for="userid">Staff/Student No.</label>
@@ -108,6 +140,53 @@
 						CANCEL
 					</button>
 				</form>
+			</div> -->
+
+			<!-- Add User Modal -->
+			<div id="addUserModal" class="modal">
+				<div class="modal-content">
+					<span class="close" id="closeModal">&times;</span>
+					<h4 class="alert bg-success">Add User</h4>
+					
+					<form id="sidebarForm" action="../class/add.php" method="post">
+
+					<label for="userid">Staff/Student No.</label>
+					<input type="text" id="userid" name="u_id" required><br>
+
+					<label for="name">Name</label>
+					<input type="text" id="name" name="u_name" required><br>
+
+					<label for="contactno">Contact No.</label>
+					<input type="text" id="contactno" name="u_contact" required><br>
+
+					<label for="userType">User Type</label>
+					
+					<select id="userType" name="u_type">
+						<option disabled selected>Select type</option>
+						<option value="1">Staff/Lecturer</option>
+						<option value="2">Student</option>
+					</select><br>
+
+					<label for="genderType">Gender</label>
+					
+					<select id="genderType" name="u_gender">
+						<option disabled selected>Select gender</option>
+						<option value="1">Male</option>
+						<option value="2">Female</option>
+					</select><br>
+
+					<label for="password">Password</label>
+					<input type="password" id="password" name="u_password" required><br>
+
+					<button class="btn btn-primary btn-block" type="submit" id="saveButton" name="add_user">
+						SAVE
+					</button><br>
+
+					<button class="btn btn-danger btn-block cancel_button" type="button" id="cancelButton">
+						CANCEL
+					</button>
+				</form>
+				</div>
 			</div>
 
 		</div>
@@ -200,30 +279,41 @@
 			]
 		});
 
-// // Handle "Deactivate" button click
-//     $('#userTable').on('click', '.deactivate-action', function(e) {
-//         e.preventDefault(); // Prevent the default link behavior
-
-//         var userId = $(this).attr('href').split('=')[1]; // Extract user ID from the link
-
-//         // Send an AJAX request to update the user's status
-//         $.ajax({
-//             type: 'POST',
-//             url: '../class/update.php',
-//             data: { u_id: userId },
-//             success: function(response) {
-//                 // Handle the response from the server (e.g., show a success message)
-//                 alert(response);
-//                 // You may also update the user's status in the table without refreshing the page
-//             },
-//             error: function(error) {
-//                 // Handle errors
-//                 console.error('Error:', error);
-//             }
-//         });
-//     });
-
 });
+</script>
+
+<script>
+    // Get references to the modal and the button to open/close it
+    var modal = document.getElementById('addUserModal');
+    var openModalButton = document.getElementById('addUser');
+    var closeModalButton = document.getElementById('closeModal');
+	var cancelButton = document.getElementById('cancelButton');
+
+    // Function to open the modal
+    function openModal() {
+        modal.style.display = 'block';
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        modal.style.display = 'none';
+		form.reset(); // Reset the form
+    }
+
+    // Event listeners to open and close the modal
+    openModalButton.addEventListener('click', openModal);
+    closeModalButton.addEventListener('click', closeModal);
+
+	// Event listener to close the modal when clicking the "Cancel" button
+    cancelButton.addEventListener('click', closeModal);
+
+	// Close the modal when clicking outside the modal content
+    window.addEventListener('click', function(event) {
+        if (event.target == addUserModal) {
+            closeModal();
+        }
+    });
+
 </script>
 
 </body>

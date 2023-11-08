@@ -51,7 +51,7 @@ class add {
         }
     }
 
-    public function addItem($type, $brand, $modelNo, $quantity, $pic) {
+    public function addItem($type, $brand, $modelNo, $quantity, $pbNo, $vendor, $warranty, $datepurchase, $serialNo, $pic) {
 
         global $pdo; 
 
@@ -60,8 +60,9 @@ class add {
         $sql_count = $sql->rowCount();
 
         if ($sql_count <= 0) {
-            $insert = $pdo->prepare('INSERT INTO item (i_type, i_brand, i_modelNo, i_quantity, i_PIC, i_status) VALUES (?, ?, ?, ?, ?, 1)');
-            $insert->execute(array($type, $brand, $modelNo, $quantity, $pic));
+            $insert = $pdo->prepare('INSERT INTO item (i_type, i_brand, i_modelNo, i_quantity, i_PBno, i_vendor, i_warranty, i_datepurchase, i_serialno, i_PIC, i_status) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)');
+            $insert->execute(array($type, $brand, $modelNo, $quantity, $pbNo, $vendor, $warranty, $datepurchase, $serialNo, $pic));
             $insert_count = $insert->rowCount();
 
             if ($insert_count > 0) {
@@ -124,7 +125,8 @@ class add {
         }
     }
 
-    public function displayNotification($notification) {
+    
+        public function displayNotification($notification) {
         echo '<script>alert("' . $notification . '");
         window.history.back();
         </script>';
@@ -139,7 +141,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (isset($_POST["add_room"])) {
         $notification = $add_function->addRoom($_POST["room_name"]);
     } elseif (isset($_POST["add_item"])) {
-        $notification = $add_function->addItem($_POST["i_type"], $_POST["i_brand"], $_POST["i_modelNo"], $_POST["i_quantity"], $_POST["i_PIC"]);
+        $notification = $add_function->addItem($_POST["i_type"], $_POST["i_brand"], $_POST["i_modelNo"], $_POST["i_quantity"], $_POST["i_PBno"], $_POST["i_vendor"], 
+        $_POST["i_warranty"], $_POST["i_datepurchase"], $_POST["i_serialno"], $_POST["i_PIC"]);
     } elseif (isset($_POST["add_user"])) {
         $notification = $add_function->addUser($_POST["u_id"], $_POST["u_name"], $_POST["u_contact"], $_POST["u_type"], $_POST["u_gender"], $_POST["u_password"]);
     } elseif (isset($_POST["register_user"])) {
@@ -149,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Display the notification
     $add_function->displayNotification($notification);
 
-    // Close the database connection
-    // $add_function->closeConnection();
+    // Close the database pdoection
+    // $add_function->closepdoection();
 }
 ?>

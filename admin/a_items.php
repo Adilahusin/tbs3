@@ -12,6 +12,39 @@
    	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 
+	<style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+			text-align: left;
+			color: black;
+        }
+
+        /* Close button style */
+        .close {
+            color: #888;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer; /* Add this line to make the "×" clickable */
+        }
+    </style>
+
 </head>
 <body>
 
@@ -68,7 +101,7 @@
 			<button id="addItem"><i class="fas fa-plus"></i> Add Item</button>
 
 			<!-- Add Item Sidebar -->
-			<div id="sidebar">
+			<!-- <div id="sidebar">
 				<form id="sidebarForm" action="../class/add.php" method="post">
 				<br><br>
 				<h4 class="alert bg-success" style="text-align: left;">Add Item</h4>
@@ -85,6 +118,21 @@
 					<label for="quantity">Quantity</label>
 					<input type="int" id="quantity" name="i_quantity" required><br>
 
+					<label for="pbNo">PB No.</label>
+					<input type="text" id="pbNo" name="i_PBno"><br>
+
+					<label for="vendor">Vendor</label>
+					<input type="text" id="vendor" name="i_vendor" required><br>
+
+					<label for="warranty">Warranty (Number only)</label>
+					<input type="int" id="warranty" name="i_warranty" required><br>
+
+					<label for="datePurchase">Date Purchase</label>
+					<input type="text" id="datePurchase" name="i_datepurchase" required><br>
+
+					<label for="serialNo">Serial No.</label>
+					<input type="text" id="serialno" name="i_serialno" required><br>
+
 					<label for="pic">Person-in-Charge</label>
 					<input type="text" id="pic" name="i_PIC" required><br><br>
 
@@ -96,7 +144,57 @@
 						CANCEL
 					</button>
 				</form>
+			</div> -->
+
+			<!-- Add Item Modal -->
+			<div id="addItemModal" class="modal">
+				<div class="modal-content">
+					<span class="close" id="closeModal">&times;</span>
+					<h4 class="alert bg-success">Add Item</h4>
+					
+					<form id="sidebarForm" action="../class/add.php" method="post">
+
+					<label for="type">Type</label>
+					<input type="text" id="type" name="i_type" required placeholder="eg: LCD"><br>
+
+					<label for="brand">Brand</label>
+					<input type="text" id="brand" name="i_brand" required><br>
+
+					<label for="modelNo">Model No.</label>
+					<input type="text" id="modelNo" name="i_modelNo" required><br>
+
+					<label for="quantity">Quantity</label>
+					<input type="int" id="quantity" name="i_quantity" required><br>
+
+					<label for="pbNo">PB No.</label>
+					<input type="text" id="pbNo" name="i_PBno" required><br>
+
+					<label for="vendor">Vendor</label>
+					<input type="text" id="vendor" name="i_vendor" required><br>
+
+					<label for="warranty">Warranty (Number only)</label>
+					<input type="int" id="warranty" name="i_warranty" required><br>
+
+					<label for="datePurchase">Date Purchase</label>
+					<input type="text" id="datePurchase" name="i_datepurchase" required><br>
+
+					<label for="serialNo">Serial No.</label>
+					<input type="text" id="serialno" name="i_serialno" required><br>
+
+					<label for="pic">Person-in-Charge</label>
+					<input type="text" id="pic" name="i_PIC" required><br><br>
+
+					<button class="btn btn-primary btn-block" type="submit" id="saveButton" name="add_item">
+						SAVE
+					</button><br>
+
+					<button class="btn btn-danger btn-block cancel_button" type="button" id="cancelButton">
+						CANCEL
+					</button>
+				</form>
+				</div>
 			</div>
+
 		</div>
 
 		<div class="row">
@@ -161,29 +259,6 @@
 		</div>
 		</div>
 
-<!-- For sidebar -->
-<script>
-        $(document).ready(function() {
-
-            $("#addItem").click(function() {
-                $("#sidebar").css("right", "0");
-                $("#content").css("margin-right", "250px");
-            });
-			
-            $("#cancelButton").click(function() {
-                $("#sidebar").css("right", "-300px");
-                $("#content").css("margin-right", "0");
-
-				// Clear input fields when the sidebar is closed
-				$("#type").val("");
-				$("#brand").val("");
-				$("#modelNo").val("");
-				$("#quantity").val("");
-				$("#pic").val("");
-            });
-        });
-</script>
-
 <!-- For sorting the data in table -->
 <script>
 	$(document).ready(function() {
@@ -195,6 +270,52 @@
 	});
 </script>
 
+<script>
+    // Get references to the modal and the button to open/close it
+    var modal = document.getElementById('addItemModal');
+    var openModalButton = document.getElementById('addItem');
+    var closeModalButton = document.getElementById('closeModal');
+	var cancelButton = document.getElementById('cancelButton');
+
+	// Get references to the form elements
+    var form = document.getElementById('sidebarForm');
+    var typeInput = document.getElementById('type');
+    var brandInput = document.getElementById('brand');
+    var modelNoInput = document.getElementById('modelNo');
+    var quantityInput = document.getElementById('quantity');
+    var pbNoInput = document.getElementById('pbNo');
+    var vendorInput = document.getElementById('vendor');
+    var warrantyInput = document.getElementById('warranty');
+    var datePurchaseInput = document.getElementById('datePurchase');
+    var serialNoInput = document.getElementById('serialno');
+    var picInput = document.getElementById('pic');
+
+    // Function to open the modal
+    function openModal() {
+        modal.style.display = 'block';
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        modal.style.display = 'none';
+		form.reset(); // Reset the form
+    }
+
+    // Event listeners to open and close the modal
+    openModalButton.addEventListener('click', openModal);
+    closeModalButton.addEventListener('click', closeModal);
+
+	// Event listener to close the modal when clicking the "Cancel" button
+    cancelButton.addEventListener('click', closeModal);
+
+	// Close the modal when clicking outside the modal content
+    window.addEventListener('click', function(event) {
+        if (event.target == addItemModal) {
+            closeModal();
+        }
+    });
+
+</script>
 
 </body>
 </html>

@@ -6,6 +6,63 @@
 
 <!DOCTYPE html>
 <html>
+<head>
+<style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+        	margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+			text-align: left;
+			color: black;
+			width: 50%;
+        }
+
+        /* Close button style */
+        .close {
+            color: #888;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer; /* make the "×" clickable */
+        }
+
+		button.btn.btn-primary.btn-block {
+    		width: auto;
+			margin-left: auto;
+			display: block;
+		}
+
+		.form-group {
+			display: block; /* Display label and input on separate lines */
+			width: 100%; /* Make the label and input full width of the container */
+		}
+
+		.form-group label {
+			display: block; /* Display the label on its line */
+			margin-bottom: 7px; /* space between label and input */
+		}
+
+		.form-group input, .form-group select, .form-group textarea {
+			width: 100%; 
+		}
+
+
+    </style>
+</head>
 <body>
 
 	<!-- Sidebar -->
@@ -71,56 +128,80 @@
 
         </div>
 
-			<!-- Add Quantity Sidebar -->
-			<div id="sidebar">
-				<form id="sidebarForm" action="../class/add.php" method="post">
-				<br><br>
-				<h4 class="alert bg-success" style="text-align: left;">Add Quantity</h4>
-
-					<label for="quantity">Quantity</label>
-					<input type="int" id="quantity" name="i_quantity" required><br>
-
-					<label for="pic">Person-in-Charge</label>
-					<input type="text" id="pic" name="i_PIC" required><br><br>
-
-					<button class="btn btn-primary btn-block" type="submit" id="saveButton" name="add_quantity">
-						SAVE
-					</button><br>
-
-					<button class="btn btn-danger btn-block cancel_button" type="button" id="cancelButton">
-						CANCEL
-					</button>
-				</form>
-			</div>
-
-		</div>
-
-		<!-- <div class="row">
-		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<table class="table table_item_info" id="itemInfoTable">
-						<thead>
-							<tr>
-								<th>Type</th>
-								<th>Brand</th>
-								<th>Model No</th>
-								<th>Quantity</th>
-								<th>Date Added</th>
-								<th>Status
-									<br><sub>1=Active, 2=Inactive</sub></br>
-								</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-
-						</tbody>
-					</table>				
+			<!-- Add Qty Modal -->
+			<div id="addQtyModal" class="modal">
+				<div class="modal-content">
+					<span class="close" id="closeAddQtyModal">&times;</span>
+					<h4 class="alert bg-success">Add Quantity</h4>
+					<form>
+						<div class="form-group">
+							<label for="quantity">Quantity</label>
+							<input type="text" id="quantity" name="i_quantity">
+						</div>
+						<button class="btn btn-primary btn-block" type="submit" id="" name="">
+							SAVE
+						</button>
+					</form>
 				</div>
 			</div>
+
+			<!-- Edit Item Modal -->
+			<div id="editItemModal" class="modal">
+				<div class="modal-content">
+					<span class="close" id="closeEditItemModal">&times;</span>
+					<h4 class="alert bg-success">Edit Item</h4>
+					<form>
+						<div class="form-group">
+							<label for="itemDescription">Item Description:</label>
+							<input type="text" id="itemDescription" name="item_description">
+						</div>
+						<div class="form-group">
+							<label for="quantity">Quantity:</label>
+							<input type="number" id="quantity" name="quantity" required>
+						</div>
+						<div class="form-group">
+							<label for="remarks">Remarks:</label>
+							<textarea id="remarks" name="remarks"></textarea>
+						</div>
+						<button class="btn btn-primary btn-block" type="submit" id="" name="">
+							SAVE
+						</button>
+					</form>
+				</div>
+			</div>
+
+			<!-- Change Status Modal -->
+			<div id="changeStatusModal" class="modal">
+				<div class="modal-content">
+					<span class="close" id="closeChangeStatusModal">&times;</span>
+					<h4 class="alert bg-success">Change Status</h4>
+					<form>
+						<div class="form-group">
+							<label for="status">Status:</label>
+							<select id="status" name="status" required>
+								<option disabled selected>Select status</option>
+								<option value="old">Old</option>
+								<option value="lost">Lost</option>
+								<option value="damage">Damage</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="quantity">Quantity:</label>
+							<input type="number" id="quantity" name="quantity" required>
+						</div>
+						<div class="form-group">
+							<label for="remarks">Remarks:</label>
+							<textarea id="remarks" name="remarks"></textarea>
+						</div>
+						<button class="btn btn-primary btn-block" type="submit" id="" name="">
+							SAVE
+						</button>
+					</form>
+				</div>
+			</div>
+
+
 		</div>
-		</div> -->
 
 		<div class="row">
 			<div class="col-lg-12">
@@ -175,29 +256,66 @@
 
 						</table>
 					</div>
-				</div><!-- panel -->
-			</div><!-- panel -->
+				</div>
+			</div>
 		</div>
 
-<!-- For sidebar -->
+		
+<!-- Modal -->
 <script>
-        $(document).ready(function() {
+    // Get references to the modals and the buttons to open/close them
+    var addQtyModal = document.getElementById('addQtyModal');
+    var editItemModal = document.getElementById('editItemModal');
+    var changeStatusModal = document.getElementById('changeStatusModal');
+    
+    var openAddQtyButton = document.getElementById('addQty');
+    var openEditItemButton = document.getElementById('editItem');
+    var openChangeStatusButton = document.getElementById('changeStatus');
+    
+    var closeAddQtyModalButton = document.getElementById('closeAddQtyModal');
+    var closeEditItemModalButton = document.getElementById('closeEditItemModal');
+    var closeChangeStatusModalButton = document.getElementById('closeChangeStatusModal');
 
-            $("#addQty").click(function() {
-                $("#sidebar").css("right", "0");
-                $("#content").css("margin-right", "250px");
-            });
-			
-            $("#cancelButton").click(function() {
-                $("#sidebar").css("right", "-300px");
-                $("#content").css("margin-right", "0");
+    // Function to open the addQty modal
+    function openAddQtyModal() {
+        addQtyModal.style.display = 'block';
+    }
 
-				// Clear input fields when the sidebar is closed
-				$("#quantity").val("");
-				$("#pic").val("");
-            });
-        });
+    // Function to open the editItem modal
+    function openEditItemModal() {
+        editItemModal.style.display = 'block';
+    }
+
+    // Function to open the changeStatus modal
+    function openChangeStatusModal() {
+        changeStatusModal.style.display = 'block';
+    }
+
+    // Function to close any modal
+    function closeModal() {
+        addQtyModal.style.display = 'none';
+        editItemModal.style.display = 'none';
+        changeStatusModal.style.display = 'none';
+    }
+
+    // Event listeners to open the modals
+    openAddQtyButton.addEventListener('click', openAddQtyModal);
+    openEditItemButton.addEventListener('click', openEditItemModal);
+    openChangeStatusButton.addEventListener('click', openChangeStatusModal);
+
+    // Event listeners to close the modals with the 'x' icons
+    closeAddQtyModalButton.addEventListener('click', closeModal);
+    closeEditItemModalButton.addEventListener('click', closeModal);
+    closeChangeStatusModalButton.addEventListener('click', closeModal);
+
+    // Close the modal when clicking outside the modal content
+    window.addEventListener('click', function(event) {
+        if (event.target == addQtyModal || event.target == editItemModal || event.target == changeStatusModal) {
+            closeModal();
+        }
+    });
 </script>
+
 
 </body>
 </html>

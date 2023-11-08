@@ -36,43 +36,53 @@
 							</div>
 						</div>
 					</div>					
-				</div><!--/.row-->
+				</div>
 
-		<div style="width: 80%; margin: 0 auto;">
-			<!-- <div style="background-color: #c6c4fc; padding: 20px; border-radius: 20px;"> -->
-				
-				<div style="margin-bottom: 15px;">
+
+	<div class="panel-body">
+		<form class="form-horizontal client_reservation" action="" >
+				<fieldset>
+					<div style="width: 80%; margin: 0 auto;">
+
+				<div class="form-group" style="margin-bottom: 15px;">
 					<label for="reserve_item" style="color: black; font-weight: 400;">Item:</label>
 					<select class="form-control" id="reserve_item" name="reserve_item" required></select>
 				</div>
 
-				<div style="margin-bottom: 15px;"> 
+				<div class="form-group" style="margin-bottom: 15px;"> 
 					<label for="reserved_date" style="color: black; font-weight: 400;">Date:</label>
 					<input type="date" class="form-control datepicker" id="reserved_date" name="reserved_date" required>
 				</div>
 	
-				<div style="margin-bottom: 15px;">
+				<div class="form-group" style="margin-bottom: 15px;">
 					<label for="reserved_time" style="color: black; font-weight: 400;">Time:</label>
 					<input type="time" class="form-control" id="reserved_time" name="reserved_time" required>
+					<input type="hidden" name="client_id" value="<?php echo $_SESSION['user_id']; ?>">
+					<!-- store client_id in user_id session -->
 				</div>
 	
-				<div style="margin-bottom: 15px;">
+				<div class="form-group" style="margin-bottom: 15px;">
 					<label for="reserve_room" style="color: black; font-weight: 400;">Select Room/Lab:</label>
 					<select class="form-control" id="reserve_room" name="reserve_room" required></select>
 				</div>
 	
-				<div style="margin-bottom: 15px;">
+				<div class="form-group" style="margin-bottom: 15px;">
 					<label for="time_limit" style="color: black; font-weight: 400;">Time Limit:</label>
 					<input type="datetime-local" class="form-control" id="time_limit" name="time_limit" value="">
+				</div>		
+
+					</div>
 				</div>
-				
-			</div>
-		<!-- </div> -->
+			</fieldset>
+		</form>
+	</div>
 
 		<!-- Button with Inline CSS -->
-		<button id="bottom-right-button" class="btn btn-primary" style="border: none; position: relative; left: 79%; 
-		transform: translateX(50%); margin-top: 15px;  background-color: #7370c9;"onclick="alert('Reserve button clicked!')">Reserve</button>
-			
+		<button id="bottom-right-button" class="btn btn-primary" 
+		style="border: none; position: relative; left: 79%; transform: translateX(50%); margin-top: 15px;  background-color: #7370c9;"
+		>Reserve</button>
+		
+		<br><br>
 			
 <?php include '../user/footer.php'; ?>
 

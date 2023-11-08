@@ -12,6 +12,49 @@
 	  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 
+   <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+			text-align: left;
+			color: black;
+        }
+
+        /* Close button style */
+        .close {
+            color: #888;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer; /* Add this line to make the "×" clickable */
+        }
+
+		.form-group {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.form-group-half {
+			width: 70%; 
+		}
+		
+    </style>
+	
 </head>
 <body>
 
@@ -67,11 +110,12 @@
 			<!-- Add User button -->
 			<button id="addUser" class="add-button"><i class="fas fa-plus"></i> Add User</button>
 
-			<div id="sidebar">
+			<!-- Add User Modal -->
+			<div id="addUserModal" class="modal">
+			<div class="modal-content">
+				<span class="close" id="closeModal">&times;</span>
+				<h4 class="alert bg-success">Add User</h4>
 				<form id="sidebarForm" action="../class/add.php" method="post">
-				<!-- <h4 class="alert bg-success" style="text-align: left;">Add User</h4> -->
-
-					<br><br><br>
 					<label for="userid">Staff/Student No.</label>
 					<input type="text" id="userid" name="u_id" required><br>
 
@@ -81,33 +125,36 @@
 					<label for="contactno">Contact No.</label>
 					<input type="text" id="contactno" name="u_contact" required><br>
 
-					<label for="userType">User Type</label>
-					
-					<select id="userType" name="u_type">
-						<option disabled selected>Select type</option>
-						<option value="1">Staff/Lecturer</option>
-						<option value="2">Student</option>
-					</select><br>
-
-					<label for="genderType">Gender</label>
-					
-					<select id="genderType" name="u_gender">
-						<option disabled selected>Select gender</option>
-						<option value="1">Male</option>
-						<option value="2">Female</option>
-					</select><br>
+					<!-- Gender and Select Type fields wrapped in a container -->
+					<div class="form-group">
+						<div class="form-group-half">
+							<label for="userType">User Type</label>
+							<select id="userType" name="u_type">
+								<option disabled selected>Select type</option>
+								<option value="1">Staff/Lecturer</option>
+								<option value="2">Student</option>
+							</select>
+						</div>
+						<div class="form-group-half">
+							<label for="genderType">Gender</label>
+							<select id="genderType" name="u_gender">
+								<option disabled selected>Select gender</option>
+								<option value="1">Male</option>
+								<option value="2">Female</option>
+							</select>
+						</div>
+					</div>
 
 					<label for="password">Password</label>
 					<input type="password" id="password" name="u_password" required><br>
 
-					<button class="btn btn-primary btn-block" type="submit" id="saveButton" name="add_user">
-						SAVE
-					</button><br>
+					<div style="display: flex; justify-content: space-between;">
+						<button class="btn btn-primary" type="submit" id="saveButton" name="add_user">SAVE</button>
+						<button class="btn btn-danger" type="button" id="cancelButton">CANCEL</button>
+					</div>
 
-					<button class="btn btn-danger btn-block cancel_button" type="button" id="cancelButton">
-						CANCEL
-					</button>
 				</form>
+			</div>
 			</div>
 
 		</div>
@@ -115,22 +162,20 @@
 		<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-			<div class="panel-body">
-			<br><br>
-			<!-- id="userTable" -->
-			<table class="table table_user" id="userTable">
-				<thead>
-					<tr>
-						<th>Staff/Student ID</th>
-						<th>Name</th>
-						<th>Contact No.</th>
-						<th>Type
-							<br><sub>1=Staff, 2=Student</sub></br>
-						</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
+				<div class="panel-body"><br><br>
+				<table class="table table_user" id="userTable"> 
+					<thead>
+						<tr>
+							<th data-sort="id">Staff/Student ID</th>
+							<th data-sort="name">Name</th>
+							<th data-sort="contact">Contact No.</th>
+							<th data-sort="type">Type
+								<br><sub>1=Staff, 2=Student</sub></br>
+							</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+						<tbody>
 							<?php
 								// Check if the session variable exists
 								if (isset($_SESSION['user_data'])) {
@@ -166,9 +211,9 @@
 									}	
 							?>
 						</tbody>
-			</table>
-</div>
-
+					</table>
+					<!-- <li><a href="#" class="deactivate-action">Deactivate</a></li> -->
+				</div>
 			</div>
 		</div>
 	</div>
@@ -183,7 +228,7 @@
         });
 
         $("#cancelButton").click(function() {
-            $("#sidebar").css("right", "-300px");
+        	$("#sidebar").css("right", "-300px");
             $("#content").css("margin-right", "0");
 
 			// Clear input fields when the sidebar is closed
@@ -197,39 +242,47 @@
 
 		// For sorting the data in table
 		$('#userTable').DataTable({
-		"columnDefs": [
-			{ "targets": [0, 3], "type": "num" }
-		]
-		});
-	
-		// Delete User Action
-		$(document).on('click', '.delete-action', function(){
-			var user_id = $(this).attr("id");
-			if(confirm("Are you sure you want to delete this?"))
-			{
-			$.ajax({
-				url:"../class/delete.php",
-				method:"POST",
-				data:{user_id:user_id},
-				success:function(data){
-					alert(data);
-					dataTable.ajax.reload();
-				}
-			});
-			} else {
-				return false; 
-			}
+			"columnDefs": [
+				{ "targets": [0, 3], "type": "num" } // Specify columns with numeric data
+			]
 		});
 
-
-
-
-
-
-	});
+});
 </script>
 
+<script>
+    // Get references to the modal and the button to open/close it
+    var modal = document.getElementById('addUserModal');
+    var openModalButton = document.getElementById('addUser');
+    var closeModalButton = document.getElementById('closeModal');
+	var cancelButton = document.getElementById('cancelButton');
 
+    // Function to open the modal
+    function openModal() {
+        modal.style.display = 'block';
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        modal.style.display = 'none';
+		form.reset(); // Reset the form
+    }
+
+    // Event listeners to open and close the modal
+    openModalButton.addEventListener('click', openModal);
+    closeModalButton.addEventListener('click', closeModal);
+
+	// Event listener to close the modal when clicking the "Cancel" button
+    cancelButton.addEventListener('click', closeModal);
+
+	// Close the modal when clicking outside the modal content
+    window.addEventListener('click', function(event) {
+        if (event.target == addUserModal) {
+            closeModal();
+        }
+    });
+
+</script>
 
 </body>
 </html>
