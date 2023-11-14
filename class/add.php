@@ -125,12 +125,15 @@ class add {
         }
     }
 
-    
-        public function displayNotification($notification) {
+
+
+
+    public function displayNotification($notification) {
         echo '<script>alert("' . $notification . '");
         window.history.back();
         </script>';
     }
+
 }
 
 $add_function = new add();
@@ -141,13 +144,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (isset($_POST["add_room"])) {
         $notification = $add_function->addRoom($_POST["room_name"]);
     } elseif (isset($_POST["add_item"])) {
-        $notification = $add_function->addItem($_POST["i_type"], $_POST["i_brand"], $_POST["i_modelNo"], $_POST["i_quantity"], $_POST["i_PBno"], $_POST["i_vendor"], 
-        $_POST["i_warranty"], $_POST["i_datepurchase"], $_POST["i_serialno"], $_POST["i_PIC"]);
+        $notification = $add_function->addItem($_POST["i_type"], $_POST["i_brand"], $_POST["i_modelNo"], $_POST["i_quantity"], $_POST["i_PBno"], 
+        $_POST["i_vendor"], $_POST["i_warranty"], $_POST["i_datepurchase"], $_POST["i_serialno"], $_POST["i_PIC"]);
     } elseif (isset($_POST["add_user"])) {
-        $notification = $add_function->addUser($_POST["u_id"], $_POST["u_name"], $_POST["u_contact"], $_POST["u_type"], $_POST["u_gender"], $_POST["u_password"]);
+        $notification = $add_function->addUser($_POST["u_id"], $_POST["u_name"], $_POST["u_contact"], $_POST["u_type"], $_POST["u_gender"], 
+        $_POST["u_password"]);
     } elseif (isset($_POST["register_user"])) {
-        $notification = $add_function->registerUser($_POST["u_id"], $_POST["u_name"], $_POST["u_contact"], $_POST["u_type"], $_POST["u_gender"], $_POST["u_password"]);
-    }
+        $notification = $add_function->registerUser($_POST["u_id"], $_POST["u_name"], $_POST["u_contact"], $_POST["u_type"], 
+        $_POST["u_gender"], $_POST["u_password"]);
+    } 
 
     // Display the notification
     $add_function->displayNotification($notification);

@@ -1,6 +1,6 @@
 <?php
 
-require_once "../class/configure/config.php";
+include '../class/configure/config.php';
 
 try {
     // Retrieve item data with i_brand
@@ -17,8 +17,8 @@ try {
     ];
 
     echo json_encode($data);
-
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
+
 ?>

@@ -98,9 +98,6 @@
 			</div>
 		</div><!-- /.container-fluid -->
 	</nav>
-    
-</body>
-</html>
 
 	<!-- Content -->
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
@@ -211,53 +208,8 @@
 	<script src="../assets/js/bootstrap-datepicker.js"></script>
 	<script src="../assets/js/custom.js"></script>
 
-	<script>
-    // Function to fetch and update the total quantity of items
-    function updateTotalQuantity() {
-        $.ajax({
-            url: '../class/calculate.php', // URL to fetch total quantity of items
-            dataType: 'json',
-            success: function(data) {
-                $('#totalQuantity').text(data.totalQuantity);
-            },
-            error: function() {
-                $('#totalQuantity').text('-');
-            }
-        });
-    }
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="./js/dashboard.js"></script>
 
-    // Function to fetch and update the total number of users
-    function updateTotalUsers() {
-        $.ajax({
-            url: '../class/calculate.php', // URL to fetch total number of users
-            dataType: 'json',
-            success: function(data) {
-                $('#totalUsers').text(data.totalUsers);
-            },
-            error: function() {
-                $('#totalUsers').text('-');
-            }
-        });
-    }
-
-	// Function to fetch and update the total number of users
-    function updateTotalAdmin() {
-        $.ajax({
-            url: '../class/calculate.php', // URL to fetch total number of users
-            dataType: 'json',
-            success: function(data) {
-                $('#totalAdmin').text(data.totalAdmin);
-            },
-            error: function() {
-                $('#totalAdmin').text('-');
-            }
-        });
-    }
-
-    // Call both update functions when the page loads
-    $(document).ready(function() {
-        updateTotalQuantity();
-        updateTotalUsers();
-		updateTotalAdmin();
-    });
-</script>
+	</body>
+</html>

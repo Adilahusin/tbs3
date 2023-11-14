@@ -38,90 +38,54 @@
 					</div>					
 				</div>
 
+<div class="panel-body">
+	<form id="bookingForm">
+		<fieldset>
+			<div style="width: 80%; margin: 0 auto;">
 
-	<div class="panel-body">
-		<form class="form-horizontal client_reservation" action="" >
-				<fieldset>
-					<div style="width: 80%; margin: 0 auto;">
+			<div class="form-group" style="margin-bottom: 15px;">
+				<label for="itemType" style="color: black; font-weight: 400;">Item:</label>
+				<select class="form-control" id="itemType" name="itemType" required></select>
+			</div>
 
-				<div class="form-group" style="margin-bottom: 15px;">
-					<label for="reserve_item" style="color: black; font-weight: 400;">Item:</label>
-					<select class="form-control" id="reserve_item" name="reserve_item" required></select>
-				</div>
+			<div class="form-group" style="margin-bottom: 15px;">
+				<label for="roomName" style="color: black; font-weight: 400;">Room Name:</label>
+				<select class="form-control" id="roomName" name="roomName" required></select>
+			</div>
 
-				<div class="form-group" style="margin-bottom: 15px;"> 
-					<label for="reserved_date" style="color: black; font-weight: 400;">Date:</label>
-					<input type="date" class="form-control datepicker" id="reserved_date" name="reserved_date" required>
-				</div>
-	
-				<div class="form-group" style="margin-bottom: 15px;">
-					<label for="reserved_time" style="color: black; font-weight: 400;">Time:</label>
-					<input type="time" class="form-control" id="reserved_time" name="reserved_time" required>
-					<input type="hidden" name="client_id" value="<?php echo $_SESSION['user_id']; ?>">
-					<!-- store client_id in user_id session -->
-				</div>
-	
-				<div class="form-group" style="margin-bottom: 15px;">
-					<label for="reserve_room" style="color: black; font-weight: 400;">Select Room/Lab:</label>
-					<select class="form-control" id="reserve_room" name="reserve_room" required></select>
-				</div>
-	
-				<div class="form-group" style="margin-bottom: 15px;">
-					<label for="time_limit" style="color: black; font-weight: 400;">Time Limit:</label>
-					<input type="datetime-local" class="form-control" id="time_limit" name="time_limit" value="">
-				</div>		
+			<div class="form-group" style="margin-bottom: 15px;">
+				<label for="reserveDate" style="color: black; font-weight: 400;">Reservation Date:</label>
+				<input class="form-control" type="date" id="reserveDate" name="reserveDate" required>
+			</div>
 
-					</div>
-				</div>
-			</fieldset>
-		</form>
-	</div>
+			<div class="form-group" style="margin-bottom: 15px;">
+				<label for="reserveTime" style="color: black; font-weight: 400;">Reservation Time:</label>
+				<input class="form-control" type="time" id="reserveTime" name="reserveTime" required>
+			</div>
 
-		<!-- Button with Inline CSS -->
-		<button id="bottom-right-button" class="btn btn-primary" 
-		style="border: none; position: relative; left: 79%; transform: translateX(50%); margin-top: 15px;  background-color: #7370c9;"
-		>Reserve</button>
+			<div class="form-group" style="margin-bottom: 15px;">
+				<label for="timeLimit" style="color: black; font-weight: 400;">Time Limit:</label>
+				<input class="form-control" type="datetime-local" id="timeLimit" name="timeLimit" required>
+			</div>
 		
-		<br><br>
+			</div>
+		</fieldset>
+	</form>
+</div>
+
+<button type="button" onclick="book()" id="bottom-right-button" class="btn btn-primary" 
+		style="border: none; position: relative; left: 78%; transform: translateX(50%); margin-top: 15px;
+		background-color: #7370c9;">Reserve
+</button>
+
+<div id="result"></div>
+		
+<br><br>
 			
 <?php include '../user/footer.php'; ?>
 
-	</div>
+</div>
 </div>	
 
-
-<!-- JavaScript to populate the "Item" dropdown -->
-<script>
-fetch('../fetchdata/fetch_json.php')
-    .then(response => response.json())
-    .then(data => {
-        const select = document.getElementById('reserve_item');
-
-        // Loop through the data and create an <option> element for each item
-        data.items.forEach(item => {
-            const option = document.createElement('option');
-            option.value = item.i_type;
-            option.textContent = item.i_modelNo + " - " + item.i_type + " - " + item.i_brand + " - [" + item.i_quantity + " in stock]";
-            select.appendChild(option);
-        });
-    })
-    .catch(error => console.error(error));
-</script>
-
-<!-- JavaScript to populate the "Select Room/Lab" dropdown -->
-<script>
-fetch('../fetchdata/fetch_json.php') 
-    .then(response => response.json())
-    .then(data => {
-        const select = document.getElementById('reserve_room');
-
-        // Loop through the data and create an <option> element for each room
-        data.rooms.forEach(room => {
-            const option = document.createElement('option');
-            option.value = room.room_name;
-            option.textContent = room.room_name;
-            select.appendChild(option);
-        });
-    })
-    .catch(error => console.error(error));
-</script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="./js/reservation.js"></script>

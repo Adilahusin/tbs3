@@ -81,43 +81,10 @@
 		<button id="bottom-right-button" class="btn btn-primary" style="border: none; position: relative; left: 79%; 
 		transform: translateX(50%); margin-top: 15px;  background-color: #7370c9;"onclick="alert('Borrow button clicked!')">Borrow</button>
 		
-<?php include '../admin/footer.php'; ?>
-
-	</div>
+		</div>
 </div>
 
-<!-- JavaScript to populate the "Item" dropdown -->
-<script>
-fetch('../fetchdata/fetch_json.php')
-    .then(response => response.json())
-    .then(data => {
-        const select = document.getElementById('reserve_item');
+<?php include '../admin/footer.php'; ?>
 
-        // Loop through the data and create an <option> element for each item
-        data.items.forEach(item => {
-            const option = document.createElement('option');
-            option.value = item.i_type;
-            option.textContent = item.i_modelNo + " - " + item.i_type + " - " + item.i_brand + " - [" + item.i_quantity + " in stock]";
-            select.appendChild(option);
-        });
-    })
-    .catch(error => console.error(error));
-</script>
-
-<!-- JavaScript to populate the "Select Room/Lab" dropdown -->
-<script>
-fetch('../fetchdata/fetch_json.php') 
-    .then(response => response.json())
-    .then(data => {
-        const select = document.getElementById('reserve_room');
-
-        // Loop through the data and create an <option> element for each room
-        data.rooms.forEach(room => {
-            const option = document.createElement('option');
-            option.value = room.room_name;
-            option.textContent = room.room_name;
-            select.appendChild(option);
-        });
-    })
-    .catch(error => console.error(error));
-</script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="./js/new.js"></script>

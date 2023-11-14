@@ -148,25 +148,8 @@
 		</div>
 	</div>
 
-	<!-- Script for Tab navigation -->
-	<script>
-    function openTab(evt, tabName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].classList.remove("active");
-        }
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.classList.add("active");
-    }
-
-    // Open the default tab on page load
-    document.getElementById("defaultOpen").click();
-	</script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="./js/reservation.js"></script>
 	  
 
 </body>

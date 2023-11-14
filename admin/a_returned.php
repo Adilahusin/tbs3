@@ -86,16 +86,7 @@
 
 		<?php include '../admin/footer.php'; ?>
 
-<!-- For sorting the data in table -->
-<script>
-	$(document).ready(function() {
-		$('#returnedTable').DataTable({
-			"columnDefs": [
-				{ "targets": [2], "type": "num" } // Specify columns with numeric data
-			]
-		});
-	});
-</script>
+	<script src="./js/returned.js"></script>
 
 </body>
 </html>

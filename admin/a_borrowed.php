@@ -88,16 +88,7 @@
 			</div>
 		</div>
 
-<!-- For sorting the data in table -->
-<script>
-	$(document).ready(function() {
-		$('#borrowedTable').DataTable({
-			"columnDefs": [
-				{ "targets": [2], "type": "num" } // Specify columns with numeric data
-			]
-		});
-	});
-</script>
+	<script src="./js/borrowed.js"></script>
 
 </body>
 </html>
