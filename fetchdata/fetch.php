@@ -34,19 +34,16 @@ class display {
     }
 
     public function fetchItemData() {
-
         global $pdo;
-
+    
         $item = "SELECT * FROM item";
         $stmt_item = $pdo->query($item);
         $data_item = $stmt_item->fetchAll(PDO::FETCH_ASSOC);
         $_SESSION['item_data'] = $data_item;
+    
     }
+    
 
-    // public function closeConnection() {
-    //     // Close the database connection 
-    //     $pdo = null;
-    // }
 }
 
 // Usage:
@@ -57,6 +54,4 @@ $display_function->fetchUserData();
 $display_function->fetchRoomData();
 $display_function->fetchItemData();
 
-// close the database connection
-//$display_function->closeConnection();
 ?>

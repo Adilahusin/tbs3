@@ -1,4 +1,5 @@
 <?php
+	date_default_timezone_set('Asia/Kuala_Lumpur');
 	include 'header.php';
 ?>
 	<!-- Sidebar -->
@@ -47,44 +48,52 @@
 			</div>
 		</div><!--/.row-->
 
-		<div style="width: 80%; margin: 0 auto;">
-			<!-- <div style="background-color: #c6c4fc; padding: 20px; border-radius: 20px;"> -->
-				
-				<div style="margin-bottom: 15px;">
-					<label for="reserve_item" style="color: black; font-weight: 400;">Item:</label>
-					<select class="form-control" id="reserve_item" name="reserve_item" required></select>
+		<div class="panel-body">
+		<form id="bookingForm">
+			<fieldset>
+				<div style="width: 80%; margin: 0 auto;">
+
+				<div class="form-group" style="margin-bottom: 15px;">
+					<label for="itemType" style="color: black; font-weight: 400;">Item:</label>
+					<select class="form-control" id="itemType" name="itemType" required></select>
 				</div>
 
-				<div style="margin-bottom: 15px;">
-					<label for="reserved_date" style="color: black; font-weight: 400;">Date:</label>
-					<input type="date" class="form-control datepicker" id="reserved_date" name="reserved_date" required>
+				<div class="form-group" style="margin-bottom: 15px;">
+					<label for="roomName" style="color: black; font-weight: 400;">Room Name:</label>
+					<select class="form-control" id="roomName" name="roomName" required></select>
 				</div>
-	
-				<div style="margin-bottom: 15px;">
-					<label for="reserved_time" style="color: black; font-weight: 400;">Time:</label>
-					<input type="time" class="form-control" id="reserved_time" name="reserved_time" required>
-				</div>
-	
-				<div style="margin-bottom: 15px;">
-					<label for="reserve_room" style="color: black; font-weight: 400;">Select Room/Lab:</label>
-					<select class="form-control" id="reserve_room" name="reserve_room" required></select>
-				</div>
-	
-				<div style="margin-bottom: 15px;">
-					<label for="time_limit" style="color: black; font-weight: 400;">Time Limit:</label>
-					<input type="datetime-local" class="form-control" id="time_limit" name="time_limit" value="">
-				</div>
-			<!-- </div> -->
-		</div>
 
-		<!-- Button with Inline CSS -->
-		<button id="bottom-right-button" class="btn btn-primary" style="border: none; position: relative; left: 79%; 
-		transform: translateX(50%); margin-top: 15px;  background-color: #7370c9;"onclick="alert('Borrow button clicked!')">Borrow</button>
+				<div class="form-group" style="margin-bottom: 15px;">
+					<label for="reserveDate" style="color: black; font-weight: 400;">Reservation Date:</label>
+					<input class="form-control" type="date" id="reserveDate" name="reserveDate" required>
+				</div>
+
+				<div class="form-group" style="margin-bottom: 15px;">
+					<label for="reserveTime" style="color: black; font-weight: 400;">Reservation Time:</label>
+					<input class="form-control" type="time" id="reserveTime" name="reserveTime" required>
+					<!-- <input type="hidden" name="" value="<?php echo $_SESSION['user_id']; ?>"> -->
+				</div>
+
+				<div class="form-group" style="margin-bottom: 15px;">
+					<label for="timeLimit" style="color: black; font-weight: 400;">Time Limit:</label>
+					<input class="form-control" type="datetime-local" id="timeLimit" name="timeLimit" required>
+				</div>
+			
+				</div>
+		</fieldset>
+	</form>
+</div>
+
+<button type="button" onclick="book()" id="bottom-right-button" class="btn btn-primary" 
+		style="border: none; position: relative; left: 78%; transform: translateX(50%); margin-top: 15px;
+		background-color: #7370c9;">Reserve
+</button>
+
+<div id="result"></div>
 		
-		</div>
+</div>
 </div>
 
 <?php include '../admin/footer.php'; ?>
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="./js/new.js"></script>
+<script src="../user/js/reservation.js"></script>

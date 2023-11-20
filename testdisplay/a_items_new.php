@@ -1,5 +1,5 @@
 <?php
-	include 'header.php';
+	include '../admin/header.php';
 	include '../fetchdata/fetch.php';
 	include '../class/delete.php';
 ?>
@@ -210,52 +210,13 @@
 								<th>Action</th>
 							</tr>
 						</thead>
-						<tbody>
-						<?php
-							// Check if the session variable exists
-								if (isset($_SESSION['item_data'])) {
-								
-							// Retrieve the data from the session variable
-								$data_item = $_SESSION['item_data'];
-								//print_r ($data_item);
-
-								foreach ($data_item as $row) {
-									echo "<tr>";
-									echo "<td>" . $row['i_type'] . "</td>";
-									echo "<td>" . $row['i_brand'] . "</td>";
-									echo "<td>" . $row['i_modelNo'] . "</td>";
-									echo "<td>" . $row['i_quantity'] . "</td>";
-									
-									// Change format date
-									// $dateAdded = date("d-m-Y H:i:s", strtotime($row['i_entrydate']));
-									// echo "<td>" . $dateAdded . "</td>";
-
-									echo "<td>" . $row['i_status'] . "</td>";
-									echo '<td>
-										<div class="btn-group">
-										<a href="a_items_info.php">
-												<button type="button" class="btn btn-primary btn-block">
-													More Info
-												</button>
-											</a>
-										</div>
-										
-                                        </td>';
-                                        echo "</tr>";
-								}							
-							} else {
-								echo "Data not found.";
-							}
-						?>
-
-						</tbody>
 					</table>				
 				</div>
 			</div>
 		</div>
 		</div>
 
-		<script src="./js/items.js"></script>
+		<script src="../testdisplay/items_new.js"></script>
 
 </body>
 </html>

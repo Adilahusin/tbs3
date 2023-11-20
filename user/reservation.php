@@ -1,6 +1,8 @@
 <?php
 	date_default_timezone_set('Asia/Kuala_Lumpur');
 	include 'header.php';
+
+	echo json_encode($_SESSION['user_id']);
 ?>
 	<!-- Sidebar -->
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
@@ -61,6 +63,8 @@
 			<div class="form-group" style="margin-bottom: 15px;">
 				<label for="reserveTime" style="color: black; font-weight: 400;">Reservation Time:</label>
 				<input class="form-control" type="time" id="reserveTime" name="reserveTime" required>
+				<input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+				
 			</div>
 
 			<div class="form-group" style="margin-bottom: 15px;">
@@ -85,7 +89,7 @@
 <?php include '../user/footer.php'; ?>
 
 </div>
-</div>	
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="./js/reservation.js"></script>

@@ -24,23 +24,40 @@ function populateDropdowns() {
 
 // Function to book the reservation
 function book() {
+
+    console.log('Book function called'); // To ensure the function is being called
+
     var itemType = $('#itemType').val();
     var roomName = $('#roomName').val();
     var reserveDate = $('#reserveDate').val();
     var reserveTime = $('#reserveTime').val();
     var timeLimit = $('#timeLimit').val();
+    var userId = $('input[name="user_id"]').val(); // Fetching user_id from the hidden input field
+
+    // alert('User ID: ' + userId);
 
     $.ajax({
         type: 'POST',
         url: '../class/book.php',
-        data: { itemType: itemType, roomName: roomName, reserveDate: reserveDate, reserveTime: reserveTime, timeLimit: timeLimit },
+        data: {
+            itemType: itemType,
+            roomName: roomName,
+            reserveDate: reserveDate,
+            reserveTime: reserveTime,
+            timeLimit: timeLimit,
+            user_id: userId
+        },
         success: function(response) {
-            $('#result').html(response);
+            // Show an alert with the response
+            alert(response);
+
             // After successful booking, refresh the dropdowns
             populateDropdowns();
         }
     });
 }
+
+
 
 // Populate dropdowns on page load
 $(document).ready(function() {

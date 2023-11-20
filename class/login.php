@@ -4,7 +4,6 @@ include '../class/configure/config.php';
 class login {
 
     public function userLogin($u_id, $u_password) {
-
         global $pdo;
     
         $sql = "SELECT * FROM user WHERE u_id = :u_id";
@@ -17,15 +16,17 @@ class login {
             $storedPassword = $row['u_password'];
     
             if (password_verify($u_password, $storedPassword)) {
-
-                session_start(); 
-                // Store user information in session variables
-                $_SESSION['user_id'] = $row['u_id'];
-                $_SESSION['user_name'] = $row['u_name'];
-                echo "1";
+                if ($row['u_status'] == 1) { // Check user status
+                    session_start();
+                    $_SESSION['user_id'] = $row['u_id'];
+                    $_SESSION['user_name'] = $row['u_name'];
+                    echo "1";
     
-                header("Location: ../user/dashboard.php");
-                exit();
+                    header("Location: ../user/dashboard.php");
+                    exit();
+                } else {
+                    $this->showErrorMessage("Login failed. User is not active. Please go to Infostructure Department");
+                }
             } else {
                 $this->showErrorMessage("Login failed. Check your username and password.");
             }
@@ -33,6 +34,7 @@ class login {
             $this->showErrorMessage("Login failed. User not found.");
         }
     }
+    
     
     public function adminLogin($a_username, $a_password) {
         

@@ -49,27 +49,6 @@
 									<th>Remarks</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <?php
-                                // Check if the session variable exists
-                                if (isset($_SESSION['item_data'])) {
-
-                                    // Retrieve the data from the session variable
-                                    $data_item = $_SESSION['item_data'];
-
-                                    foreach ($data_item as $row) {
-                                        echo "<tr>";
-                                        echo "<td>" . $row['i_type'] . "</td>";
-                                        echo "<td>" . $row['i_brand'] . "</td>";
-                                        echo "<td>" . $row['i_modelNo'] . "</td>";
-                                        echo "<td>" . $row['i_quantity'] . "</td>";
-                                        echo "</tr>";
-                                    }
-                                } else {
-                                    echo "<tr><td colspan='4'>Data not found.</td></tr>";
-                                }
-                                ?>
-                            </tbody>
                         </table>
                     </div>
                 </div>
