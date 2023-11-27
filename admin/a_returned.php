@@ -24,9 +24,9 @@
 					<li><a class="" href="a_reservation.php">
 						<span class="fa-regular fa-calendar-days">&nbsp;</span> Reservation
 					</a></li>
-					<li><a class="" href="a_new.php">
+					<!-- <li><a class="" href="a_new.php">
 						<span class="fa fa-plus-circle">&nbsp;</span> New
-					</a></li>
+					</a></li> -->
 					<li><a class="" href="a_borrowed.php">
 						<span class="fa-solid fa-arrow-up-from-bracket">&nbsp;</span> Borrowed Items
 					</a></li>

@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Kuala_Lumpur');
 include '../class/configure/config.php';
 
 // print_r($_POST); // to check passing data from reservation.js
@@ -11,7 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $timeLimit = $_POST['timeLimit'];
     $userId = $_POST['user_id'];
 
-    $code = date('mdY').''.$userId;
+// echo date("d/m/Y H:i:s");
+
+    $code = date('dmYHis') . $userId;
+    // echo $code ;
 
     try {
         $pdo->beginTransaction();
@@ -59,7 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($reserveDate . ' ' . $reserveTime !== $timeLimit) {
                     $stmtReservation->execute();
                     $pdo->commit();
-                    $result = "Reservation successfully booked";
+                    $result = "Reservation successfully booked." ." - ".
+                    "Note that the accepted reservation items can only picked up a day before reservation date.";
                 } else {
                     $pdo->rollBack();
                     $result = "Error: Time Limit must be different from Reservation Date and Time.";

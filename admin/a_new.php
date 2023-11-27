@@ -54,6 +54,11 @@
 				<div style="width: 80%; margin: 0 auto;">
 
 				<div class="form-group" style="margin-bottom: 15px;">
+					<label for="userId" style="color: black; font-weight: 400;">Borrower:</label>
+					<select class="form-control" id="userId" name="userId" required></select>
+				</div>
+
+				<div class="form-group" style="margin-bottom: 15px;">
 					<label for="itemType" style="color: black; font-weight: 400;">Item:</label>
 					<select class="form-control" id="itemType" name="itemType" required></select>
 				</div>
@@ -71,7 +76,6 @@
 				<div class="form-group" style="margin-bottom: 15px;">
 					<label for="reserveTime" style="color: black; font-weight: 400;">Reservation Time:</label>
 					<input class="form-control" type="time" id="reserveTime" name="reserveTime" required>
-					<!-- <input type="hidden" name="" value="<?php echo $_SESSION['user_id']; ?>"> -->
 				</div>
 
 				<div class="form-group" style="margin-bottom: 15px;">
@@ -96,4 +100,5 @@
 
 <?php include '../admin/footer.php'; ?>
 
-<script src="../user/js/reservation.js"></script>
+<!-- <script src="../user/js/reservation.js"></script> -->
+<script src="../admin/js/new.js"></script>

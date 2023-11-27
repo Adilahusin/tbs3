@@ -1,5 +1,6 @@
 <?php
 	include 'header.php';
+	include '../fetchdata/fetch.php';
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +40,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <table class="table table_reservation_stat">
+                        <table class="table tblreservation_stat">
                             <thead>
                                 <tr>
                                     <th>Reservation Date</th>
@@ -49,6 +50,24 @@
 									<th>Remarks</th>
                                 </tr>
                             </thead>
+							<tbody>
+							<?php
+                                // Check if the session variable is set and has data
+                                if (isset($_SESSION['reserve_stat']) && !empty($_SESSION['reserve_stat'])) {
+                                    // Loop through the reservation data and populate table rows
+                                    foreach ($_SESSION['reserve_stat'] as $reservation) {
+                                        echo "<tr>";
+										echo "<td>" . date('F d, Y H:i:s A', strtotime($reservation['reserve_date'].' '.$reservation['reserve_time'])) . "</td>"; 
+                                        echo "<td>" . $reservation['i_type'] . "</td>";
+                                        echo "<td>" . $reservation['room_name'] . "</td>";
+                                        echo "</tr>";
+                                    }
+                                } else {
+                                    // Display a message if there is no reservation data
+                                    echo "<tr><td colspan='5'>No reservations found</td></tr>";
+                                }
+                                ?>
+								</tbody>
                         </table>
                     </div>
                 </div>
