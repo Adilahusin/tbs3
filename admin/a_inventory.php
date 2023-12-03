@@ -1,5 +1,6 @@
 <?php
 	include 'header.php';
+	include '../fetchdata/fetch.php';
 ?>
 
 <!DOCTYPE html>
@@ -40,6 +41,27 @@
             border: 1px solid #ccc;
             border-top: none;
         }
+
+		th {
+			cursor: pointer;
+		}
+
+		.sort-icon {
+			margin-left: 5px;
+			font-size: 10px;
+			display: inline-block;
+			opacity: 0.5;
+			color: #999;
+		}
+
+		.sort-icon.asc {
+			color: #8B008B;
+		}
+
+		.sort-icon.desc {
+			color: #8B008B; 
+		}
+
     </style>
 
 </head>
@@ -103,26 +125,46 @@
 		</div>
 
 		<div id="New" class="tabcontent">
-			<p>
-				<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
-			<table style="width: 100%; border-collapse: collapse;">
-				<tr>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Model</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Type</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Brand</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Quantity</th>
-					<th style="background-color: #c6c4fc; color: black; border: 1px solid #ddd; padding: 8px; text-align: left;">Quantity Left</th>
-				</tr>
-				<tr>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">HA2686</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">PA System</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Haier</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">15</td>
-					<td style="border: 1px solid #ddd; padding: 8px; text-align: left;">8</td>
-				</tr>
-			</table>
-		</div>
-	</p>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<table class="table item_new" id="item_new">
+								<thead>
+									<tr>
+									<thead>
+										<tr>
+											<th style="width: 180px;" onclick="sortTable('item_new', 0)">Type <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
+											<th style="width: 180px;" onclick="sortTable('item_new', 1)">Brand <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
+											<th style="width: 150px;" onclick="sortTable('item_new', 2)">Model No <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
+											<th style="width: 100px;" onclick="sortTable('item_new', 3)">Quantity <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
+										</tr>
+									</thead>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+										if (isset($_SESSION['item_new'])) {
+											
+											$data_item = $_SESSION['item_new'];
+
+											foreach ($data_item as $row) {
+												echo "<tr>";
+												echo "<td>" . $row['i_type'] . "</td>";
+												echo "<td>" . $row['i_brand'] . "</td>";
+												echo "<td>" . $row['i_modelNo'] . "</td>";
+												echo "<td>" . $row['i_quantity'] . "</td>";
+											}							
+										} else {
+											echo "No data available";
+										}
+									?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<div id="Old" class="tabcontent">
@@ -130,15 +172,33 @@
 				<div class="col-lg-12">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<table class="table table_item_old">
+							<table class="table item_old">
 								<thead>
-									<tr>
-										<th>Type</th>
-										<th>Brand</th>
-										<th>Model No</th>
-										<th>Quantity</th>
-									</tr>
+								<tr>
+									<th style="width: 180px;" onclick="sortTable('item_old', 0)">Type <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
+									<th style="width: 180px;" onclick="sortTable('item_old', 1)">Brand <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
+									<th style="width: 150px;" onclick="sortTable('item_old', 2)">Model No <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
+									<th style="width: 100px;" onclick="sortTable('item_old', 3)">Quantity <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
+								</tr>
 								</thead>
+								<tbody>
+									<?php
+										if (isset($_SESSION['item_old'])) {
+											
+											$data_item = $_SESSION['item_old'];
+
+											foreach ($data_item as $row) {
+												echo "<tr>";
+												echo "<td>" . $row['i_type'] . "</td>";
+												echo "<td>" . $row['i_brand'] . "</td>";
+												echo "<td>" . $row['i_modelNo'] . "</td>";
+												echo "<td>" . $row['i_quantity'] . "</td>";
+											}							
+										} else {
+											echo "No data available";
+										}
+									?>
+								</tbody>
 							</table>
 						</div>
 					</div>
@@ -151,7 +211,7 @@
 				<div class="col-lg-12">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<table class="table table_item_lost">
+							<table class="table item_lost">
 								<thead>
 									<tr>
 										<th>Type</th>
@@ -172,7 +232,7 @@
 				<div class="col-lg-12">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<table class="table table_item_damaged">
+							<table class="table item_damaged">
 								<thead>
 									<tr>
 										<th>Type</th>
@@ -229,7 +289,7 @@
 	<script src="../assets/js/bootstrap-datepicker.js"></script>
 	<script src="../assets/js/custom.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<script src="./js/inventory.js"></script>
 
-	
 </body>
 </html>

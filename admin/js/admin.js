@@ -1,11 +1,7 @@
 // For sorting the data in table
-$(document).ready(function() {
-    $('#adminTable').DataTable({
-        "columnDefs": [
-            { "targets": [2], "type": "num" } // Specify columns with numeric data
-        ]
+    $(document).ready(function() {
+        $('#adminTable').DataTable(); 
     });
-});
 
 // Get references to the modal and the button to open/close it
     var modal = document.getElementById('addAdminModal');

@@ -186,13 +186,13 @@
 				<table class="table table_user" id="userTable"> 
 					<thead>
 						<tr>
-							<th data-sort="id">Staff/Student ID</th>
-							<th data-sort="name">Name</th>
-							<th data-sort="contact">Contact No.</th>
-							<th data-sort="type">Type
+							<th data-sort="id"  style="width: 180px;">Staff/Student ID</th>
+							<th data-sort="name"  style="width: 200px;">Name</th>
+							<th data-sort="contact" style="width: 150px;">Contact No.</th>
+							<th data-sort="type" style="width: 120px;">Type
 								<br><sub>1=Staff, 2=Student</sub></br>
 							</th>
-							<th>Action</th>
+							<th style="width: 100px;">Action</th>
 						</tr>
 					</thead>
 						<tbody>

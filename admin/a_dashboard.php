@@ -58,7 +58,7 @@
 				
 				<ul class="nav navbar-top-links navbar-right">					
 				<li class="dropdown"><a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-					<em class="fa-solid fa-clock"></em><span class="label label-danger">15</span>
+					<em class="fa-solid fa-clock"></em><span class="label label-danger"></span>
 				</a>
 						
 					<!-- Due Borrow -->
@@ -75,7 +75,7 @@
 
 					<!-- Reservation -->
 					<li class="dropdown"><a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-						<em class="fa fa-bell"></em><span class="label label-info">5</span>
+						<em class="fa fa-bell"></em><span class="label label-info"></span>
 					</a>
 						<ul class="dropdown-menu dropdown-alerts">
 							<li><a href="#">
@@ -153,7 +153,7 @@
 				<div class="panel panel-teal panel-widget border-right">
 					<div class="row no-padding">
 						<em class="fa fa-xl solid fa-boxes-stacked color-#008000;"></em>
-						<div class="large" id="totalQuantity">Loading...</div>
+						<div class="large" id="totalQuantity"></div>
 						<div class="text-muted">Items</div>
 					</div>
 				</div>
@@ -162,7 +162,7 @@
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-orange panel-widget border-right">
 						<div class="row no-padding"><em class="fa fa-xl fa-users color-teal"></em>
-						<div class="large" id="totalUsers">Loading...</div>
+						<div class="large" id="totalUsers"></div>
 							<div class="text-muted">Borrowers</div>
 						</div>
 					</div>
@@ -180,7 +180,7 @@
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-red panel-widget ">
 						<div class="row no-padding"><em class="fas fa-xl fa-user color-red"></em>
-						<div class="large" id="totalAdmin">Loading...</div>
+						<div class="large" id="totalAdmin"></div>
 							<div class="text-muted">Admin</div>
 						</div>
 					</div>

@@ -51,29 +51,53 @@ class add {
         }
     }
 
-    public function addItem($type, $brand, $modelNo, $quantity, $pbNo, $vendor, $warranty, $datepurchase, $serialNo, $pic) {
+    public function addItem() {
+        global $pdo;
 
-        global $pdo; 
-
-        $sql = $pdo->prepare('SELECT * FROM item WHERE i_type = ? AND i_brand = ? AND i_modelNo = ?');
-        $sql->execute(array($type, $brand, $modelNo));
-        $sql_count = $sql->rowCount();
-
-        if ($sql_count <= 0) {
-            $insert = $pdo->prepare('INSERT INTO item (i_type, i_brand, i_modelNo, i_quantity, i_PBno, i_vendor, i_warranty, i_datepurchase, i_serialno, i_PIC, i_status) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)');
-            $insert->execute(array($type, $brand, $modelNo, $quantity, $pbNo, $vendor, $warranty, $datepurchase, $serialNo, $pic));
-            $insert_count = $insert->rowCount();
-
-            if ($insert_count > 0) {
-                return "Item added successfully";
+            $type = $_POST['i_type'];
+			$brand = $_POST['i_brand'];
+			$modelNo = $_POST['i_modelNo'];
+			$quantity = $_POST['i_quantity'];
+			$pbNo = $_POST['i_PBno'];
+			$vendor = $_POST['i_vendor'];
+			$warranty = $_POST['i_warranty'];
+			$datepurchase = $_POST['i_datepurchase'];
+			$serialNo = $_POST['i_serialno'];
+            $pic = $_POST['i_PIC'];
+            $itemStock = $_POST['i_quantity'];
+            $itemStatus = $_POST['item_status'];
+    
+            $sql = $pdo->prepare('SELECT * FROM item WHERE i_type = ? AND i_brand = ? AND i_modelNo = ?');
+            $sql->execute(array($type, $brand, $modelNo));
+            $sql_count = $sql->rowCount();
+        
+            if ($sql_count <= 0) {
+                $insert = $pdo->prepare('INSERT INTO item (i_type, i_brand, i_modelNo, i_quantity, i_PBno, i_vendor, i_warranty, i_datepurchase, i_serialno, i_PIC, i_status) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)');
+                $insert->execute(array($type, $brand, $modelNo, $quantity, $pbNo, $vendor, $warranty, $datepurchase, $serialNo, $pic));
+                $insert_count = $insert->rowCount();
+        
+                if ($insert_count > 0) {
+                    // Retrieve the last inserted ID
+                    $itemID = $pdo->lastInsertId();
+        
+                    $stock = $pdo->prepare('INSERT INTO item_stock (item_id, item_stock, item_status)
+                    VALUES (?, ?, ?)');
+                    $stock->execute(array($itemID, $itemStock, $itemStatus));
+        
+                    if ($stock->rowCount() > 0) {
+                        return "Item added successfully";
+                    } else {
+                        return "Item added but stock information insertion failed";
+                    }
+                } else {
+                    return "Item cannot be added";
+                }
             } else {
-                return "Item cannot be added";
+                return "This Item already exists";
             }
-        } else {
-            return "This Item already exists";
-        }
     }
+    
 
     public function addUser($userid, $name, $contactNo, $userType, $gender, $password) {
 

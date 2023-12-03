@@ -128,7 +128,10 @@
 													Accept
 													<i class='fa fa-chevron-right'></i>
 												</button>
-												<button class='btn btn-danger btn-cancel' data-id='".$pending['reservation_code']."'>
+												<button class='btn btn-danger btn-cancel' 
+														data-id='".$pending['reservation_code']."' 
+														data-toggle='modal' 
+														data-target='#cancelModal'>
 													Cancel
 													<i class='fa fa-remove'></i>
 												</button>";
@@ -170,6 +173,35 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Cancel Modal -->
+		<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form>
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">Cancel Reservation</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<!-- <label>User ID</label>
+								<input type="text" id="userIdDisplay" class="form-control" readonly> -->
+								<label>Cancellation Remarks</label>
+								<textarea name="remarks_cancel" class="form-control" required style="height: 200px"></textarea>
+								<input type="hidden" name="codereserve">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Save changes</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
 
 		<?php include '../admin/footer.php'; ?>
 

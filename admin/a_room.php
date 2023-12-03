@@ -133,9 +133,6 @@
 							<tr>
 								<th>Room/Lab Name</th>
 								<th>Date Added</th>
-								<th>Status
-									<br><sub>1=Active, 2=Inactive</sub></br>
-								</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -156,7 +153,6 @@
 										$dateAdded = date("d-m-Y H:i:s", strtotime($row['room_date_added']));
 										echo "<td>" . $dateAdded . "</td>";
 
-										echo "<td>" . $row['room_status'] . "</td>";
 										echo '<td>
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">

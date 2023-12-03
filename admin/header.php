@@ -59,7 +59,7 @@
 				
 				<ul class="nav navbar-top-links navbar-right">					
 				<li class="dropdown"><a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-					<em class="fa-solid fa-clock"></em><span class="label label-danger">15</span>
+					<em class="fa-solid fa-clock"></em><span class="label label-danger"></span>
 				</a>
 						
 					<!-- Due Borrow -->
@@ -76,7 +76,7 @@
 
 					<!-- Reservation -->
 					<li class="dropdown"><a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-						<em class="fa fa-bell"></em><span class="label label-info">5</span>
+						<em class="fa fa-bell"></em><span class="label label-info"></span>
 					</a>
 						<ul class="dropdown-menu dropdown-alerts">
 							<li><a href="#">

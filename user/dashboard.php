@@ -5,6 +5,30 @@
 
 <!DOCTYPE html>
 <html>
+    <head>
+        <style>
+            
+		th {
+			cursor: pointer;
+		}
+
+		.sort-icon {
+			margin-left: 5px;
+			font-size: 10px;
+			display: inline-block;
+			opacity: 0.5;
+			color: #999;
+		}
+
+		.sort-icon.asc {
+			color: #8B008B;
+		}
+
+		.sort-icon.desc {
+			color: #8B008B; 
+		}
+        </style>
+    </head>
 <body>
 
 	<!-- Side Menu -->
@@ -40,13 +64,13 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <table class="table table_item_dashboard">
+                        <table class="table item_dashboard" id="item_dashboard">
                             <thead>
                                 <tr>
-                                    <th>Type</th>
-                                    <th>Brand</th>
-                                    <th>Model No</th>
-                                    <th>Quantity</th>
+                                    <th style="width: 200px;" onclick="sortTable(0)">Type  <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
+                                    <th style="width: 180px;" onclick="sortTable(1)">Brand <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
+                                    <th style="width: 180px;" onclick="sortTable(2)">Model No <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
+                                    <th style="width: 150px;" onclick="sortTable(3)">Quantity <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -78,6 +102,8 @@
     </div>
 		
 <?php include '../user/footer.php'; ?>
+
+<script src="./js/dashboard.js"></script>
 
 </body>
 </html>

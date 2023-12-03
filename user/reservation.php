@@ -47,7 +47,7 @@
 
 			<div class="form-group" style="margin-bottom: 15px;">
 				<label for="itemType" style="color: black; font-weight: 400;">Item:</label>
-				<select class="form-control" id="itemType" name="itemType" required></select>
+				<select class="form-control" id="itemType" name="itemType[]" required></select>
 			</div>
 
 			<div class="form-group" style="margin-bottom: 15px;">

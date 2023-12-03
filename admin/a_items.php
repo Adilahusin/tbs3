@@ -154,7 +154,7 @@
 							<td><input type="text" id="vendor" name="i_vendor" required></td>
 						</tr>
 						<tr>
-							<td><label for="warranty">Warranty (Number only)</label></td>
+							<td><label for="warranty">Warranty (Year)</label></td>
 							<td><input type="text" id="warranty" name="i_warranty" required></td>
 						</tr>
 						<tr>
@@ -165,7 +165,7 @@
 							<td><label for="serialNo">Serial No.</label></td>
 							<td><input type="text" id="serialno" name="i_serialno" required></td>
 						</tr>
-						<!-- <tr>
+						<tr>
 							<td><label for="itemStatus">Item Status</label></td>
 							<td>
 								<select id="itemStatus" name="item_status">
@@ -174,10 +174,9 @@
 									<option value="2">Old</option>
 								</select>
 							</td>
-						</tr> -->
+						</tr>
 						<tr>
-							<td><label for="pic">Person-in-Charge</label></td>
-							<td><input type="text" id="pic" name="i_PIC" required></td>
+							<td><input type="hidden" id="pic" name="i_PIC" value="<?php echo $_SESSION['admin_username']; ?>"></td>
 						</tr>
 						<tr>
 							<td colspan="2" style="text-align: right;">
@@ -200,14 +199,14 @@
 					<table class="table table_item" id="itemTable">
 						<thead>
 							<tr>
-								<th>Type</th>
-								<th>Brand</th>
-								<th>Model No</th>
-								<th>Quantity</th>
-								<th>Status
-									<br><sub>1=Active, 2=Inactive</sub></br>
+								<th style="width: 180px;">Type</th>
+								<th style="width: 180px;">Brand</th>
+								<th style="width: 150px;">Model No</th>
+								<th style="width: 120px;">Quantity</th>
+								<th style="width: 120px;">Status
+									<br><sub>Old >= 5 years</sub></br>
 								</th>
-								<th>Action</th>
+								<th style="width: 100px;">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -225,12 +224,15 @@
 									echo "<td>" . $row['i_brand'] . "</td>";
 									echo "<td>" . $row['i_modelNo'] . "</td>";
 									echo "<td>" . $row['i_quantity'] . "</td>";
-									
-									// Change format date
-									// $dateAdded = date("d-m-Y H:i:s", strtotime($row['i_entrydate']));
-									// echo "<td>" . $dateAdded . "</td>";
-
-									echo "<td>" . $row['i_status'] . "</td>";
+									echo "<td>";
+									if ($row['item_status'] == 1) {
+										echo "NEW";
+									} elseif ($row['item_status'] == 2) {
+										echo "OLD";
+									} else {
+										echo "Unknown"; 
+									}
+									echo "</td>";
 									echo '<td>
 										<div class="btn-group">
 										<a href="a_items_info.php">

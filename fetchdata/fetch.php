@@ -36,14 +36,18 @@ class display {
     public function itemData() {
         global $pdo;
     
-        $item = "SELECT * FROM item";
-        $stmt_item = $pdo->query($item);
-        $data_item = $stmt_item->fetchAll(PDO::FETCH_ASSOC);
+        $itemQuery = "SELECT item.*, item_stock.item_status 
+                      FROM item 
+                      INNER JOIN item_stock ON item.id = item_stock.item_id";
+        
+        $stmt = $pdo->query($itemQuery);
+        $data_item = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $_SESSION['item_data'] = $data_item;
-    
-    }
 
-    public function reservationData() {
+    }
+    
+
+    public function pendingReservation() {
         global $pdo;
     
         $reservation = "SELECT * FROM reservations
@@ -85,6 +89,38 @@ class display {
             echo "Error: " . $e->getMessage(); // Output the specific error message for debugging
         }
     }
+
+    public function item_new() {
+        global $pdo;
+    
+        $item_new = "SELECT * FROM item_stock
+                        INNER JOIN item ON item.id = item_stock.item_id
+						WHERE item_stock.item_status = 1
+                        ORDER BY item.i_type ASC";
+
+    
+        $stmt_reservation = $pdo->query($item_new);
+        $data_itemnew = $stmt_reservation->fetchAll(PDO::FETCH_ASSOC);
+                    
+        // Storing all reservations directly in a session variable for later use
+        $_SESSION['item_new'] = $data_itemnew;
+    }
+
+    public function item_old() {
+        global $pdo;
+    
+        $item_old = "SELECT * FROM item_stock
+                        INNER JOIN item ON item.id = item_stock.item_id
+						WHERE item_stock.item_status = 2
+                        ORDER BY item.i_type ASC";
+
+    
+        $stmt_reservation = $pdo->query($item_old);
+        $data_itemold = $stmt_reservation->fetchAll(PDO::FETCH_ASSOC);
+                    
+        // Storing all reservations directly in a session variable for later use
+        $_SESSION['item_old'] = $data_itemold;
+    }
     
     
     
@@ -99,6 +135,8 @@ $display_function->adminData();
 $display_function->userData();
 $display_function->roomData();
 $display_function->itemData();
-$display_function->reservationData();
+$display_function->pendingReservation();
 $display_function->tblreservation_stat();
+$display_function->item_new();
+$display_function->item_old();
 ?>

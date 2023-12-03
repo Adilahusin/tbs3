@@ -22,3 +22,13 @@ function openTab(evt, tabName) {
 // Open the default tab on page load
 document.getElementById("defaultOpen").click();
 
+// Open the Cancel button modal
+$(document).ready(function() {
+    $(document).on('click', '.btn-cancel', function() {
+        $('#cancelModal').modal('show');
+    });
+});
+
+
+
+
