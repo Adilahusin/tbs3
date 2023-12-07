@@ -235,15 +235,14 @@
 									echo "</td>";
 									echo '<td>
 										<div class="btn-group">
-										<a href="a_items_info.php">
+											<a href="a_items_info.php?id=' . $row['id'] . '">
 												<button type="button" class="btn btn-primary btn-block">
 													More Info
 												</button>
 											</a>
 										</div>
-										
-                                        </td>';
-                                        echo "</tr>";
+									</td>';
+									echo "</tr>";							
 								}							
 							} else {
 								echo "Data not found.";
@@ -251,7 +250,7 @@
 						?>
 
 						</tbody>
-					</table>				
+					</table>
 				</div>
 			</div>
 		</div>

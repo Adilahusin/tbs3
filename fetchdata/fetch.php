@@ -38,13 +38,15 @@ class display {
     
         $itemQuery = "SELECT item.*, item_stock.item_status 
                       FROM item 
-                      INNER JOIN item_stock ON item.id = item_stock.item_id";
+                      INNER JOIN item_stock ON item.id = item_stock.item_id 
+                    --   WHERE item.i_status = 1
+                      ";
         
         $stmt = $pdo->query($itemQuery);
         $data_item = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $_SESSION['item_data'] = $data_item;
-
     }
+    
     
 
     public function pendingReservation() {
@@ -121,7 +123,7 @@ class display {
         // Storing all reservations directly in a session variable for later use
         $_SESSION['item_old'] = $data_itemold;
     }
-    
+
     
     
     

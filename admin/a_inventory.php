@@ -239,6 +239,7 @@
 										<th>Brand</th>
 										<th>Model No</th>
 										<th>Quantity</th>
+										<th>Remarks</th>
 									</tr>
 								</thead>
 							</table>

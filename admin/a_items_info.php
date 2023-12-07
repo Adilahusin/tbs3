@@ -2,6 +2,32 @@
 	include 'header.php';
 	include '../fetchdata/fetch.php';
 	include '../class/delete.php';
+
+	// to retrieve item id in the url
+	function itemInfo($itemId) {
+        global $pdo; 
+    
+        $itemInfoQuery = "SELECT * FROM item WHERE id = :itemId";
+        
+        $stmt = $pdo->prepare($itemInfoQuery);
+        $stmt->bindParam(':itemId', $itemId, PDO::PARAM_INT);
+        $stmt->execute();
+        $data_itemInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $_SESSION['item_info'] = $data_itemInfo;
+    }
+
+	// Check if the 'id' parameter exists in the URL
+	if (isset($_GET['id'])) {
+    // Get the ID from the URL
+    $itemId = $_GET['id'];
+
+    // Call the function to retrieve item information based on the ID
+    itemInfo($itemId);
+
+    // Check if the item_info session variable exists and has data
+    if (isset($_SESSION['item_info'])) {
+        $itemInfoData = $_SESSION['item_info'];
 ?>
 
 <!DOCTYPE html>
@@ -22,13 +48,12 @@
 
         .modal-content {
             background-color: #fefefe;
-        	margin: 15% auto;
+            margin: 15% auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 80%;
+            width: 50%;
 			text-align: left;
 			color: black;
-			width: 50%;
         }
 
         /* Close button style */
@@ -60,6 +85,28 @@
 			width: 100%; 
 		}
 
+		tr {
+			margin-bottom: 10px;
+		}
+
+		td, th {
+			padding: 5px 0;
+		}
+
+		/* Update input field styles */
+		.modal-content input[type="text"],
+		.modal-content input[type="password"],
+		.modal-content select {
+			width: 100%; /* Make the input fields 100% wide */
+			padding: 5px;
+			margin: 5px 0 5px 0;
+		}
+
+		/* Update table cell styles */
+		.modal-content table td {
+			padding: 5px 10px; /* Add some padding to table cells for alignment */
+			margin: 0px;
+		}
 
     </style>
 </head>
@@ -133,42 +180,72 @@
 				<div class="modal-content">
 					<span class="close" id="closeAddQtyModal">&times;</span>
 					<h4 class="alert bg-success">Add Quantity</h4>
-					<form>
-						<div class="form-group">
-							<label for="quantity">Quantity</label>
-							<input type="text" id="quantity" name="i_quantity">
+					<form action="../class/update.php" method="post">
+						<table style="width: 100%;">
+							<tr>
+								<td style="width: 30%;"><label for="quantity">Quantity</label></td>
+								<td style="width: 70%;"><input type="text" id="quantity" name="added_quantity" style="width: 100%;"></td>
+								<td><input type="hidden" name="item_id" value="<?php echo $itemId; ?>"></td> <!-- Hidden field to carry item ID -->
+							</tr>
+						</table>	
+						<div style="text-align: right; margin-top: 15px;">
+							<button class="btn btn-primary" type="submit" id="updateButton">UPDATE</button>						
 						</div>
-						<button class="btn btn-primary btn-block" type="submit" id="" name="">
-							SAVE
-						</button>
 					</form>
 				</div>
 			</div>
+
 
 			<!-- Edit Item Modal -->
 			<div id="editItemModal" class="modal">
 				<div class="modal-content">
 					<span class="close" id="closeEditItemModal">&times;</span>
 					<h4 class="alert bg-success">Edit Item</h4>
-					<form>
-						<div class="form-group">
-							<label for="itemDescription">Item Description:</label>
-							<input type="text" id="itemDescription" name="item_description">
+					<form action="../class/update.php" method="post">
+						<table style="width: 100%;">
+							<?php foreach ($itemInfoData as $row) { ?>
+								<tr>
+									<td style="width: 40%;"><label for="type">Type</label></td>
+									<td style="width: 60%;"><input type="text" id="type" name="i_type" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_type']); ?>"></td>
+									<td><input type="hidden" name="item_id" value="<?php echo $itemId; ?>"></td> <!-- Hidden field to carry item ID -->
+								</tr>
+								<tr>
+									<td><label for="brand">Brand</label></td>
+									<td><input type="text" id="brand" name="i_brand" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_brand']); ?>"></td>
+								</tr>
+								<tr>
+									<td><label for="modelNo">Model No.</label></td>
+									<td><input type="text" id="modelNo" name="i_modelNo" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_modelNo']); ?>"></td>
+								</tr>
+								<tr>
+									<td><label for="pbNo">PB No.</label></td>
+									<td><input type="text" id="pbNo" name="i_PBno" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_PBno']); ?>"></td>
+								</tr>
+								<tr>
+									<td><label for="vendor">Vendor</label></td>
+									<td><input type="text" id="vendor" name="i_vendor" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_vendor']); ?>"></td>
+								</tr>
+								<tr>
+									<td><label for="warranty">Warranty (Year)</label></td>
+									<td><input type="text" id="warranty" name="i_warranty" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_warranty']); ?>"></td>
+								</tr>
+								<tr>
+									<td><label for="datePurchase" class="input-label">Date Purchase</label></td>
+									<td><input type="text" id="datePurchase" name="i_datepurchase" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_datepurchase']); ?>"></td>
+								</tr>
+								<tr>
+									<td><label for="serialNo">Serial No.</label></td>
+									<td><input type="text" id="serialno" name="i_serialno" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_serialno']); ?>"></td>
+								</tr>
+							<?php } ?>
+						</table>
+						<div style="text-align: right;">
+							<button class="btn btn-primary" type="submit" id="updateButton">UPDATE</button>
 						</div>
-						<div class="form-group">
-							<label for="quantity">Quantity:</label>
-							<input type="number" id="quantity" name="quantity" required>
-						</div>
-						<div class="form-group">
-							<label for="remarks">Remarks:</label>
-							<textarea id="remarks" name="remarks"></textarea>
-						</div>
-						<button class="btn btn-primary btn-block" type="submit" id="" name="">
-							SAVE
-						</button>
 					</form>
 				</div>
 			</div>
+
 
 			<!-- Change Status Modal -->
 			<div id="changeStatusModal" class="modal">
@@ -205,53 +282,53 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<table class="table ">
-							<thead>
-							
-							</thead>
+						<table class="table items_info">
 							<tbody>
-								<tr>
-									<td class="success col-sm-6">Serial No</td>
-									<td class="i_serialno"></td>
-								</tr>
-								<tr>
-									<td class="col-sm-6">Type</td>
-									<td class="i_type"></td>
-								</tr>
-								<tr>
-									<td class="success col-sm-6">Brand</td>
-									<td class="i_brand"></td>
-								</tr>
-								<tr>
-									<td class="col-sm-6">Model No</td>
-									<td class="i_modelNo"></td>
-								</tr>
-								<tr>
-									<td class="success col-sm-6">Quantity</td>
-									<td class="i_quantity"></td>
-								</tr>
-								<tr>
-									<td class="col-sm-6">PB No</td>
-									<td class="i_PBno"></td>
-								</tr>
-								<tr>
-									<td class="success col-sm-6">Vendor</td>
-									<td class="i_vendor"></td>
-								</tr>
-								<tr>
-									<td class="col-sm-6">Warranty</td>
-									<td class="i_warranty"></td>
-								</tr>
-								<tr>
-									<td class="success col-sm-6">Date Purchase</td>
-									<td class="i_datepurchase"></td>
-								</tr>
-								<tr>
-									<td class="col-sm-6">Person-in-Charge</td>
-									<td class="i_PIC"></td>
-								</tr>
-							</tbody>
+                                <?php
+                                foreach ($itemInfoData as $row) {
+                                    echo "<tr>";
+                                    echo "<td class='success col-sm-6'>Serial No</td>";
+                                    echo "<td class='i_serialno'>" . $row['i_serialno'] . "</td>";
+                                    echo "</tr>";
 
+									echo "<td class='col-sm-6'>Type</td>";
+                                    echo "<td class='i_type'>" . $row['i_type'] . "</td>";
+                                    echo "</tr>";
+
+									echo "<td class='success col-sm-6'>Brand</td>";
+                                    echo "<td class='i_brand'>" . $row['i_brand'] . "</td>";
+                                    echo "</tr>";
+
+									echo "<td class='col-sm-6'>Model No</td>";
+                                    echo "<td class='i_modelNo'>" . $row['i_modelNo'] . "</td>";
+                                    echo "</tr>";
+
+									echo "<td class='success col-sm-6'>Quantity</td>";
+                                    echo "<td class='i_quantity'>" . $row['i_quantity'] . "</td>";
+                                    echo "</tr>";
+
+									echo "<td class='col-sm-6'>PB No.</td>";
+                                    echo "<td class='i_PBno'>" . $row['i_PBno'] . "</td>";
+                                    echo "</tr>";
+
+									echo "<td class='success col-sm-6'>Vendor</td>";
+                                    echo "<td class='i_vendor'>" . $row['i_vendor'] . "</td>";
+                                    echo "</tr>";
+
+									echo "<td class='col-sm-6'>Warranty</td>";
+                                    echo "<td class='i_warranty'>" . $row['i_warranty'] . "</td>";
+                                    echo "</tr>";
+
+									echo "<td class='success col-sm-6'>Date Purchase</td>";
+                                    echo "<td class='i_datepurchase'>" . $row['i_datepurchase'] . "</td>";
+                                    echo "</tr>";
+
+									echo "<td class='col-sm-6'>Person-in-Charge</td>";
+                                    echo "<td class='i_PIC'>" . $row['i_PIC'] . "</td>";
+                                    echo "</tr>";
+                                }
+                                ?>
+                            </tbody>
 						</table>
 					</div>
 				</div>
@@ -266,4 +343,13 @@
 </body>
 </html>
 
-<?php include '../admin/footer.php'; ?>
+<?php
+    } else {
+        echo "Item information not found.";
+    }
+} else {
+    echo "No ID parameter found in the URL.";
+}
+
+include '../admin/footer.php';
+?>
