@@ -165,6 +165,7 @@ class add {
 $add_function = new add();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
     if (isset($_POST["add_admin"])) {
         $notification = $add_function->addAdmin($_POST["a_name"], $_POST["a_username"], $_POST["a_password"], $_POST["a_type"]);
     } elseif (isset($_POST["add_room"])) {

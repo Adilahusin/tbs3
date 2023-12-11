@@ -85,10 +85,9 @@ class display {
     
             // print_r($data_reserve_stat);
 
-            // Storing filtered reservations in a session variable for later use
             $_SESSION['reserve_stat'] = $data_reserve_stat;
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage(); // Output the specific error message for debugging
+            echo "Error: " . $e->getMessage();
         }
     }
 

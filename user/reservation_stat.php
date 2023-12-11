@@ -43,11 +43,11 @@
                         <table class="table tblreservation_stat">
                             <thead>
                                 <tr>
-                                    <th>Reservation Date</th>
-                                    <th>Items</th>
-                                    <th>Room/Lab</th>
-                                    <th>Status</th>
-									<th>Remarks</th>
+                                    <th style="width: 30%;">Reservation Date</th>
+                                    <th style="width: 20%;">Items</th>
+                                    <th style="width: 15%;">Room/Lab</th>
+                                    <th style="width: 15%;">Status</th>
+									<th style="width: 40%;">Remarks</th>
                                 </tr>
                             </thead>
 							<tbody>
@@ -60,6 +60,15 @@
 										echo "<td>" . date('F d, Y H:i:s A', strtotime($reservation['reserve_date'].' '.$reservation['reserve_time'])) . "</td>"; 
                                         echo "<td>" . $reservation['i_type'] . "</td>";
                                         echo "<td>" . $reservation['room_name'] . "</td>";
+                                        echo "<td>";
+                                            if ($reservation['reserve_status'] == 0) {
+                                                echo "Pending";
+                                            } elseif ($reservation['reserve_status'] == 1) {
+                                                echo "Accepted";
+                                            } else {
+                                                echo "Canceled";
+                                            }
+                                            echo "</td>";
                                         echo "</tr>";
                                     }
                                 } else {

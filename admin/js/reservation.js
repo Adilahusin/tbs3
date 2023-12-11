@@ -15,7 +15,7 @@ function openTab(evt, tabName) {
     // Trigger sorting on the table in the active tab
     var activeTable = document.getElementById(tabName).querySelector('.dataTable');
     if (activeTable) {
-        $(activeTable).DataTable().order([2, 'asc']).draw(); // Sort by the third column (change as needed)
+        $(activeTable).DataTable().order([2, 'asc']).draw(); 
     }
 }
 
@@ -25,10 +25,48 @@ document.getElementById("defaultOpen").click();
 // Open the Cancel button modal
 $(document).ready(function() {
     $(document).on('click', '.btn-cancel', function() {
-        $('#cancelModal').modal('show');
+        var reservationCode = $(this).attr('data-id');
+        console.log('Reservation Code:', reservationCode);
+
+        // Assuming modalReservationCode is defined and contains the cancel reservation code
+        $('input[name="cancel_reservation_code"]').val(reservationCode);
+
+        // Perform cancellation via AJAX
+        $.ajax({
+            type: 'POST',
+            url: '../class/custom.php',
+            data: $('#cancelForm').serialize(),
+            success: function(response) {
+                if (response === 'Cancellation reservation successfully') {
+                    // Remove the table row corresponding to the canceled reservation
+                    $('[data-id="' + reservationCode + '"]').closest('tr').remove();
+                } else {
+                    // Handle error or display a message if cancellation fails
+                    console.log('Cancellation failed');
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle AJAX errors
+                console.error(error);
+            }
+        });
+    });
+
+    // Inside reservation.js
+
+document.addEventListener('DOMContentLoaded', function() {
+    const acceptButtons = document.querySelectorAll('.acceptButton');
+
+    acceptButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            const reservationCode = button.getAttribute('data-id');
+
+            // Perform Ajax call to handle accepting reservation
+            acceptReservation(reservationCode);
+        });
     });
 });
 
 
-
-
+});

@@ -77,7 +77,7 @@
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row">
 			<ol class="breadcrumb">
-				<li><a href="a_dashboard.php">
+				<li><a href="#">
 					<em class="fa fa-home"></em>
 				</a></li>
 				<li class="active">Reservation</li>
@@ -124,16 +124,15 @@
 											echo "<td>" . $pending['room_name'] . "</td>";
 											// echo "<td>" . $pending['reservation_code'] . "</td>";
 											echo "<td>";
-											echo "											
-												<button class='btn btn-primary btn-accept acceptButton' data-id='".$pending['reservation_code']."'>
+											echo "
+												<button class='btn btn-primary btn-accept' data-id='".$pending['reservation_code']."'>
 													Accept
 													<i class='fa fa-chevron-right'></i>
 												</button>
-																						
-												<button class='btn btn-danger btn-cancel cancelButton' 
-												data-id='".$pending['reservation_code']."' 
-												data-toggle='modal' 
-												data-target='#cancelModal'>
+												<button class='btn btn-danger btn-cancel' 
+													data-id='".$pending['reservation_code']."' 
+													data-toggle='modal' 
+													data-target='#cancelModal'>
 												Cancel
 												<i class='fa fa-remove'></i>
 												</button>
@@ -182,16 +181,12 @@
 		<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
-					<form id="cancelForm" action="../class/custom.php" method="POST">>
+					<form>
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<h4 class="modal-title" id="myModalLabel">Cancel Reservation</h4>
 						</div>
 						<div class="modal-body">
-							<div class="form-group">
-								<label>Reservation Code</label>
-								<input type="text" name="cancel_reservation_code" class="form-control" readonly>
-							</div>
 							<div class="form-group">
 								<label>Cancellation Remarks</label>
 								<textarea name="remarks_cancel" class="form-control" required style="height: 200px"></textarea>
@@ -212,38 +207,6 @@
 	</div>
 
 	<script src="./js/reservation.js"></script>
-
-	<!-- shows each reservation code in cancel modal -->
-	<script>
-        const cancelButtons = document.querySelectorAll('.cancelButton');
-        const modalReservationCode = document.querySelector('input[name="cancel_reservation_code"]');
-
-        cancelButtons.forEach(function(button) {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-                
-                const reservationCode = button.getAttribute('data-id');
-                
-                // Set the reservation code as the value for the input in the modal
-                modalReservationCode.value = reservationCode;
-            });
-        });
-    </script>
-
-	
-<!-- shows each reservation code in alert when click accept -->
-	<!-- <script>
-		const acceptButtons = document.querySelectorAll('.acceptButton');
-
-		acceptButtons.forEach(function(button) {
-			button.addEventListener('click', function(event) {
-				event.preventDefault();
-				const reservationCode = button.getAttribute('data-id');
-				alert('Reservation code: ' + reservationCode);
-			});
-		});
-	</script> -->
-
-
+	  
 </body>
 </html>
