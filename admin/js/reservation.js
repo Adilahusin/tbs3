@@ -52,21 +52,5 @@ $(document).ready(function() {
         });
     });
 
-    // Inside reservation.js
-
-document.addEventListener('DOMContentLoaded', function() {
-    const acceptButtons = document.querySelectorAll('.acceptButton');
-
-    acceptButtons.forEach(function(button) {
-        button.addEventListener('click', function(event) {
-            event.preventDefault();
-            const reservationCode = button.getAttribute('data-id');
-
-            // Perform Ajax call to handle accepting reservation
-            acceptReservation(reservationCode);
-        });
-    });
-});
-
 
 });

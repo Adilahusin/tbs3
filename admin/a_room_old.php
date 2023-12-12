@@ -13,11 +13,10 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 
 	<style>
-        /* Styling for the modal and overlay */
         .modal {
             display: none;
             position: fixed;
-            z-index: 1;
+            z-index: 9999;
             left: 0;
             top: 0;
             width: 100%;
@@ -31,7 +30,9 @@
             margin: 15% auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 80%;
+            width: 50%;
+			text-align: left;
+			color: black;
         }
 
         /* Close button style */
@@ -42,7 +43,7 @@
             font-weight: bold;
             cursor: pointer; /* Add this line to make the "×" clickable */
         }
-    </style>
+	</style>
 </head>
 <body>
 
@@ -59,9 +60,9 @@
 					<li><a class="" href="a_reservation.php">
 						<span class="fa-regular fa-calendar-days">&nbsp;</span> Reservation
 					</a></li>
-					<li><a class="" href="a_new.php">
+					<!-- <li><a class="" href="a_new.php">
 						<span class="fa fa-plus-circle">&nbsp;</span> New
-					</a></li>
+					</a></li> -->
 					<li><a class="" href="a_borrowed.php">
 						<span class="fa-solid fa-arrow-up-from-bracket">&nbsp;</span> Borrowed Items
 					</a></li>
@@ -100,22 +101,50 @@
 			<!-- Add Room button -->
 			<button id="addRoom"><i class="fas fa-plus"></i> Add Room</button>
 
-			<div id="sidebar">
+			<!-- Add Room modal -->
+			<div id="addRoomModal" class="modal">
+			<div class="modal-content">
+				<span class="close" id="closeModal">&times;</span>
+				<h4 class="alert bg-success">Add Room</h4>
 				<form id="sidebarForm" action="../class/add.php" method="post">
-				<h4 class="alert bg-success" style="text-align: left;">Add Room</h4>
-
-					<label for="room_name">Room</label>
-					<input type="text" id="room_name" name="room_name" required><br><br>
-
-					<button class="btn btn-primary btn-block" type="submit" id="saveButton" name="add_room">
-						SAVE
-					</button><br>
-
-					<button class="btn btn-danger btn-block cancel_button" type="button" id="cancelButton">
-						CANCEL
-					</button>
+					<table>
+						<tr>
+							<td><label for="room_name">Room</label></td>
+							<td><input type="text" id="room_name" name="room_name" required></td>
+						</tr>
+						<tr>
+							<td colspan="2" style="text-align: right;">
+								<button class="btn btn-primary" type="submit" id="saveButton" name="add_room">SAVE</button>
+								<button class="btn btn-danger" type="button" id="cancelButton">CANCEL</button>
+							</td>
+						</tr>
+					</table>
 				</form>
 			</div>
+			</div>
+
+			<!-- Edit Room Modal -->
+			<!-- <div id="editRoomModal" class="modal">
+				<div class="modal-content">
+					<span class="close" id="closeEditModal">&times;</span>
+					<h4 class="alert bg-primary">Edit Room</h4>
+					<form id="editForm" action="../class/edit.php" method="post">
+						<input type="text" id="edit_room_name" name="room_name">
+						<table>
+							<tr>
+								<td><label for="edit_room_name">Room</label></td>
+								<td><input type="text" id="edit_room_name" name="room_name" required></td>
+							</tr>
+							<tr>
+								<td colspan="2" style="text-align: right;">
+									<button class="btn btn-primary" type="submit" id="editSaveButton" name="edit_room">SAVE</button>
+									<button class="btn btn-danger" type="button" id="editCancelButton">CANCEL</button>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div> -->
 
 		</div>
 
@@ -128,9 +157,6 @@
 							<tr>
 								<th>Room/Lab Name</th>
 								<th>Date Added</th>
-								<th>Status
-									<br><sub>1=Active, 2=Inactive</sub></br>
-								</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -151,7 +177,6 @@
 										$dateAdded = date("d-m-Y H:i:s", strtotime($row['room_date_added']));
 										echo "<td>" . $dateAdded . "</td>";
 
-										echo "<td>" . $row['room_status'] . "</td>";
 										echo '<td>
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -159,20 +184,11 @@
                                                     <span class="caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu" role="menu">
-													<li><a href="#" class="edit-action" id="openModal">Edit</a></li>
+													<li><a href="../class/update_form.php?room_name='.$row['room_name'].'">Edit</a></li>
 													<li><a href="?action=delete&room_name=' . $row['room_name'] . '" class="delete-action">Delete</a></li>
-													<li><a href="#" class="deactivate-action">Deactivate</a></li>
-												</ul>
-
-												<button id="openModal" data-toggle="dropdown">Open Modal</button>
-												<ul class="dropdown-menu" role="menu">
-													<li><a href="#" class="edit-action"id="openModal">Edit</a></li>
-													<li><a href="?action=delete&room_name=' . $row['room_name'] . '" class="delete-action">Delete</a></li>
-													<li><a href="#" class="deactivate-action">Deactivate</a></li>
 												</ul>
 
                                             </div>
-							
                                         </td>';
                                         echo "</tr>";
 									}
@@ -181,80 +197,15 @@
 								}
 							?>
 						</tbody>
-				
-						
-					</table>
-
-					<!-- The Modal -->
-					<div id="editRoom" class="modal">
-						<div class="modal-content">
-																	<span class="close" id="closeModal">&times;</span>
-																	<h2>My Modal</h2>
-																	<p>This is a custom modal created with plain HTML, CSS, and JavaScript.</p>
-																</div>
-															</div>
+					</table>				
 				</div>
 			</div>
 		</div>
 		</div>
 
-<!-- For sidebar -->
-<script>
-        $(document).ready(function() {
-            $("#addRoom").click(function() {
-                $("#sidebar").css("right", "0");
-                $("#content").css("margin-right", "250px");
-            });
 
-            $("#cancelButton").click(function() {
-                $("#sidebar").css("right", "-300px");
-                $("#content").css("margin-right", "0");
+<script src="./js/room.js"></script>
 
-			// Clear input fields when the sidebar is closed
-			$("#room_name").val("");
-
-            });
-        });
-</script>
-
-<!-- For sorting the data in table -->
-<script>
-	$(document).ready(function() {
-		$('#roomTable').DataTable({
-			"columnDefs": [
-				{ "targets": [2], "type": "num" } // Specify columns with numeric data
-			]
-		});
-	});
-</script>
-
-<script>
-    // Get references to the modal and the button to open/close it
-    var modal = document.getElementById('editRoom');
-    var openModalButton = document.getElementById('openModal');
-    var closeModalButton = document.getElementById('closeModal');
-
-    // Function to open the modal
-    function openModal() {
-        modal.style.display = 'block';
-    }
-
-    // Function to close the modal
-    function closeModal() {
-        modal.style.display = 'none';
-    }
-
-    // Event listeners to open and close the modal
-    openModalButton.addEventListener('click', openModal);
-    closeModalButton.addEventListener('click', closeModal);
-
-    // Close the modal when clicking outside the modal content
-    window.addEventListener('click', function(event) {
-        if (event.target == modal) {
-            closeModal();
-        }
-    });
-</script>
 </body>
 </html>
 	

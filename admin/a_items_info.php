@@ -201,7 +201,7 @@
 				<div class="modal-content">
 					<span class="close" id="closeEditItemModal">&times;</span>
 					<h4 class="alert bg-success">Edit Item</h4>
-					<form action="../class/update.php" method="post">
+					<form action="../class/update2.php" method="post">
 						<table style="width: 100%;">
 							<?php foreach ($itemInfoData as $row) { ?>
 								<tr>
@@ -264,7 +264,7 @@
 						</div>
 						<div class="form-group">
 							<label for="quantity">Quantity:</label>
-							<input type="number" id="quantity" name="quantity" required>
+							<input type="text" id="quantity" name="quantity" required>
 						</div>
 						<div class="form-group">
 							<label for="remarks">Remarks:</label>
@@ -345,7 +345,7 @@
 
 <?php
     } else {
-        echo "Item information not found.";
+        echo "Data not found.";
     }
 } else {
     echo "No ID parameter found in the URL.";

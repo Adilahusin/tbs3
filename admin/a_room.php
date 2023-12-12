@@ -2,6 +2,32 @@
 	include 'header.php';
 	include '../fetchdata/fetch.php';
 	include '../class/delete.php';
+
+	// to retrieve room id in the url
+	function roomInfo($roomId) {
+        global $pdo; 
+    
+        $itemInfoQuery = "SELECT * FROM room WHERE id = :roomId";
+        
+        $stmt = $pdo->prepare($itemInfoQuery);
+        $stmt->bindParam(':roomId', $roomId, PDO::PARAM_INT);
+        $stmt->execute();
+        $data_roomInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $_SESSION['room_info'] = $data_roomInfo;
+    }
+
+	// Check if the 'id' parameter exists in the URL
+	if (isset($_GET['id'])) {
+    // Get the ID from the URL
+    $itemId = $_GET['id'];
+
+    // Call the function to retrieve item information based on the ID
+    itemInfo($itemId);
+
+    // Check if the item_info session variable exists and has data
+    if (isset($_SESSION['item_info'])) {
+        $itemInfoData = $_SESSION['item_info'];
 ?>
 
 <!DOCTYPE html>
@@ -101,6 +127,7 @@
 			<!-- Add Room button -->
 			<button id="addRoom"><i class="fas fa-plus"></i> Add Room</button>
 
+			<!-- Add Room modal -->
 			<div id="addRoomModal" class="modal">
 			<div class="modal-content">
 				<span class="close" id="closeModal">&times;</span>
@@ -122,6 +149,78 @@
 			</div>
 			</div>
 
+			<!-- Edit Room Modal -->
+			<!-- <div id="editRoomModal" class="modal">
+				<div class="modal-content">
+					<span class="close" id="closeEditModal">&times;</span>
+					<h4 class="alert bg-primary">Edit Room</h4>
+					<form id="editForm" action="../class/edit.php" method="post">
+						<input type="text" id="edit_room_name" name="room_name">
+						<table>
+							<tr>
+								<td><label for="edit_room_name">Room</label></td>
+								<td><input type="text" id="edit_room_name" name="room_name" required></td>
+							</tr>
+							<tr>
+								<td colspan="2" style="text-align: right;">
+									<button class="btn btn-primary" type="submit" id="editSaveButton" name="edit_room">SAVE</button>
+									<button class="btn btn-danger" type="button" id="editCancelButton">CANCEL</button>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div> -->
+
+			<div id="editRoomModal" class="modal">
+				<div class="modal-content">
+					<span class="close" id="closeEditRoomModal">&times;</span>
+					<h4 class="alert bg-success">Edit Item</h4>
+					<form action="../class/update2.php" method="post">
+						<table style="width: 100%;">
+							<?php foreach ($itemInfoData as $row) { ?>
+								<tr>
+									<td style="width: 40%;"><label for="type">Type</label></td>
+									<td style="width: 60%;"><input type="text" id="type" name="i_type" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_type']); ?>"></td>
+									<td><input type="hidden" name="item_id" value="<?php echo $itemId; ?>"></td> <!-- Hidden field to carry item ID -->
+								</tr>
+								<tr>
+									<td><label for="brand">Brand</label></td>
+									<td><input type="text" id="brand" name="i_brand" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_brand']); ?>"></td>
+								</tr>
+								<tr>
+									<td><label for="modelNo">Model No.</label></td>
+									<td><input type="text" id="modelNo" name="i_modelNo" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_modelNo']); ?>"></td>
+								</tr>
+								<tr>
+									<td><label for="pbNo">PB No.</label></td>
+									<td><input type="text" id="pbNo" name="i_PBno" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_PBno']); ?>"></td>
+								</tr>
+								<tr>
+									<td><label for="vendor">Vendor</label></td>
+									<td><input type="text" id="vendor" name="i_vendor" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_vendor']); ?>"></td>
+								</tr>
+								<tr>
+									<td><label for="warranty">Warranty (Year)</label></td>
+									<td><input type="text" id="warranty" name="i_warranty" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_warranty']); ?>"></td>
+								</tr>
+								<tr>
+									<td><label for="datePurchase" class="input-label">Date Purchase</label></td>
+									<td><input type="text" id="datePurchase" name="i_datepurchase" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_datepurchase']); ?>"></td>
+								</tr>
+								<tr>
+									<td><label for="serialNo">Serial No.</label></td>
+									<td><input type="text" id="serialno" name="i_serialno" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_serialno']); ?>"></td>
+								</tr>
+							<?php } ?>
+						</table>
+						<div style="text-align: right;">
+							<button class="btn btn-primary" type="submit" id="updateButton">UPDATE</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
 		</div>
 
 		<div class="row">
@@ -138,10 +237,7 @@
 						</thead>
 						<tbody>
 							<?php
-								// Check if the session variable exists
 								if (isset($_SESSION['room_data'])) {
-								
-									// Retrieve the data from the session variable
 									$data_room = $_SESSION['room_data'];
 									//print_r ($data_room);
 
@@ -160,9 +256,8 @@
                                                     <span class="caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu" role="menu">
-													<li><a href="#" class="edit-action">Edit</a></li>
+													<li><a href="?action=edit&room_name='.$row['room_name'].'">Edit</a></li>
 													<li><a href="?action=delete&room_name=' . $row['room_name'] . '" class="delete-action">Delete</a></li>
-													<li><a href="#" class="deactivate-action">Deactivate</a></li>
 												</ul>
 
                                             </div>
@@ -174,61 +269,26 @@
 								}
 							?>
 						</tbody>
-					</table>
-				
+					</table>				
 				</div>
 			</div>
 		</div>
 		</div>
 
 
-<!-- For sorting the data in table -->
-<script>
-	$(document).ready(function() {
-		$('#roomTable').DataTable({
-			"columnDefs": [
-				{ "targets": [2], "type": "num" } // Specify columns with numeric data
-			]
-		});
-	});
-</script>
-
-<script>
-    // Get references to the modal and the button to open/close it
-    var modal = document.getElementById('addRoomModal');
-    var openModalButton = document.getElementById('addRoom');
-    var closeModalButton = document.getElementById('closeModal');
-	var cancelButton = document.getElementById('cancelButton');
-
-    // Function to open the modal
-    function openModal() {
-        modal.style.display = 'block';
-    }
-
-    // Function to close the modal
-    function closeModal() {
-        modal.style.display = 'none';
-		form.reset(); // Reset the form
-    }
-
-    // Event listeners to open and close the modal
-    openModalButton.addEventListener('click', openModal);
-    closeModalButton.addEventListener('click', closeModal);
-
-	// Event listener to close the modal when clicking the "Cancel" button
-    cancelButton.addEventListener('click', closeModal);
-
-	// Close the modal when clicking outside the modal content
-    window.addEventListener('click', function(event) {
-        if (event.target == addRoomModal) {
-            closeModal();
-        }
-    });
-
-</script>
+<script src="./js/room.js"></script>
 
 </body>
 </html>
 	
-<?php include '../admin/footer.php'; ?>
+<?php
+    } else {
+        echo "Data not found.";
+    }
+} else {
+    echo "No ID parameter found in the URL.";
+}
+
+include '../admin/footer.php';
+?>
 

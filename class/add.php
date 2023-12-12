@@ -4,20 +4,24 @@ require_once "./configure/config.php";
 class add {
 
     public function addAdmin($name, $username, $password, $adminType) {
-
-        global $pdo; 
-
+        global $pdo;
+    
+        // Check if admin type is not selected (assumed empty string signifies not selected)
+        if ($adminType === "") {
+            return "Admin type not selected"; // Return a message indicating admin type not selected
+        }
+    
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
+    
         $sql = $pdo->prepare('SELECT * FROM admin WHERE a_name = ? OR a_username = ?');
         $sql->execute(array($name, $username));
         $sql_count = $sql->rowCount();
-
+    
         if ($sql_count <= 0) {
             $insert = $pdo->prepare('INSERT INTO admin (a_name, a_username, a_password, a_type, a_status) VALUES (?, ?, ?, ?, 1)');
             $insert->execute(array($name, $username, $hashed_password, $adminType));
             $insert_count = $insert->rowCount();
-
+    
             if ($insert_count > 0) {
                 return "Data added successfully";
             } else {
@@ -27,6 +31,7 @@ class add {
             return "Data already exists";
         }
     }
+    
 
     public function addRoom($roomName) {
 
@@ -180,11 +185,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $notification = $add_function->registerUser($_POST["u_id"], $_POST["u_name"], $_POST["u_contact"], $_POST["u_type"], 
         $_POST["u_gender"], $_POST["u_password"]);
     } 
+ 
 
     // Display the notification
     $add_function->displayNotification($notification);
-
-    // Close the database pdoection
-    // $add_function->closepdoection();
 }
 ?>

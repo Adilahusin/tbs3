@@ -1,6 +1,6 @@
 <?php
 	include 'header.php';
-	include '../fetchdata/fetch.php';
+	include '../class/get_stat.php';
 ?>
 
 <!DOCTYPE html>

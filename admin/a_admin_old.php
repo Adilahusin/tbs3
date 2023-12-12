@@ -65,19 +65,6 @@
 		.modal-content table td {
 			padding: 5px 10px; /* Add some padding to table cells for alignment */
 		}
-
-		/* CSS for buttons with space between them */
-		.btn-edit,
-		.btn-delete,
-		.btn-deactivate {
-		margin-right: 5px;
-		}
-
-		.center-buttons {
-			display: flex;
-			justify-content: center;
-		}
-
 	</style>
 </head>
 <body>
@@ -96,9 +83,9 @@
 					<li><a class="" href="a_reservation.php">
 						<span class="fa-regular fa-calendar-days">&nbsp;</span> Reservation
 					</a></li>
-					<!-- <li><a class="" href="a_new.php">
+					<li><a class="" href="a_new.php">
 						<span class="fa fa-plus-circle">&nbsp;</span> New
-					</a></li> -->
+					</a></li>
 					<li><a class="" href="a_borrowed.php">
 						<span class="fa-solid fa-arrow-up-from-bracket">&nbsp;</span> Borrowed Items
 					</a></li>
@@ -155,9 +142,9 @@
 							<td><input type="password" id="password" name="a_password" required></td>
 						</tr>
 						<tr>
-						<td><label for="adminType">User Type</label></td>
-							<td>    
-								<select id="adminType" name="a_type" required>
+							<td><label for="adminType">User Type</label></td>
+							<td>	
+								<select id="adminType" name="a_type">
 									<option disabled selected>Select type</option>
 									<option value="1">Admin</option>
 									<option value="2">Staff</option>
@@ -227,12 +214,12 @@
 					<table class="table table_admin" id="adminTable">
 						<thead>
 							<tr>
-								<th style="width: 150px;">Name</th>
-								<th style="width: 100px;">Username</th>
-								<th style="width: 50px;">Type
+								<th>Name</th>
+								<th>Username</th>
+								<th>Type
 									<br><sub>1=Admin, 2=Staff</sub></br>
 								</th>
-								<th style="width: 80px; text-align: center;">Action</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -243,29 +230,27 @@
 								// Retrieve the data from the session variable
 								$data_admin = $_SESSION['admin_data'];
 								//print_r ($data_admin);
-		
+
 								// Display the admin data in table
-								foreach ($data_admin as $row) { 
+								foreach ($data_admin as $row) { // foreach untuk looping
 									echo "<tr>";
 									echo "<td>" . $row['a_name'] . "</td>";
 									echo "<td>" . $row['a_username'] . "</td>";
 									echo "<td>" . $row['a_type'] . "</td>";
 									echo '<td>
-											<div class="btn-group center-buttons">			
-																				
-													<button id="editAdmin" class="btn btn-warning btn-edit editButton" data-id="' . $row['a_username'] . '">
-														Edit
-														<i class="fa fa-pencil"></i>
-													</button>											
-												<a href="?action=delete&a_username=' . $row['a_username'] . '">
-													<button class="btn btn-danger btn-delete delete-action" data-id="' . $row['a_username'] .'" onclick="confirmDelete '. $row['a_username'] . '">
-														Delete
-														<i class="fa fa-remove"></i>
-													</button>
-												</a>
-											</div>
-										</td>';
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                    Action
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+													<li><a href="#" class="edit-action">Edit</a></li>
+													<li><a href="?action=delete&a_username=' . $row['a_username'] . '" class="delete-action">Delete</a></li>
+													<li><a href="#" class="deactivate-action">Deactivate</a></li>
+												</ul>
 
+                                            </div>
+                                        </td>';
                                         echo "</tr>";
 								}
 								} else {
