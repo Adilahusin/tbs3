@@ -2,32 +2,6 @@
 	include 'header.php';
 	include '../fetchdata/fetch.php';
 	include '../class/delete.php';
-
-	// to retrieve room id in the url
-	function roomInfo($roomId) {
-        global $pdo; 
-    
-        $itemInfoQuery = "SELECT * FROM room WHERE id = :roomId";
-        
-        $stmt = $pdo->prepare($itemInfoQuery);
-        $stmt->bindParam(':roomId', $roomId, PDO::PARAM_INT);
-        $stmt->execute();
-        $data_roomInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        $_SESSION['room_info'] = $data_roomInfo;
-    }
-
-	// Check if the 'id' parameter exists in the URL
-	if (isset($_GET['id'])) {
-    // Get the ID from the URL
-    $itemId = $_GET['id'];
-
-    // Call the function to retrieve item information based on the ID
-    itemInfo($itemId);
-
-    // Check if the item_info session variable exists and has data
-    if (isset($_SESSION['item_info'])) {
-        $itemInfoData = $_SESSION['item_info'];
 ?>
 
 <!DOCTYPE html>
@@ -149,78 +123,6 @@
 			</div>
 			</div>
 
-			<!-- Edit Room Modal -->
-			<!-- <div id="editRoomModal" class="modal">
-				<div class="modal-content">
-					<span class="close" id="closeEditModal">&times;</span>
-					<h4 class="alert bg-primary">Edit Room</h4>
-					<form id="editForm" action="../class/edit.php" method="post">
-						<input type="text" id="edit_room_name" name="room_name">
-						<table>
-							<tr>
-								<td><label for="edit_room_name">Room</label></td>
-								<td><input type="text" id="edit_room_name" name="room_name" required></td>
-							</tr>
-							<tr>
-								<td colspan="2" style="text-align: right;">
-									<button class="btn btn-primary" type="submit" id="editSaveButton" name="edit_room">SAVE</button>
-									<button class="btn btn-danger" type="button" id="editCancelButton">CANCEL</button>
-								</td>
-							</tr>
-						</table>
-					</form>
-				</div>
-			</div> -->
-
-			<div id="editRoomModal" class="modal">
-				<div class="modal-content">
-					<span class="close" id="closeEditRoomModal">&times;</span>
-					<h4 class="alert bg-success">Edit Item</h4>
-					<form action="../class/update2.php" method="post">
-						<table style="width: 100%;">
-							<?php foreach ($itemInfoData as $row) { ?>
-								<tr>
-									<td style="width: 40%;"><label for="type">Type</label></td>
-									<td style="width: 60%;"><input type="text" id="type" name="i_type" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_type']); ?>"></td>
-									<td><input type="hidden" name="item_id" value="<?php echo $itemId; ?>"></td> <!-- Hidden field to carry item ID -->
-								</tr>
-								<tr>
-									<td><label for="brand">Brand</label></td>
-									<td><input type="text" id="brand" name="i_brand" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_brand']); ?>"></td>
-								</tr>
-								<tr>
-									<td><label for="modelNo">Model No.</label></td>
-									<td><input type="text" id="modelNo" name="i_modelNo" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_modelNo']); ?>"></td>
-								</tr>
-								<tr>
-									<td><label for="pbNo">PB No.</label></td>
-									<td><input type="text" id="pbNo" name="i_PBno" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_PBno']); ?>"></td>
-								</tr>
-								<tr>
-									<td><label for="vendor">Vendor</label></td>
-									<td><input type="text" id="vendor" name="i_vendor" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_vendor']); ?>"></td>
-								</tr>
-								<tr>
-									<td><label for="warranty">Warranty (Year)</label></td>
-									<td><input type="text" id="warranty" name="i_warranty" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_warranty']); ?>"></td>
-								</tr>
-								<tr>
-									<td><label for="datePurchase" class="input-label">Date Purchase</label></td>
-									<td><input type="text" id="datePurchase" name="i_datepurchase" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_datepurchase']); ?>"></td>
-								</tr>
-								<tr>
-									<td><label for="serialNo">Serial No.</label></td>
-									<td><input type="text" id="serialno" name="i_serialno" required style="width: 100%;" value="<?php echo htmlspecialchars($row['i_serialno']); ?>"></td>
-								</tr>
-							<?php } ?>
-						</table>
-						<div style="text-align: right;">
-							<button class="btn btn-primary" type="submit" id="updateButton">UPDATE</button>
-						</div>
-					</form>
-				</div>
-			</div>
-
 		</div>
 
 		<div class="row">
@@ -237,7 +139,10 @@
 						</thead>
 						<tbody>
 							<?php
+								// Check if the session variable exists
 								if (isset($_SESSION['room_data'])) {
+								
+									// Retrieve the data from the session variable
 									$data_room = $_SESSION['room_data'];
 									//print_r ($data_room);
 
@@ -250,16 +155,12 @@
 										echo "<td>" . $dateAdded . "</td>";
 
 										echo '<td>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                    Action
-                                                    <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu" role="menu">
-													<li><a href="?action=edit&room_name='.$row['room_name'].'">Edit</a></li>
-													<li><a href="?action=delete&room_name=' . $row['room_name'] . '" class="delete-action">Delete</a></li>
-												</ul>
-
+                                            <div class="btn-group center-buttons">			                                                								
+												<a href="a_room_info.php?id=' . $row['id'] . '">
+												<button type="button" class="btn btn-primary btn-block">
+													Action
+												</button>
+											</a>
                                             </div>
                                         </td>';
                                         echo "</tr>";
@@ -281,14 +182,5 @@
 </body>
 </html>
 	
-<?php
-    } else {
-        echo "Data not found.";
-    }
-} else {
-    echo "No ID parameter found in the URL.";
-}
-
-include '../admin/footer.php';
-?>
+<?php include '../admin/footer.php'; ?>
 

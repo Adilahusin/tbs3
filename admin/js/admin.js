@@ -15,8 +15,12 @@ function openModal() {
 
 // Function to close the "Add Admin" modal
 function closeModal() {
+    console.log('Close modal function triggered');
     addAdminModal.style.display = 'none';
-    form.reset(); // Reset the form
+    var form = document.getElementById('sidebarForm');
+    if (form) {
+        form.reset(); // Reset the form
+    }
 }
 
 // Event listeners to open and close the "Add Admin" modal

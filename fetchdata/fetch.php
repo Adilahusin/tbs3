@@ -46,8 +46,6 @@ class display {
         $data_item = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $_SESSION['item_data'] = $data_item;
     }
-    
-    
 
     public function pendingReservation() {
         global $pdo;
