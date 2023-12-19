@@ -158,7 +158,7 @@
                                             <div class="btn-group center-buttons">			                                                								
 												<a href="a_room_info.php?id=' . $row['id'] . '">
 												<button type="button" class="btn btn-primary btn-block">
-													Action
+													More
 												</button>
 											</a>
                                             </div>

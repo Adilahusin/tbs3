@@ -70,8 +70,8 @@ class display {
                         ORDER BY item.i_type ASC";
 
     
-        $stmt_reservation = $pdo->query($item_new);
-        $data_itemnew = $stmt_reservation->fetchAll(PDO::FETCH_ASSOC);
+        $stmt_inventory = $pdo->query($item_new);
+        $data_itemnew = $stmt_inventory->fetchAll(PDO::FETCH_ASSOC);
                     
         // Storing all reservations directly in a session variable for later use
         $_SESSION['item_new'] = $data_itemnew;
@@ -86,11 +86,26 @@ class display {
                         ORDER BY item.i_type ASC";
 
     
-        $stmt_reservation = $pdo->query($item_old);
-        $data_itemold = $stmt_reservation->fetchAll(PDO::FETCH_ASSOC);
+        $stmt_inventory = $pdo->query($item_old);
+        $data_itemold = $stmt_inventory->fetchAll(PDO::FETCH_ASSOC);
                     
         // Storing all reservations directly in a session variable for later use
         $_SESSION['item_old'] = $data_itemold;
+    }
+
+    public function total_items() {
+        global $pdo;
+    
+        $total_items = "SELECT * FROM item_stock
+                        INNER JOIN item ON item.id = item_stock.item_id
+                        ORDER BY item.i_type ASC";
+
+    
+        $stmt_inventory = $pdo->query($total_items);
+        $data_totalitems = $stmt_inventory->fetchAll(PDO::FETCH_ASSOC);
+                    
+        // Storing all reservations directly in a session variable for later use
+        $_SESSION['total_items'] = $data_totalitems;
     }
     
 }
@@ -106,5 +121,6 @@ $display_function->itemData();
 $display_function->pendingReservation();
 $display_function->item_new();
 $display_function->item_old();
+$display_function->total_items();
 
 ?>

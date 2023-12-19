@@ -24,8 +24,8 @@ class login {
     
                     header("Location: ../user/dashboard.php");
                     exit();
-                } else {
-                    $this->showErrorMessage("Login failed. User is not active. Please go to Infostructure Department");
+                } elseif ($row['u_status'] == 2) {
+                    $this->showErrorMessage("Login failed. Your account is deactivated. Please go to InfoStructure Department to re-activate.");
                 }
             } else {
                 $this->showErrorMessage("Login failed. Check your username and password.");
@@ -36,8 +36,8 @@ class login {
     }
     
     
+    
     public function adminLogin($a_username, $a_password) {
-        
         global $pdo;
     
         $sql = "SELECT * FROM admin WHERE a_username = :a_username";
@@ -50,23 +50,26 @@ class login {
             $storedPassword = $row['a_password'];
     
             if (password_verify($a_password, $storedPassword)) {
-
-                session_start(); // Start the session
-                // Store admin information in session variables
-                $_SESSION['admin_id'] = $row['a_id'];
-                $_SESSION['admin_name'] = $row['a_name'];
-                $_SESSION['admin_username'] = $row['a_username'];
-                echo "1";
+                if ($row['a_status'] == 1) { // Check admin status
+                    session_start(); // Start the session
+                    // Store admin information in session variables
+                    $_SESSION['admin_id'] = $row['a_id'];
+                    $_SESSION['admin_name'] = $row['a_name'];
+                    $_SESSION['admin_username'] = $row['a_username'];
+                    echo "1";
     
-                header("Location: ../admin/a_dashboard.php");
-                exit();
+                    header("Location: ../admin/a_dashboard.php");
+                    exit();
+                } elseif ($row['a_status'] == 2) {
+                    $this->showErrorMessage("Login failed. Your account is deactivated.");
+                }
             } else {
                 $this->showErrorMessage("Login failed. Check your username and password.");
             }
         } else {
             $this->showErrorMessage("Login failed. Admin not found.");
         }
-    }
+    }   
     
     private function showErrorMessage($message) {
         echo "<script>

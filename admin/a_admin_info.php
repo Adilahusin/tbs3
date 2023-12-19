@@ -163,10 +163,20 @@
 
         <div class="button-container">
             <!-- Edit Admin button -->
-			<button id="editAdmin">Edit Admin</button>
+			<button id="editAdmin">
+				Edit Admin <i class="fas fa-edit"></i>
+			</button>
+
+			<!-- Change Status button -->
+			<button id="statusAdmin" type="button">
+				Change Status <i class="fas fa-lock"></i>
+			</button>
 
              <!-- Delete admin button -->
-             <button class="btn btn-danger" type="button" id="deleteAdmin">Delete</button>
+			<button class="btn btn-danger" type="button" id="deleteAdmin">
+				Delete <i class="fas fa-trash-alt"></i>
+			</button>
+
         </div>
 
 			<!-- Edit Admin Modal -->
@@ -195,10 +205,6 @@
                                             <option value="2" <?php if ($row['a_type'] == '2') echo 'selected'; ?>>Staff</option>
                                         </select>
                                     </td>
-								</tr>
-								<tr>
-									<td><label for="status">Status</label></td>
-									<td><input type="text" id="status" name="a_status" required style="width: 100%;" value="<?php echo htmlspecialchars($row['a_status']); ?>"></td>
 								</tr>
 							<?php } ?>
 						</table>
@@ -234,14 +240,18 @@
                                             echo "Admin";
                                         } elseif ($row['a_type'] == '2') {
                                             echo "Staff";
-                                        } else {
-                                            echo "Unknown Type";
                                         }
                                     echo "</td>";
                                     echo "</tr>";
 
 									echo "<td class='col-sm-6'>Status</td>";
-                                    echo "<td class='a_status'>" . $row['a_status'] . "</td>";
+                                    echo "<td class='a_status'>";
+                                    if ($row['a_status'] == 1) {
+                                        echo "Active";
+                                    } elseif ($row['a_status'] == 2) {
+                                        echo "Deactivated";
+                                    } 
+                                    echo "</td>";
                                     echo "</tr>";
                                 }
                                 ?>

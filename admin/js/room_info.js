@@ -1,31 +1,74 @@
-// Get references to the modals and the buttons to open/close them
-var editRoomModal = document.getElementById('editRoomModal');
-var openEditRoomButton = document.getElementById('editRoom');
-var closeEditRoomModalButton = document.getElementById('closeEditRoomModal');
-var deleteAdminButton = document.getElementById('deleteAdmin');
+document.addEventListener('DOMContentLoaded', function() {
+    var editRoomModal = document.getElementById('editRoomModal');
+    var openEditRoomButton = document.getElementById('editRoom');
+    var closeEditRoomModalButton = document.getElementById('closeEditRoomModal');
+    var deleteRoomButton = document.getElementById('deleteRoom');
+    var statusRoomButton = document.getElementById('statusRoom');
 
-// Function to open the editAdmin modal
-function openEditRoomModal() {
-    editRoomModal.style.display = 'block';
-}
+    function openEditRoomModal() {
+        editRoomModal.style.display = 'block';
+    }
 
-// Function to close any modal
-function closeModal() {
-    editRoomModal.style.display = 'none';
-}
+    function closeModal() {
+        editRoomModal.style.display = 'none';
+    }
 
-// Event listeners to open the editAdmin modal
-openEditRoomButton.addEventListener('click', openEditRoomModal);
+    function confirmRoomDeletion() {
+        var confirmation = confirm("Are you sure you want to delete this room?");
 
-// Event listeners to close the modals with the 'x' icons
-closeEditRoomModalButton.addEventListener('click', closeModal);
+        if (confirmation) {
+            var urlParams = new URLSearchParams(window.location.search);
+            var roomId = urlParams.get('id');
 
-// Event listener for the delete admin button
-deleteAdminButton.addEventListener('click', confirmAdminDeletion);
+            if (roomId) {
+                window.location.href = "../class/delete.php?action=delete&id=" + roomId + "&entity=room";
+            } else {
+                alert("Room ID not found in the URL.");
+            }
+        }
+    }
 
-// Close the modal when clicking outside the modal content
-window.addEventListener('click', function(event) {
-    if (event.target === editRoomModal) {
-        closeModal();
+    function handleOutsideClick(event) {
+        if (event.target === editRoomModal) {
+            closeModal();
+        }
+    }
+
+    openEditRoomButton.addEventListener('click', openEditRoomModal);
+    closeEditRoomModalButton.addEventListener('click', closeModal);
+    deleteRoomButton.addEventListener('click', confirmRoomDeletion);
+    window.addEventListener('click', handleOutsideClick);
+
+    var deleteButton = document.getElementById('deleteRoom');
+    if (deleteButton) {
+        deleteButton.addEventListener('click', confirmRoomDeletion);
     }
 });
+
+// function for change status room
+$(document).ready(function() {
+    $('#statusRoom').on('click', function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var roomId = urlParams.get('id');
+        console.log("Change status for room ID:", roomId);
+
+        var updateStatus = '../class/update2.php'; 
+
+        $.ajax({
+            type: 'POST',
+            url: updateStatus,
+            data: { roomId: roomId },
+            success: function(response) {
+                // Handle success response
+                alert('Status updated successfully');
+                location.reload(); 
+            },
+            error: function(xhr, status, error) {
+                // Handle error response
+                alert('Error updating status: ' + error + '. Please try again later.');
+                location.reload(); 
+            }
+        });
+    });
+});
+

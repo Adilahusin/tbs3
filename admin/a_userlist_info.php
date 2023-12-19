@@ -3,32 +3,31 @@
 	include '../fetchdata/fetch.php';
 	include '../class/delete.php';
 
-	// to retrieve id in the url
-	function roomInfo($roomId) {
+	// to retrieve user id in the url
+	function userInfo($userId) {
         global $pdo; 
     
-        $roomInfoQuery = "SELECT * FROM room WHERE id = :roomId";
-    
-        $stmt = $pdo->prepare($roomInfoQuery);
-        $stmt->bindParam(':roomId', $roomId, PDO::PARAM_INT);
+        $userInfo = "SELECT * FROM user WHERE id = :userId";
+        
+        $stmt = $pdo->prepare($userInfo);
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
         $stmt->execute();
-        $data_roomInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-        $_SESSION['room_info'] = $data_roomInfo;
+        $data_userInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $_SESSION['user_info'] = $data_userInfo;
     }
-    
 
 	// Check if the 'id' parameter exists in the URL
 	if (isset($_GET['id'])) {
     // Get the ID from the URL
-    $roomId = $_GET['id'];
+    $userId = $_GET['id'];
 
     // Call the function to retrieve information based on the ID
-    roomInfo($roomId);
+    userInfo($userId);
 
-    // Check if the info session variable exists and has data
-    if (isset($_SESSION['room_info'])) {
-        $roomInfoData = $_SESSION['room_info'];
+    // Check if the user_info session variable exists and has data
+    if (isset($_SESSION['user_info'])) {
+        $userInfoData = $_SESSION['user_info'];
 ?>
 
 <!DOCTYPE html>
@@ -135,8 +134,8 @@
 				</ul>
 			</li>
 			<li><a href="a_items.php"><em class="fa fa-box-open">&nbsp;</em> Items</a></li>
-			<li><a href="a_userlist.php"><em class="fa fa-users">&nbsp;</em> User List</a></li>
-			<li class="active"><a href="a_room.php"><em class="fa-solid fa-door-open">&nbsp;</em> Room</a></li>
+			<li class="active"><a href="a_userlist.php"><em class="fa fa-users">&nbsp;</em> User List</a></li>
+			<li><a href="a_room.php"><em class="fa-solid fa-door-open">&nbsp;</em> Room</a></li>
 			<li><a href="a_inventory.php"><em class="fa fa-boxes-stacked">&nbsp;</em> Inventory</a></li>
 			<li><a href="a_admin.php"><em class="fa-solid fa-user-gear">&nbsp;</em> Admin</a></li>
 		</ul>
@@ -148,14 +147,14 @@
 				<li><a href="a_dashboard.php">
 					<em class="fa fa-home"></em>
 				</a></li>
-				<li><a href="a_room.php">Room</a></li>
-                <li class="active">Room Info</li>
+				<li><a href="a_userlist.php">User List</a></li>
+                <li class="active">User Info</li>
 			</ol>
 		</div><!--/.row-->
 
         <div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Room Info</h1>
+				<h1 class="page-header">User Info</h1>
 			</div>
 		</div><!--/.row-->
 
@@ -163,43 +162,16 @@
 		<div style="color: #fff; text-align: right; padding: 10px;">
 
         <div class="button-container">
-            <!-- Edit Room button -->
-			<button id="editRoom">
-				Edit Room <i class="fas fa-edit"></i>
-			</button>
-		
-			<!-- Change Status button -->
-			<button id="statusRoom" type="button">
+            <!-- Change Status button -->
+			<button id="statusUser" type="button">
 				Change Status <i class="fas fa-lock"></i>
 			</button>
 
-             <!-- Delete room button -->
-             <button class="btn btn-danger" type="button" id="deleteRoom">
+             <!-- Delete user button -->
+             <button class="btn btn-danger" type="button" id="deleteUser">
 				Delete <i class="fas fa-trash-alt"></i>
 			</button>
         </div>
-
-			<!-- Edit Room Modal -->
-			<div id="editRoomModal" class="modal">
-				<div class="modal-content">
-					<span class="close" id="closeEditRoomModal">&times;</span>
-					<h4 class="alert bg-success">Edit Room</h4>
-					<form action="../class/update2.php" method="post">
-						<table style="width: 100%;">
-							<?php foreach ($roomInfoData as $row) { ?>
-								<tr>
-									<td style="width: 40%;"><label for="type">Name</label></td>
-									<td style="width: 60%;"><input type="text" id="name" name="room_name" required style="width: 100%;" value="<?php echo htmlspecialchars($row['room_name']); ?>"></td>
-									<td><input type="hidden" name="room_id" value="<?php echo $roomId; ?>"></td> <!-- Hidden field to carry Room ID -->
-								</tr>
-							<?php } ?>
-						</table>
-						<div style="text-align: right;">
-							<button class="btn btn-primary" type="submit" id="updateButton">UPDATE</button>
-						</div>
-					</form>
-				</div>
-			</div>
 
 		</div>
 
@@ -207,28 +179,48 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<table class="table room_info">
+						<table class="table admin_info">
 							<tbody>
                                 <?php
-                                foreach ($roomInfoData as $row) {
+                                foreach ($userInfoData as $row) {
                                     echo "<tr>";
-                                    echo "<td class='success col-sm-6'>Room Name</td>";
-                                    echo "<td class='room_name'>" . $row['room_name'] . "</td>";
+                                    echo "<td class='success col-sm-6'>User ID</td>";
+                                    echo "<td class='u_id'>" . $row['u_id'] . "</td>";
                                     echo "</tr>";
 
-									echo "<td class='col-sm-6'>Date Added</td>";
-
-                                    // Convert the date to a different format
-                                    $dateAdded = date("d-m-Y H:i:s", strtotime($row['room_date_added']));
-
-                                    echo "<td class='room_date_added'>" . $dateAdded . "</td>";
+									echo "<td class='col-sm-6'>User Name</td>";
+                                    echo "<td class='u_name'>" . $row['u_name'] . "</td>";
                                     echo "</tr>";
 
-									echo "<td class='success col-sm-6'>Room Status</td>";
-                                    echo "<td class='room_status'>";
-                                    if ($row['room_status'] == 1) {
+									echo "<td class='success col-sm-6'>Contact Number</td>";
+                                    echo "<td class='u_contact'>" . $row['u_contact'] . "</td>";
+                                    echo "</tr>";
+
+									echo "<td class='col-sm-6'>User Type</td>";
+                                    echo "<td class='u_type'>";
+                                    if ($row['u_type'] == 1) {
+                                        echo "Staff/Lecturer";
+                                    } elseif ($row['u_type'] == 2) {
+                                        echo "Student";
+                                    } 
+                                    echo "</td>";
+                                    echo "</tr>";
+
+                                    echo "<td class='success col-sm-6'>Gender</td>";
+                                    echo "<td class='u_gender'>";
+                                    if ($row['u_gender'] == 1) {
+                                        echo "Male";
+                                    } elseif ($row['u_gender'] == 2) {
+                                        echo "Female";
+                                    } 
+                                    echo "</td>";
+                                    echo "</tr>";
+
+                                    echo "<td class='col-sm-6'>Status</td>";
+                                    echo "<td class='u_status'>";
+                                    if ($row['u_status'] == 1) {
                                         echo "Active";
-                                    } elseif ($row['room_status'] == 2) {
+                                    } elseif ($row['u_status'] == 2) {
                                         echo "Deactivated";
                                     } 
                                     echo "</td>";
@@ -244,7 +236,7 @@
 
 		
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<script src="./js/room_info.js"></script>
+	<script src="./js/userlist_info.js"></script>
 
 
 </body>

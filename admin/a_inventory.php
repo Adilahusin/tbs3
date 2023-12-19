@@ -218,6 +218,7 @@
 										<th>Brand</th>
 										<th>Model No</th>
 										<th>Quantity</th>
+										<th>Remarks</th>
 									</tr>
 								</thead>
 							</table>
@@ -229,28 +230,61 @@
 
 		<div id="Damaged" class="tabcontent">
 		<div class="row">
-				<div class="col-lg-12">
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<table class="table item_damaged">
-								<thead>
-									<tr>
-										<th>Type</th>
-										<th>Brand</th>
-										<th>Model No</th>
-										<th>Quantity</th>
-										<th>Remarks</th>
-									</tr>
-								</thead>
-							</table>
-						</div>
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<table class="table item_damaged">
+							<thead>
+								<tr>
+									<th>Type</th>
+									<th>Brand</th>
+									<th>Model No</th>
+									<th>Quantity</th>
+									<th>Remarks</th>
+								</tr>
+							</thead>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
+		</div>
 
 		<div id="Total Items" class="tabcontent">
-			<p>This is the content for the Total Items tab.</p>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<table class="table total_items">
+							<thead>
+								<tr>
+									<th>Type</th>
+									<th>Brand</th>
+									<th>Model No</th>
+									<th>Quantity</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+									if (isset($_SESSION['total_items'])) {									
+										$data_item = $_SESSION['total_items'];
+											foreach ($data_item as $row) {
+											echo "<tr>";
+											echo "<td>" . $row['i_type'] . "</td>";
+											echo "<td>" . $row['i_brand'] . "</td>";
+											echo "<td>" . $row['i_modelNo'] . "</td>";
+											echo "<td>" . $row['i_quantity'] . "</td>";
+										}							
+									} else {
+										echo "No data available";
+									}
+								?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
 		</div>
 
 		<div id="Borrowed" class="tabcontent">

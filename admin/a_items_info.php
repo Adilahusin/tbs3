@@ -316,8 +316,8 @@
                                     echo "</tr>";
 
 									echo "<td class='col-sm-6'>Warranty</td>";
-                                    echo "<td class='i_warranty'>" . $row['i_warranty'] . "</td>";
-                                    echo "</tr>";
+									echo "<td class='i_warranty'>" . $row['i_warranty'] . " Year</td>";
+									echo "</tr>";
 
 									echo "<td class='success col-sm-6'>Date Purchase</td>";
                                     echo "<td class='i_datepurchase'>" . $row['i_datepurchase'] . "</td>";
@@ -325,6 +325,16 @@
 
 									echo "<td class='col-sm-6'>Person-in-Charge</td>";
                                     echo "<td class='i_PIC'>" . $row['i_PIC'] . "</td>";
+                                    echo "</tr>";
+
+									echo "<td class='success col-sm-6'>Status</td>";
+                                    echo "<td class='i_status'>";
+                                    if ($row['i_status'] == 1) {
+                                        echo "Active";
+                                    } elseif ($row['i_status'] == 2) {
+                                        echo "Inactive";
+                                    } 
+                                    echo "</td>";
                                     echo "</tr>";
                                 }
                                 ?>

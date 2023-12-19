@@ -211,7 +211,7 @@
                                             <div class="btn-group center-buttons">			                                                								
 												<a href="a_admin_info.php?id=' . $row['id'] . '">
 												<button type="button" class="btn btn-primary btn-block">
-													Action
+													More
 												</button>
 											</a>
                                             </div>

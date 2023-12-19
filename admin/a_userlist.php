@@ -212,16 +212,12 @@
 										echo "<td>" . $row['u_contact'] . "</td>"; 
 										echo "<td>" . $row['u_type'] . "</td>";
 										echo '<td>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                    Action
-                                                    <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu" role="menu">
-													<li><a href="?action=delete&u_id=' . $row['u_id'] . '&u_name=' . $row['u_name'] . '" class="delete-action">Delete</a></li>
-													<li><a href="?action=deactivate&u_id=' . $row['u_id'] . '&u_name=' . $row['u_name'] . '" class="deactivate-action">Deactivate</a></li>
-												</ul>
-
+                                            <div class="btn-group center-buttons">			                                                								
+												<a href="a_userlist_info.php?id=' . $row['id'] . '">
+												<button type="button" class="btn btn-primary btn-block">
+													More
+												</button>
+											</a>
                                             </div>
                                         </td>';
                                         echo "</tr>";
@@ -232,7 +228,6 @@
 							?>
 						</tbody>
 					</table>
-					<!-- <li><a href="#" class="deactivate-action">Deactivate</a></li> -->
 				</div>
 			</div>
 		</div>

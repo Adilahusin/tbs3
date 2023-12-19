@@ -190,7 +190,7 @@
 		</div>
 		
 		<div style="text-align: center; font-size: 24px;">
-			Calendar of Reservation
+			Calendar
 		</div>
 
 		<div style="display: flex; align-items: center; justify-content: center; flex-direction: column; height: 100%; margin: 0;">

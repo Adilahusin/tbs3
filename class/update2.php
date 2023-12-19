@@ -3,30 +3,29 @@ require_once "./configure/config.php";
 
 class update2 {
 
-    // public function updateRoom($roomId, $roomName) {
-    //     global $pdo;
-
-    //     try {
-    //         $updateRoom = "UPDATE room SET room_name = :room_name WHERE id = :id";
-    //         $stmt = $pdo->prepare($updateRoom);
-    //         $stmt->bindParam(':id', $roomId);
-    //         $stmt->bindParam(':room_name', $roomName);
-    //         $stmt->execute();
-    //         return true; // Update successful
-    //     } catch(PDOException $e) {
-    //         if ($e->errorInfo[1] == 1062) { //indicates a duplicate entry
-    //             echo '<script>alert("Room already exists"); window.history.back();</script>';
-    //         } else {
-    //             echo '<script>alert("Error: ' . $e->getMessage() . '");</script>';
-    //         }
-    //         return false; // Update failed
-    //     }
-    // }
-
     public function updateItemInfo($itemId, $type, $brand, $modelNo, $pbNo, $vendor, $warranty, $datePurchase, $serialNo) {
         global $pdo;
-
+    
         try {
+            // Check if the item type, brand, modelNo, and item_status already exist
+            $checkItemInfo = "SELECT COUNT(*) AS itemCount FROM item 
+                                WHERE item.i_type = :type AND item.i_brand = :brand 
+                                AND item.i_modelNo = :modelNo AND item.id != :itemId";
+    
+            $checkStmt = $pdo->prepare($checkItemInfo);
+            $checkStmt->bindParam(':type', $type);
+            $checkStmt->bindParam(':brand', $brand);
+            $checkStmt->bindParam(':modelNo', $modelNo);
+            $checkStmt->bindParam(':itemId', $itemId, PDO::PARAM_INT);
+            $checkStmt->execute();
+            $itemCount = $checkStmt->fetch(PDO::FETCH_ASSOC)['itemCount'];
+        
+            if ($itemCount > 0) {
+                echo '<script>alert("Data for this item already exists"); window.history.back();</script>';
+                return false; // Data for this item already exists, halt the update
+            }
+        
+            // Proceed with the update if data doesn't exist
             $updateItem = "UPDATE item 
                             SET i_type = :type, 
                                 i_brand = :brand, 
@@ -37,6 +36,7 @@ class update2 {
                                 i_datepurchase = :datePurchase, 
                                 i_serialno = :serialNo 
                             WHERE id = :itemId";
+        
             $stmt = $pdo->prepare($updateItem);
             $stmt->bindParam(':type', $type);
             $stmt->bindParam(':brand', $brand);
@@ -49,16 +49,16 @@ class update2 {
             $stmt->bindParam(':itemId', $itemId, PDO::PARAM_INT);
             $stmt->execute();
             return true; // Update successful
-
+            
         } catch(PDOException $e) {
-            if ($e->errorInfo[1] == 1062) { //indicates a duplicate entry
+            if ($e->errorInfo[1] == 1062) { // Indicates a duplicate entry
                 echo '<script>alert("Item information already exists"); window.history.back();</script>';
             } else {
                 echo '<script>alert("Error: ' . $e->getMessage() . '");</script>';
             }
             return false; // Update failed
         }
-    }
+    }    
 
     public function updateAdmin($adminId, $name, $username, $adminType) {
         global $pdo; 
@@ -120,12 +120,11 @@ class update2 {
             $currentDateTime = date("Y-m-d H:i:s");
 
             // Query to update the room details
-            $updateQuery = "UPDATE room SET room_name = :roomName, room_status = :roomStatus, room_date_added = :currentDateTime WHERE id = :roomId";
+            $updateRoom = "UPDATE room SET room_name = :roomName, room_date_added = :currentDateTime WHERE id = :roomId";
 
             // Prepare and execute the update query
-            $stmt = $pdo->prepare($updateQuery);
+            $stmt = $pdo->prepare($updateRoom);
             $stmt->bindParam(':roomName', $newRoomName, PDO::PARAM_STR);
-            $stmt->bindParam(':roomStatus', $newRoomStatus, PDO::PARAM_STR);
             $stmt->bindParam(':currentDateTime', $currentDateTime, PDO::PARAM_STR);
             $stmt->bindParam(':roomId', $roomId, PDO::PARAM_INT);
             $stmt->execute();
@@ -136,12 +135,73 @@ class update2 {
             return false; // Room update failed - Error occurred
         }
     }
+
+    public function updateAdminStatus($adminId) {
+        global $pdo;
+
+        $updateStatusAdmin = "UPDATE admin SET a_status = CASE WHEN a_status = 1 THEN 2 ELSE 1 END WHERE id = :adminId";
+
+        try {
+            $stmt = $pdo->prepare($updateStatusAdmin);
+            $stmt->bindParam(':adminId', $adminId, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $affectedRows = $stmt->rowCount();
+            if ($affectedRows > 0) {
+                return ['success' => true, 'message' => 'Status updated successfully'];
+            } else {
+                return ['success' => false, 'message' => 'No changes made'];
+            }
+        } catch (PDOException $e) {
+            return ['success' => false, 'message' => 'Database error: ' . $e->getMessage()];
+        }
+    }
+
+    public function updateRoomStatus($roomId) {
+        global $pdo;
+
+        $updateStatusRoom = "UPDATE room SET room_status = CASE WHEN room_status = 1 THEN 2 ELSE 1 END WHERE id = :roomId";
+
+        try {
+            $stmt = $pdo->prepare($updateStatusRoom);
+            $stmt->bindParam(':roomId', $roomId, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $affectedRows = $stmt->rowCount();
+            if ($affectedRows > 0) {
+                return ['success' => true, 'message' => 'Status updated successfully'];
+            } else {
+                return ['success' => false, 'message' => 'No changes made'];
+            }
+        } catch (PDOException $e) {
+            return ['success' => false, 'message' => 'Database error: ' . $e->getMessage()];
+        }
+    }
+
+    public function updateUserStatus($userId) {
+        global $pdo;
+    
+        $updateStatusUser = "UPDATE user SET u_status = CASE WHEN u_status = 1 THEN 2 ELSE 1 END WHERE id = :userId";
+    
+        echo "Received User ID: " . $userId . "<br>";
+        try {
+            $stmt = $pdo->prepare($updateStatusUser);
+            $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            $affectedRows = $stmt->rowCount();
+            if ($affectedRows > 0) {
+                return ['success' => true, 'message' => 'Status updated successfully'];
+            } else {
+                return ['success' => false, 'message' => 'No changes made'];
+            }
+        } catch (PDOException $e) {
+            return ['success' => false, 'message' => 'Database error: ' . $e->getMessage()];
+        }
+    }
+    
     
 
-    
-    
-    
-    
 
 
 
@@ -153,17 +213,6 @@ class update2 {
 $update2_function = new update2();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    //update room
-    // if (isset($_POST['id']) && isset($_POST['name'])) {
-    //     $roomId = $_POST['id'];
-    //     $roomName = $_POST['name'];
-    //     $roomUpdateSuccess = $update2_function->updateRoom($roomId, $roomName);
-    //     if ($roomUpdateSuccess) {
-    //         echo '<script>alert("Update successful"); window.location.href="../admin/a_room.php";</script>';
-    //         exit();
-    //     }
-    // }
 
     //update item info
     if (isset($_POST['item_id'])) {
@@ -216,6 +265,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    if (isset($_POST['adminId'])) {
+        $adminId = $_POST['adminId'];
 
+        $changeStatusAdmin = $update2_function->updateAdminStatus($adminId);
+        echo json_encode($changeStatusAdmin);
+    } elseif (isset($_POST['roomId'])) {
+        $roomId = $_POST['roomId'];
+
+        $changeStatusRoom = $update2_function->updateRoomStatus($roomId);
+        echo json_encode($changeStatusRoom);
+
+    } elseif (isset($_POST['userId'])) {
+        $userId = $_POST['userId'];
+
+        $changeStatusUser = $update2_function->updateUserStatus($userId);
+        echo json_encode($changeStatusUser);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Invalid request']);
+    }
+    
 }
 ?>

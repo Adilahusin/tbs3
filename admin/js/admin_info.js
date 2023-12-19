@@ -3,6 +3,7 @@ var editAdminModal = document.getElementById('editAdminModal');
 var openEditAdminButton = document.getElementById('editAdmin');
 var closeEditAdminModalButton = document.getElementById('closeEditAdminModal');
 var deleteAdminButton = document.getElementById('deleteAdmin');
+var statusAdminButton = document.getElementById('statusAdmin');
 
 // Function to open the editAdmin modal
 function openEditAdminModal() {
@@ -31,25 +32,54 @@ window.addEventListener('click', function(event) {
 });
 
 // Function to confirm admin deletion
+function confirmAdminDeletion() {
+    var confirmation = confirm("Are you sure you want to delete this admin?");
+
+    if (confirmation) {
+        var urlParams = new URLSearchParams(window.location.search);
+        var adminId = urlParams.get('id');
+        console.log("User ID to delete:", adminId);
+
+        if (adminId) {
+            window.location.href = "../class/delete.php?action=delete&id=" + adminId + "&entity=admin";
+        } else {
+            alert("Admin ID not found in the URL.");
+        }
+    }
+}
 document.addEventListener('DOMContentLoaded', function() {
     var deleteAdminButton = document.getElementById('deleteAdmin');
 
     if (deleteAdminButton) {
-        deleteAdminButton.addEventListener('click', function() {
-            var confirmation = confirm("Are you sure you want to delete this admin?");
-
-            if (confirmation) {
-                // Get the admin ID from the URL query parameters
-                var urlParams = new URLSearchParams(window.location.search);
-                var adminId = urlParams.get('id'); // Fetch the admin ID from the URL
-
-                if (adminId) {
-                    // Redirect to delete.php with the admin ID for deletion
-                    window.location.href = "../class/delete.php?action=delete&id=" + adminId;
-                } else {
-                    alert("Admin ID not found in the URL.");
-                }
-            }
-        });
+        deleteAdminButton.addEventListener('click', confirmAdminDeletion);
     }
 });
+
+// function for change status admin
+$(document).ready(function() {
+    $('#statusAdmin').on('click', function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var adminId = urlParams.get('id');
+        console.log("Change status for admin ID:", adminId);
+
+        var updateStatus = '../class/update2.php'; 
+
+        $.ajax({
+            type: 'POST',
+            url: updateStatus,
+            data: { adminId: adminId },
+            success: function(response) {
+                // Handle success response
+                alert('Status updated successfully');
+                location.reload(); 
+            },
+            error: function(xhr, status, error) {
+                // Handle error response
+                alert('Error updating status: ' + error + '. Please try again later.');
+                location.reload(); 
+            }
+        });
+
+    });
+});
+

@@ -14,18 +14,20 @@ try {
     echo "Connection failed: " . $e->getMessage();
 }
 
-if (isset($_GET['action']) && $_GET['action'] === "delete"){
+if (isset($_GET['action']) && $_GET['action'] === "delete" && isset($_GET['entity'])) {
+
+    $entity = $_GET['entity'];
 
     // delete admin
-    if (isset($_GET['id'])) {
+    if ($entity === "admin" && isset($_GET['id'])) {
         try {
             $adminId = $_GET['id'];
     
             // SQL query to delete admin record based on ID
-            $deleteAdminQuery = "DELETE FROM admin WHERE id = :adminId";
+            $deleteAdmin = "DELETE FROM admin WHERE id = :adminId";
     
             // Prepare the statement
-            $stmt = $pdo->prepare($deleteAdminQuery);
+            $stmt = $pdo->prepare($deleteAdmin);
             $stmt->bindParam(':adminId', $adminId, PDO::PARAM_INT);
     
             // Execute the deletion query
@@ -39,26 +41,26 @@ if (isset($_GET['action']) && $_GET['action'] === "delete"){
         }    
 
     // delete room
-    } elseif (isset($_GET['room_name'])) {
+    } elseif ($entity === "room" && isset($_GET['id'])) {
         try {
-            $room_name = $_GET['room_name'];
+            $roomId = $_GET['id'];
     
-            // DELETE SQL statement and execute it
-            $deleteRoom = $pdo->prepare("DELETE FROM room WHERE room_name = ?");
-            $deleteRoom->execute([$room_name]);
+            // SQL query to delete room record based on ID
+            $deleteRoom = "DELETE FROM room WHERE id = :roomId";
     
-            // Check if any row was affected
-            if ($deleteRoom->rowCount() > 0) {
-                // Successful deletion
-                echo "<script>alert('Delete successful. $room_name has been deleted.'); window.location.href = document.referrer;</script>";
+            // Prepare the statement
+            $stmt = $pdo->prepare($deleteRoom);
+            $stmt->bindParam(':roomId', $roomId, PDO::PARAM_INT);
+    
+            // Execute the deletion query
+            if ($stmt->execute()) {
+                echo "<script>alert('Deletion successful.'); window.location.href = '../admin/a_room.php';</script>";
             } else {
-                // Deletion was unsuccessful
-                echo "<script>alert('Deletion was unsuccessful for $room_name. Please try again'); window.location.href = document.referrer;</script>";
+                echo "<script>alert('Deletion failed. Please try again.'); window.location.href = '../admin/a_room.php';</script>";
             }
         } catch (PDOException $e) {
-            // Handle database errors
-            echo "<script>alert('Error: " . $e->getMessage() . "'); window.location.href = document.referrer;</script>";
-        }
+            echo "<script>alert('Error: " . $e->getMessage() . "'); window.location.href = '../admin/a_room.php';</script>";
+        }    
 
     // delete item
     } elseif (isset($_GET['i_type'])) {
@@ -83,36 +85,31 @@ if (isset($_GET['action']) && $_GET['action'] === "delete"){
             // Handle database errors
             echo "<script>alert('Error: " . $e->getMessage() . "'); window.location.href = document.referrer;</script>";
         }
-    
-    // delete user
-    } elseif (isset($_GET['u_id'])) {
-        try {
-            $user_id = $_GET['u_id'];
-            $user_name = $_GET['u_name'];
-    
-            $deleteUser = $pdo->prepare("DELETE FROM user WHERE u_id = ?");
-            $deleteUser->execute([$user_id]);
-    
-            // Check if any row was affected
-            if ($deleteUser->rowCount() > 0) {
-                // Successful deletion
-                echo "<script>alert('Delete successful. $user_id $user_name has been deleted.'); 
-                window.location.href = document.referrer;
-                </script>";
 
-            } else {
-                // Deletion was unsuccessful
-                echo "<script>alert('Deletion was unsuccessful for $user_id $user_name. Please try again'); 
-                window.location.href = document.referrer;
-                </script>";
+        // delete user
+        } elseif ($entity === "user" && isset($_GET['id'])) {
+            try {
+                // User deletion
+                $userId = $_GET['id'];
+
+                // SQL query to delete user record based on ID
+                $deleteUser = "DELETE FROM user WHERE id = :userId";
+
+                // Prepare the statement
+                $stmt = $pdo->prepare($deleteUser);
+                $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+
+                // Execute the deletion query
+                if ($stmt->execute()) {
+                    echo "<script>alert('Deletion successful.'); window.location.href = '../admin/a_userlist.php';</script>";
+                } else {
+                    echo "<script>alert('Deletion failed. Please try again.'); window.location.href = '../admin/a_userlist.php';</script>";
+                }
+            } catch (PDOException $e) {
+                echo "<script>alert('Error: " . $e->getMessage() . "'); window.location.href = document.referrer;</script>";
             }
-        } catch (PDOException $e) {
-            // Handle database errors
-            echo "<script>alert('Error: " . $e->getMessage() . "'); 
-            window.location.href = document.referrer;
-            </script>";
         }
-    }
+
 }
 
 ?>
