@@ -224,15 +224,14 @@
 							?>
 						</tbody>
 					</table>
-				
+			
 				</div>
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>
-
+<?php echo ("Admin type " . $_SESSION['admin_type']); ?>
 <?php include '../admin/footer.php'; ?>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -240,3 +239,4 @@
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 
 <script src="./js/admin.js"></script>
+

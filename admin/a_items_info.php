@@ -252,14 +252,17 @@
 				<div class="modal-content">
 					<span class="close" id="closeChangeStatusModal">&times;</span>
 					<h4 class="alert bg-success">Change Status</h4>
-					<form>
+					<form action="..class/update2.php" method="POST">
 						<div class="form-group">
+
+						<input type="hidden" id="itemId" name="item_id" value="<?php echo $itemId; ?>">
+
 							<label for="status">Status:</label>
 							<select id="status" name="status" required>
 								<option disabled selected>Select status</option>
-								<option value="old">Old</option>
-								<option value="lost">Lost</option>
-								<option value="damage">Damage</option>
+								<option value="2">Old</option>
+								<option value="3">Lost</option>
+								<option value="4">Damage</option>
 							</select>
 						</div>
 						<div class="form-group">
@@ -270,7 +273,7 @@
 							<label for="remarks">Remarks:</label>
 							<textarea id="remarks" name="remarks"></textarea>
 						</div>
-						<button class="btn btn-primary btn-block" type="submit" id="" name="">
+						<button class="btn btn-primary btn-block" type="submit" id="changeStatusItem" name="change_status">
 							SAVE
 						</button>
 					</form>

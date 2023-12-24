@@ -11,6 +11,30 @@ var closeAddQtyModalButton = document.getElementById('closeAddQtyModal');
 var closeEditItemModalButton = document.getElementById('closeEditItemModal');
 var closeChangeStatusModalButton = document.getElementById('closeChangeStatusModal');
 
+// Function to retrieve and display item ID from the URL
+// function displayItemIdFromURL() {
+//     // Retrieve item ID from the URL
+//     const urlParams = new URLSearchParams(window.location.search);
+//     const itemId = urlParams.get('id');
+
+//     console.log('Item ID:', itemId);
+// }
+
+// Function to retrieve item ID from the URL
+function getItemIdFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('id');
+}
+
+// Function to display item ID from the URL
+function displayItemIdFromURL() {
+    const itemId = getItemIdFromURL();
+    console.log('Item ID:', itemId);
+}
+
+// Call the function when the page loads
+window.addEventListener('load', displayItemIdFromURL);
+
 // Function to open the addQty modal
 function openAddQtyModal() {
     addQtyModal.style.display = 'block';
@@ -21,10 +45,26 @@ function openEditItemModal() {
     editItemModal.style.display = 'block';
 }
 
-// Function to open the changeStatus modal
+// Function to open the changeStatus modal and log the item ID
 function openChangeStatusModal() {
+    // Function to retrieve item ID from the URL
+    function getItemIdFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('id');
+    }
+
+    // Retrieve item ID from the URL
+    const itemId = getItemIdFromURL();
+
+    // Display item ID in the console log
+    console.log('Item ID:', itemId);
+
+    // Open the changeStatus modal
     changeStatusModal.style.display = 'block';
 }
+
+
+
 
 // Function to close any modal
 function closeModal() {
@@ -49,4 +89,3 @@ window.addEventListener('click', function(event) {
         closeModal();
     }
 });
-

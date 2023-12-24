@@ -56,6 +56,7 @@ class login {
                     $_SESSION['admin_id'] = $row['a_id'];
                     $_SESSION['admin_name'] = $row['a_name'];
                     $_SESSION['admin_username'] = $row['a_username'];
+                    $_SESSION['admin_type'] = $row['a_type'];
                     echo "1";
     
                     header("Location: ../admin/a_dashboard.php");

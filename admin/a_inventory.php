@@ -121,7 +121,7 @@
 			<button class="tablinks" onclick="openTab(event, 'Lost')">Lost</button>
 			<button class="tablinks" onclick="openTab(event, 'Damaged')">Damaged</button>
 			<button class="tablinks" onclick="openTab(event, 'Total Items')">Total Items</button>
-			<button class="tablinks" onclick="openTab(event, 'Borrowed')">Borrowed</button>
+			<!-- <button class="tablinks" onclick="openTab(event, 'Borrowed')">Borrowed</button> -->
 		</div>
 
 		<div id="New" class="tabcontent">
@@ -138,6 +138,7 @@
 											<th style="width: 180px;" onclick="sortTable('item_new', 1)">Brand <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
 											<th style="width: 150px;" onclick="sortTable('item_new', 2)">Model No <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
 											<th style="width: 100px;" onclick="sortTable('item_new', 3)">Quantity <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
+											<th style="width: 100px;" onclick="sortTable('item_new', 3)">Total <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
 										</tr>
 									</thead>
 									</tr>
@@ -287,9 +288,9 @@
 		</div>
 		</div>
 
-		<div id="Borrowed" class="tabcontent">
+		<!-- <div id="Borrowed" class="tabcontent">
 			<p>This is the content for the Borrowed tab.</p>
-		</div>
+		</div> -->
 
 		<?php
 			include '../admin/footer.php';

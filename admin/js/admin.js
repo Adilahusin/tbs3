@@ -9,7 +9,7 @@ var closeModalButton = document.getElementById('closeModal');
 var cancelButton = document.getElementById('cancelButton');
 
 // Function to open the "Add Admin" modal
-function openModal() {
+function openModal() {   
     addAdminModal.style.display = 'block';
 }
 

@@ -12,7 +12,7 @@ class custom {
             $stmt->execute([$reservationCode, $cancellationRemarks]);
 
             if ($stmt->rowCount() > 0) {
-                return "Cancellation reservation successfully";
+                return "success";
             } else {
                 return "Error: Failed to proceed cancellation";
             }
@@ -32,13 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Call the method to cancel reservation
     $result = $custom_function->cancelReservation($reservationCode, $cancellationRemarks);
 
-    if (strpos($result, 'Error') !== false) {
-        // If there's an error, echo a message that JavaScript can interpret
-        echo 'error';
+    if ($result === "Cancel reservation success") {
+        echo '<script>alert("Cancel reservation success");</script>';
+        echo '<script>window.history.go(-1);</script>';
     } else {
-        // If the cancellation was successful, echo a success message
-        echo 'success';
+        echo '<script>alert("Cancellation failed");</script>';
+        echo '<script>window.history.go(-1);</script>';
     }
-    
-} 
+}
+
 ?>
