@@ -70,17 +70,24 @@
 						<table class="table table_borrowed" id="borrowedTable">
 							<thead>
 								<tr>
+									<th>Staff/Student ID</th>
 									<th>Name</th>
 									<th>Item</th>
 									<th>Reservation Date</th>
 									<th>Room</th>
-									<th>Remarks</th>
 									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
-								
-							</tbody>
+								<tr>
+									<td>1002</td>
+									<td>Ali Abu</td>
+									<td>LCD 1</td>
+									<td>November 15, 2023 17:15:00 PM</td>
+									<td>1A2</td>
+									<td><button class="btn btn-primary returnButton">Return</button></td>
+								</tr>
+                    		</tbody>
 						</table>
 					
 					</div>

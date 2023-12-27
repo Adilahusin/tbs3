@@ -40,6 +40,26 @@
             border: 1px solid #ccc;
             border-top: none;
         }
+
+		.borrowButton {
+			background-color: #7370c9;
+			color: #fff;
+			border: none;
+			padding: 8px 16px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 14px;
+			margin: 4px 2px;
+			transition-duration: 0.4s;
+			cursor: pointer;
+			border-radius: 4px;
+		}
+
+		/* Hover effect for the Borrow button */
+		.borrowButton:hover {
+			background-color: #8c8ac8;
+		}
     </style>
 </head>
 
@@ -122,7 +142,7 @@
 											echo "<td>" . $pending['i_type'] . "</td>"; 
 											echo "<td>" . date('F d, Y H:i:s A', strtotime($pending['reserve_date'].' '.$pending['reserve_time'])) . "</td>"; 
 											echo "<td>" . $pending['room_name'] . "</td>";
-											//echo "<td>" . $pending['reservation_code'] . "</td>";
+											// echo "<td>" . $pending['reservation_code'] . "</td>";
 											echo "<td>";
 											echo "											
 												<button class='btn btn-primary btn-accept acceptButton' data-id='".$pending['reservation_code']."'>
@@ -156,78 +176,37 @@
 		</div>
 
 		<div id="Accepted" class="tabcontent">
-    		<div class="row">
-        		<div class="col-lg-12">
-            		<div class="panel panel-default">
-                		<div class="panel-body">
-                    	<table class="table table_accepted">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Items</th>
-                                <th>Reservation Date</th>
-                                <th>Room/Lab</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-							if (isset($_SESSION['accept_reservations']) && is_array($_SESSION['accept_reservations']) && count($_SESSION['accept_reservations']) > 0) {
-								foreach ($_SESSION['accept_reservations'] as $accepted) {
-									echo "<tr>";
-									echo "<td>" . $accepted['u_id'] . "</td>"; 
-									echo "<td>" . $accepted['u_name'] . "</td>"; 
-									echo "<td>" . $accepted['i_type'] . "</td>"; 
-									echo "<td>" . date('F d, Y H:i:s A', strtotime($accepted['reserve_date'].' '.$pending['reserve_time'])) . "</td>"; 
-									echo "<td>" . $accepted['room_name'] . "</td>";
-									//echo "<td>" . $pending['reservation_code'] . "</td>";
-									echo "<td>";
-									echo "											
-										<button class='btn btn-primary btn-accept acceptButton' data-id='".$pending['reservation_code']."'>
-											Accept
-											<i class='fa fa-chevron-right'></i>
-										</button>
-																				
-										<button class='btn btn-danger btn-borrow cancelButton' 
-										data-id='' 
-										data-toggle='modal' 
-										data-target='#cancelModal'>
-										Borrow
-										<i class='fa fa-remove'></i>
-										</button>
-									";
-									echo "</td>";
-									echo "</tr>";
-								}
-							} else {
-								echo "<tr><td colspan='6'>No pending reservations found.</td></tr>";
-							}
-                            // Assuming $pdo is your PDO connection
-                            // $stmt = $pdo->prepare("SELECT * FROM your_table WHERE status = 'accepted'");
-                            // $stmt->execute();
-                            // $acceptedReservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                            // Loop through fetched data and generate HTML
-                            // if (!empty($acceptedReservations)) {
-                            //     foreach ($acceptedReservations as $accepted) {
-                            //         echo "<tr>";
-                            //         echo "<td>" . $accepted['u_id'] . "</td>"; 
-                            //         // ... Populate other table cells with relevant data for each reservation
-                            //         echo "</tr>";
-                            //     }
-                            // } else {
-                            //     echo "<tr><td colspan='5'>No accepted reservations found.</td></tr>";
-                            // }
-                            ?>
-                        </tbody>
-                    	</table>
-                		</div>
-           			</div>
-        		</div>
-    		</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<table class="table table_accepted">
+								<thead>
+									<tr>
+										<th>Stadd/Student ID</th>
+										<th>Name</th>
+										<th>Items</th>
+										<th>Reservation Date</th>
+										<th>Room/Lab</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>20231123</td>
+										<td>Izzah Daud</td>
+										<td>LCD 1</td>
+										<td>December 01, 2023 12:25:00 PM</td>
+										<td>1A3</td>
+										<td><button class="btn btn-primary borrowButton">Borrow</button></td>
+									</tr>
+                        		</tbody>
+							</table>					
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-
-
 
 		<!-- Cancel Modal -->
 		<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -283,41 +262,17 @@
 
 	
 <!-- shows each reservation code in alert when click accept -->
-	<!-- Script for accepting a reservation -->
-<script>
-    const acceptButtons = document.querySelectorAll('.acceptButton');
+	<!-- <script>
+		const acceptButtons = document.querySelectorAll('.acceptButton');
 
-    acceptButtons.forEach(function(button) {
-        button.addEventListener('click', function(event) {
-            event.preventDefault();
-            const reservationCode = button.getAttribute('data-id');
-            
-			//console.log('Reservation Code:', reservationCode);
-
-            // Send an asynchronous request to update the status
-            fetch('../class/update_status.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ reservationCode: reservationCode, status: 'accepted' }),
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Handle the response or update the UI as needed
-                    alert('Reservation ' + reservationCode + ' has been accepted.');
-                    // You might want to reload the page or update the UI here
-                } else {
-                    throw new Error('Failed to accept reservation');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // Handle errors or display an error message to the user
-            });
-        });
-    });
-</script>
+		acceptButtons.forEach(function(button) {
+			button.addEventListener('click', function(event) {
+				event.preventDefault();
+				const reservationCode = button.getAttribute('data-id');
+				alert('Reservation code: ' + reservationCode);
+			});
+		});
+	</script> -->
 
 
 </body>

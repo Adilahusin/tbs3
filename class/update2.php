@@ -1,10 +1,6 @@
 <?php
 require_once "./configure/config.php";
 
-echo '<pre>';
-var_dump($_POST);
-echo '</pre>';
-
 class update2 {
 
     public function updateItemInfo($itemId, $type, $brand, $modelNo, $pbNo, $vendor, $warranty, $datePurchase, $serialNo) {
@@ -62,7 +58,7 @@ class update2 {
             }
             return false; // Update failed
         }
-    }    
+    }        
 
     public function updateAdmin($adminId, $name, $username, $adminType) {
         global $pdo; 
@@ -204,36 +200,6 @@ class update2 {
         }
     }
 
-    public function statusItemInventory($itemId, $quantity, $status, $remarks) {
-        global $pdo;
-
-        $statusItemInventory = "INSERT INTO item_inventory (item_id, inventory_itemqty, inventory_status, item_remarks)
-            SELECT 
-                :itemId AS item_id,
-                :quantity AS inventory_itemqty,
-                :status AS inventory_status,
-                :remarks AS item_remarks
-            FROM 
-                item_stock as s
-            WHERE 
-                s.item_id = :itemId
-                AND s.item_stock >= :quantity
-        ";
-        $stmt = $pdo->prepare($statusItemInventory);
-
-    // Bind parameters
-    $stmt->bindParam(':itemId', $itemId, PDO::PARAM_INT);
-    $stmt->bindParam(':quantity', $quantity, PDO::PARAM_INT);
-    $stmt->bindParam(':status', $status, PDO::PARAM_STR);
-    $stmt->bindParam(':remarks', $remarks, PDO::PARAM_STR);
-
-    // Execute the query
-    $stmt->execute();
-}
-
-   
-
-
 }
 
 
@@ -254,8 +220,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $warranty = $_POST['i_warranty'];
         $datePurchase = $_POST['i_datepurchase'];
         $serialNo = $_POST['i_serialno'];
+        $serialNo = $_POST['i_serialno'];
 
-        $itemUpdateSuccess = $update2_function->updateItemInfo($itemId, $type, $brand, $modelNo, $pbNo, $vendor, $warranty, $datePurchase, $serialNo);
+        $itemUpdateSuccess = $update2_function->updateItemInfo($itemId, $type, $brand, $modelNo, $pbNo, $vendor, $warranty, $datePurchase, $serialNo, $status);
 
         if ($itemUpdateSuccess) {
             echo '<script>alert("Item information updated successfully");</script>';
@@ -290,21 +257,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($roomUpdateSuccess) {
             echo '<script>alert("Room information updated successfully"); window.location.href="../admin/a_room.php";</script>';
-            exit();
-        }
-    }
-
-    // Change status inventory
-    if (isset($_POST['item_id'])) {
-        $itemId = $_POST['item_id'];
-        $quantity = $_POST['quantity'];
-        $status = $_POST['status']; 
-        $remarks = $_POST['remarks'];
-
-        $changeStatusItemSuccess = $update2_function->statusItemInventory($itemId, $quantity, $status, $remarks);   
-
-        if ($changeStatusItemSuccess) {
-            echo '<script>alert("Item status updated successfully");</script>';
             exit();
         }
     }

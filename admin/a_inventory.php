@@ -138,7 +138,6 @@
 											<th style="width: 180px;" onclick="sortTable('item_new', 1)">Brand <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
 											<th style="width: 150px;" onclick="sortTable('item_new', 2)">Model No <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
 											<th style="width: 100px;" onclick="sortTable('item_new', 3)">Quantity <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
-											<th style="width: 100px;" onclick="sortTable('item_new', 3)">Total <span class="sort-icon">&#x25B2;&#x25BC;</span></th>
 										</tr>
 									</thead>
 									</tr>

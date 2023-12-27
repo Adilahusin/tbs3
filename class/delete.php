@@ -60,31 +60,29 @@ if (isset($_GET['action']) && $_GET['action'] === "delete" && isset($_GET['entit
             }
         } catch (PDOException $e) {
             echo "<script>alert('Error: " . $e->getMessage() . "'); window.location.href = '../admin/a_room.php';</script>";
-        }    
-
-    // delete item
-    } elseif (isset($_GET['i_type'])) {
-        try {
-            $item_type = $_GET['i_type'];
-            //print_r ($item_type);
-    
-            // DELETE SQL statement and execute it
-            $deleteItem = $pdo->prepare("DELETE FROM item WHERE i_type = ?");
-            $deleteItem->execute([$item_type]);
-            //print_r ("123");
-    
-            // Check if any row was affected
-            if ($deleteItem->rowCount() > 0) {
-                // Successful deletion
-                echo "<script>alert('Delete successful. $item_type has been deleted.'); window.location.href = document.referrer;</script>";
-            } else {
-                // Deletion was unsuccessful
-                echo "<script>alert('Deletion was unsuccessful for $item_type. Please try again'); window.location.href = document.referrer;</script>";
-            }
-        } catch (PDOException $e) {
-            // Handle database errors
-            echo "<script>alert('Error: " . $e->getMessage() . "'); window.location.href = document.referrer;</script>";
         }
+        
+        // delete item
+        } elseif ($entity === "item" && isset($_GET['id'])) {
+            try {
+                $itemId = $_GET['id'];
+        
+                // SQL query to delete item record based on ID
+                $deleteItem = "DELETE FROM item WHERE id = :itemId";
+        
+                // Prepare the statement
+                $stmt = $pdo->prepare($deleteItem);
+                $stmt->bindParam(':itemId', $itemId, PDO::PARAM_INT);
+        
+                // Execute the deletion query
+                if ($stmt->execute()) {
+                    echo "<script>alert('Deletion successful.'); window.location.href = '../admin/a_items.php';</script>";
+                } else {
+                    echo "<script>alert('Deletion failed. Please try again.'); window.location.href = '../admin/a_items.php';</script>";
+                }
+            } catch (PDOException $e) {
+                echo "<script>alert('Error: " . $e->getMessage() . "'); window.location.href = '../admin/a_items.php';</script>";
+            }    
 
         // delete user
         } elseif ($entity === "user" && isset($_GET['id'])) {

@@ -67,16 +67,22 @@
 						<table class="table table_returned" id="returnedTable">
 							<thead>
 								<tr>
+									<th>Staff/Student ID</th>
 									<th>Name</th>
 									<th>Returned Item</th>
-									<th>Borrowed Date</th>
 									<th>Returned Date</th>
-									<th>Action</th>
+									<th>Remarks</th>
 								</tr>
 							</thead>
 							<tbody>
-								
-							</tbody>
+								<tr>
+									<td>1002</td>
+									<td>Amri Adnan</td>
+									<td>LCD 3</td>
+									<td>15 December, 2023 15:32:00 PM</td>
+									<td>LCD not working</td>
+								</tr>
+                    		</tbody>
 						</table>
 					
 					</div>

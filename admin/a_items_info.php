@@ -7,7 +7,10 @@
 	function itemInfo($itemId) {
         global $pdo; 
     
-        $itemInfoQuery = "SELECT * FROM item WHERE id = :itemId";
+        $itemInfoQuery = "SELECT item.*, item_stock.item_status 
+							FROM item 
+							INNER JOIN item_stock ON item.id = item_stock.item_id 
+							WHERE item.id = :itemId";
         
         $stmt = $pdo->prepare($itemInfoQuery);
         $stmt->bindParam(':itemId', $itemId, PDO::PARAM_INT);
@@ -165,13 +168,20 @@
         <div class="button-container">
 
             <!-- Add Quantity button -->
-			<button id="addQty">Add Quantity</button>
+			<button id="addQty">Add Quantity <i class="fas fa-plus"></i></button>
 
             <!-- Edit Item button -->
-			<button id="editItem">Edit Item</button>
+			<button id="editItem">
+				Edit Item <i class="fas fa-edit"></i>
+			</button>
 
-             <!-- Change Status button -->
-			<button id="changeStatus">Change Status</button>
+            <!-- Change Status button -->
+			<button id="changeStatus">Change Status <i class="fas fa-lock"></i></button>
+
+			<!-- Delete Item button -->
+			<button class="btn btn-danger" type="button" id="deleteItem">
+				Delete <i class="fas fa-trash-alt"></i>
+			</button>
 
         </div>
 
@@ -252,33 +262,40 @@
 				<div class="modal-content">
 					<span class="close" id="closeChangeStatusModal">&times;</span>
 					<h4 class="alert bg-success">Change Status</h4>
-					<form action="..class/update2.php" method="POST">
-						<div class="form-group">
-
-						<input type="hidden" id="itemId" name="item_id" value="<?php echo $itemId; ?>">
+					<form action="../class/update2.php" method="POST">
+						
+					<div class="form-group">
+						<input type="hidden" id="itemId" name="item_id" value="<?php echo $itemId; ?>" readonly>
 
 							<label for="status">Status:</label>
 							<select id="status" name="status" required>
 								<option disabled selected>Select status</option>
-								<option value="2">Old</option>
-								<option value="3">Lost</option>
-								<option value="4">Damage</option>
+								
+								<?php foreach ($itemInfoData as $row) {
+									$status = $row['item_status'];
+									echo "<option value='1'" . ($status == 1 ? " selected" : "") . ">New</option>";
+									echo "<option value='2'" . ($status == 2 ? " selected" : "") . ">Old</option>";
+									echo "<option value='3'" . ($status == 3 ? " selected" : "") . ">Lost</option>";
+									echo "<option value='4'" . ($status == 4 ? " selected" : "") . ">Damage</option>";
+								} ?>
 							</select>
-						</div>
-						<div class="form-group">
-							<label for="quantity">Quantity:</label>
-							<input type="text" id="quantity" name="quantity" required>
-						</div>
-						<div class="form-group">
-							<label for="remarks">Remarks:</label>
-							<textarea id="remarks" name="remarks"></textarea>
-						</div>
-						<button class="btn btn-primary btn-block" type="submit" id="changeStatusItem" name="change_status">
-							SAVE
-						</button>
+					</div>
+					<div class="form-group">
+						<label for="quantity">Quantity:</label>
+						<input type="text" id="quantity" name="quantity" required>
+					</div>
+					<div class="form-group">
+						<label for="remarks">Remarks:</label>
+						<textarea id="remarks" name="remarks"></textarea>
+					</div>
+	
+					<button class="btn btn-primary btn-block" type="submit" id="changeStatusItem" name="change_status">
+						SAVE
+					</button>
 					</form>
 				</div>
 			</div>
+			
 		</div>
 
 		<div class="row">
