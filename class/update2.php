@@ -200,6 +200,30 @@ class update2 {
         }
     }
 
+    public function changeStatusItem() {
+        global $pdo;
+    
+        $changeStatusItem = "SELECT * FROM item_stock WHERE id = :itemId";
+    
+        try {
+            $stmt = $pdo->prepare($changeStatusItem);
+            $stmt->bindParam(':itemId', $itemId);
+            $stmt->execute();
+    
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // Check if a row exists
+            if ($result) {
+                return $result;
+            } else {
+                // Row doesn't exist
+                return null;
+            }
+        } catch (PDOException $e) {
+            return ['success' => false, 'message' => 'Database error: ' . $e->getMessage()];
+        }
+    }
+
 }
 
 
@@ -260,6 +284,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
     }
+
+    // change status item
+    if (isset($_POST['change_status'])) {
+        $itemId = $_POST['item_id'];
+
+        $itemExists = $update2_function->changeStatusItem($itemId);
+
+        if ($itemExists) {
+            echo '<script>alert("Item exists. Perform status change or other actions.");</script>';
+        } else {
+            // Item doesn't exist
+            echo '<script>alert("Item does not exist."); window.history.back();</script>';
+        }
+    }
+
 
     if (isset($_POST['adminId'])) {
         $adminId = $_POST['adminId'];

@@ -1,0 +1,13 @@
+1- put limitation for staff to differentiate between admin and staff
+    (only can approve reservation, cannot add items, rooms, etc)
+
+2- working on features that still not working
+    a- calculate things borrowed and display on dashboard
+    b- accept reservation
+    c- display the accepted reservation on accepted tab and create function for borrow button
+        (click borrow when borrower take the borrowed tools)
+    d- display the status for user side (accept, canceled and display remarks)
+    e- display on borrowed items, and create function for return button
+        (when click return, create popup modal to write remarks for the returned items, e.g- lcd not working)
+    f- change status for items (for inventory)
+    g- display lost and damaged items for inventory (related to e)
