@@ -50,8 +50,9 @@ class display {
     public function pendingReservation() {
         global $pdo;
     
-        $reservation = "SELECT * FROM reservations
-                        INNER JOIN user ON reservations.user_id = user.u_id
+        $reservation = "SELECT * FROM reservations r 
+                        INNER JOIN user WHERE r.user_id = user.u_id
+                        AND r.reserve_status = 0
                         ORDER BY reserve_date ASC";
     
         $stmt_reservation = $pdo->query($reservation);
@@ -60,6 +61,33 @@ class display {
         // Storing all reservations directly in a session variable for later use
         $_SESSION['pending_reservations'] = $data_reservation;
     }
+
+
+    public function acceptReservation()
+    {
+        global $pdo;
+        try {
+            $accept_reservation = "SELECT * FROM reservations r 
+                                   INNER JOIN user ON r.user_id = user.u_id
+                                   AND r.reserve_status = 1
+                                   ORDER BY reserve_date ASC";
+    
+            $stmt_accptreservation = $pdo->query($accept_reservation);
+            
+            if (!$stmt_accptreservation) {
+                die("Error in query: " . print_r($pdo->errorInfo(), true)); // Output any query errors
+            }
+    
+            $data_accptreservation = $stmt_accptreservation->fetchAll(PDO::FETCH_ASSOC);
+    
+            // Storing all reservations directly in a session variable for later use
+            $_SESSION['accept_reservations'] = $data_accptreservation;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage(); // Output any exceptions caught
+        }
+    }
+
+
 
     public function item_new() {
         global $pdo;
@@ -119,6 +147,7 @@ $display_function->userData();
 $display_function->roomData();
 $display_function->itemData();
 $display_function->pendingReservation();
+$display_function->acceptReservation();
 $display_function->item_new();
 $display_function->item_old();
 $display_function->total_items();

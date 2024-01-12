@@ -3,10 +3,11 @@
 
 2- working on features that still not working
     a- calculate things borrowed and display on dashboard
-    b- accept reservation
-    c- display the accepted reservation on accepted tab and create function for borrow button
-        (click borrow when borrower take the borrowed tools)
-    d- display the status for user side (accept, canceled and display remarks)
+    b- create function for borrow button
+        (click borrow when borrower collect the borrowed tools)
+    c- when cancel reservation, the data inserted into db table reservation_status successfully, 
+        but the row for admin doesnt dissappear
+    d- display the status for user side (cancelled and display remarks) - related to c
     e- display on borrowed items, and create function for return button
         (when click return, create popup modal to write remarks for the returned items, e.g- lcd not working)
     f- change status for items (for inventory)

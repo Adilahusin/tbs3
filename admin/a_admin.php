@@ -141,7 +141,7 @@
 			<div id="addAdminModal" class="modal">
 			<div class="modal-content">
 				<span class="close" id="closeModal">&times;</span>
-				<h4 class="alert bg-success">Add Room</h4>
+				<h4 class="alert bg-success">Add Admin</h4>
 				<form id="sidebarForm" action="../class/add.php" method="post">
 					<table>
 						<tr>
